@@ -1,1 +1,16 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Привет</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css"/><script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script></head><body><div id="viewer"></div><script>pannellum.viewer('viewer', {default:{firstScene:"s0"},scenes:{"s0":{title:"Кам_01",type:"equirectangular",panorama:"panoramas/pano_001.jpg"},"s1":{title:"Кам_02",type:"equirectangular",panorama:"panoramas/pano_002.jpg"},"s2":{title:"Кам_03",type:"equirectangular",panorama:"panoramas/pano_003.jpg"}});</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Новый тур</title>
+  <script src="https://cdn.jsdelivr.net/npm/marzipano@0.10.2/marzipano.js"></script>
+</head>
+<body style="margin:0">
+  <div id="viewer" style="width:100vw;height:100vh"></div>
+  <script>
+    const viewer = new Marzipano.Viewer(document.getElementById('viewer'));
+    // Полная логика переключения будет здесь в будущем
+    alert("Тур экспортирован. Для полноценной работы нужен index.html с Marzipano.");
+  </script>
+</body>
+</html>
