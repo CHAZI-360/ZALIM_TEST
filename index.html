@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>ШАПКА FIX</title>
+  <title>PERFORMANCE FIX</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <style>
@@ -16,7 +16,6 @@
     }
     #panoContainer .pnlm-container { width:100% !important; height:100% !important; }
 
-    /* Убираем лишний фон, рамки и тени у стандартных элементов управления Pannellum */
     .pnlm-controls {
       background: transparent !important;
       border: none !important;
@@ -43,7 +42,6 @@
     .pnlm-fullscreen-toggle-button:hover { background:rgba(0,0,0,0.8) !important; }
     .pnlm-container .pnlm-msg { display:none !important; }
 
-    /* Верхняя панель публичного просмотрщика */
     #topBar {
       position:fixed; top:0; left:0; right:0; height:48px;
       background:rgba(10,10,10,0.8); backdrop-filter:blur(8px);
@@ -64,7 +62,6 @@
       display:flex; align-items:center; gap:12px;
       flex:1;
     }
-    /* Название сцены теперь прижато к правому краю */
     #topBar .scene-name {
       flex:1;
       text-align:right;
@@ -83,7 +80,6 @@
       white-space:nowrap;
     }
 
-    /* Нижняя панель */
     #thumbnailsWrapper {
       position:fixed; bottom:0; left:0; right:0; height:160px;
       background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
@@ -173,7 +169,7 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">ШАПКА FIX</span>
+      <span class="tour-name" id="tourNameDisplay">PERFORMANCE FIX</span>
     </div>
     <div class="scene-name" id="sceneNameDisplay">Загрузка панорам...</div>
   </div>
@@ -185,7 +181,7 @@
 
   <script>
     (function() {
-      const manifest = {"name":"ШАПКА FIX","scenes":[{"id":"mrzj2m66hsgnf","name":"Camera_360_03","file":"images/scene_1.jpg"},{"id":"mrzj2mq2fch86","name":"Camera_360_01","file":"images/scene_2.jpg"},{"id":"mrzj2mu724v3m","name":"Camera_360_02","file":"images/scene_3.jpg"},{"id":"mrzj2mdtxdd6n","name":"Corona_Camera_360_2","file":"images/scene_4.jpg"},{"id":"mrzj2n2cnu140","name":"Corona_Camera_360_1","file":"images/scene_5.jpg"},{"id":"mrzj2n8eo8xe0","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_6.jpg"},{"id":"mrzj2nfczqz9s","name":"Corona_Camera001_0000","file":"images/scene_7.jpg"},{"id":"mrzj2niqxh488","name":"Corona_Camera002_0000","file":"images/scene_8.jpg"},{"id":"mrzj2nowneei7","name":"Corona_Camera004_0000","file":"images/scene_9.jpg"},{"id":"mrzj2nse5pl5e","name":"Corona_Camera005_0000","file":"images/scene_10.jpg"},{"id":"mrzj2o1cw9jqj","name":"Холл_2_этаж - Кам 360 - 02","file":"images/scene_11.jpg"},{"id":"mrzj2o545vha7","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_12.jpg"},{"id":"mrzj2o8z3119e","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_13.jpg"},{"id":"mrzj2ocl3ck62","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_14.jpg"},{"id":"mrzj2ogvaqj5u","name":"Corona_Camera003_0000","file":"images/scene_15.jpg"},{"id":"mrzj2okmemyrm","name":"Холл_2_этаж - Кам 360 - 01","file":"images/scene_16.jpg"},{"id":"mrzj2oogewlqh","name":"Холл_2_этаж - Кам 360 - 03","file":"images/scene_17.jpg"}]};
+      const manifest = {"name":"PERFORMANCE FIX","scenes":[{"id":"mrzj2m66hsgnf","name":"Camera_360_03","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg"},{"id":"mrzj2mq2fch86","name":"Camera_360_01","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg"},{"id":"mrzj2mu724v3m","name":"Camera_360_02","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg"},{"id":"mrzj2mdtxdd6n","name":"Corona_Camera_360_2","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg"},{"id":"mrzj2n2cnu140","name":"Corona_Camera_360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg"},{"id":"mrzj2n8eo8xe0","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg"},{"id":"mrzj2nfczqz9s","name":"Corona_Camera001_0000","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg"},{"id":"mrzj2niqxh488","name":"Corona_Camera002_0000","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg"},{"id":"mrzj2nowneei7","name":"Corona_Camera004_0000","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg"},{"id":"mrzj2nse5pl5e","name":"Corona_Camera005_0000","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg"},{"id":"mrzj2o1cw9jqj","name":"Холл_2_этаж - Кам 360 - 02","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg"},{"id":"mrzj2o545vha7","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg"},{"id":"mrzj2o8z3119e","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg"},{"id":"mrzj2ocl3ck62","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg"},{"id":"mrzj2ogvaqj5u","name":"Corona_Camera003_0000","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg"},{"id":"mrzj2okmemyrm","name":"Холл_2_этаж - Кам 360 - 01","file":"images/scene_16.jpg","thumbnail":"thumbnails/scene_16.jpg"},{"id":"mrzj2oogewlqh","name":"Холл_2_этаж - Кам 360 - 03","file":"images/scene_17.jpg","thumbnail":"thumbnails/scene_17.jpg"}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -243,7 +239,6 @@
         if (!e.relatedTarget || !e.relatedTarget.closest('.thumbnail-item')) showGlobalTooltip('');
       });
 
-      // Двойной клик по верхней панели (только по свободному месту)
       topBar.addEventListener('dblclick', function(e) {
         if (e.target.closest('.brand') || e.target.closest('.tour-name') || e.target.closest('.scene-name')) return;
         if (!document.fullscreenElement) {
@@ -316,7 +311,7 @@
           item.dataset.fullname = scene.name;
 
           const img = document.createElement('img');
-          img.src = scene.file;
+          img.src = scene.thumbnail || scene.file; // используем миниатюру, если есть
           img.alt = scene.name;
           img.loading = 'lazy';
           item.appendChild(img);
