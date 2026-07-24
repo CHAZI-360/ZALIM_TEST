@@ -1,75 +1,90 @@
 {
-  "name": "Новый тур",
+  "name": "ТЕСТИЩЕ",
   "scenes": [
     {
-      "id": "mrzfxsu6oq2ap",
-      "name": "Corona_Camera004_0000",
+      "id": "mrzj2m66hsgnf",
+      "name": "Camera_360_03",
       "file": "images/scene_1.jpg"
     },
     {
-      "id": "mrzfxsus53kaa",
-      "name": "Холл_2_этаж - Кам 360 - 01",
+      "id": "mrzj2mdtxdd6n",
+      "name": "Corona_Camera_360_2",
       "file": "images/scene_2.jpg"
     },
     {
-      "id": "mrzfxsv8978ji",
-      "name": "Corona_Camera005_0000",
+      "id": "mrzj2mq2fch86",
+      "name": "Camera_360_01",
       "file": "images/scene_3.jpg"
     },
     {
-      "id": "mrzfxsvqsn3h5",
-      "name": "Холл_2_этаж - Кам 360 - 02",
+      "id": "mrzj2mu724v3m",
+      "name": "Camera_360_02",
       "file": "images/scene_4.jpg"
     },
     {
-      "id": "mrzfxswblkp56",
-      "name": "Холл_2_этаж - Кам 360 - 03",
+      "id": "mrzj2n2cnu140",
+      "name": "Corona_Camera_360_1",
       "file": "images/scene_5.jpg"
     },
     {
-      "id": "mrzfy6wae9l71",
-      "name": "Camera_360_02",
+      "id": "mrzj2n8eo8xe0",
+      "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
       "file": "images/scene_6.jpg"
     },
     {
-      "id": "mrzfy6wp1c9av",
-      "name": "Camera_360_03",
+      "id": "mrzj2nfczqz9s",
+      "name": "Corona_Camera001_0000",
       "file": "images/scene_7.jpg"
     },
     {
-      "id": "mrzfy6x6krc2l",
-      "name": "Corona_Camera_360_1",
+      "id": "mrzj2niqxh488",
+      "name": "Corona_Camera002_0000",
       "file": "images/scene_8.jpg"
     },
     {
-      "id": "mrzfy6xo3t5tl",
-      "name": "Camera_360_01",
+      "id": "mrzj2nowneei7",
+      "name": "Corona_Camera004_0000",
       "file": "images/scene_9.jpg"
     },
     {
-      "id": "mrzfy6y7ij04r",
-      "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
+      "id": "mrzj2nse5pl5e",
+      "name": "Corona_Camera005_0000",
       "file": "images/scene_10.jpg"
     },
     {
-      "id": "mrzfycekqnx7g",
-      "name": "Corona_Camera_360_2",
+      "id": "mrzj2o1cw9jqj",
+      "name": "Холл_2_этаж - Кам 360 - 02",
       "file": "images/scene_11.jpg"
     },
     {
-      "id": "mrzfycf3b3bbo",
-      "name": "Corona_Camera001_0000",
+      "id": "mrzj2o545vha7",
+      "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
       "file": "images/scene_12.jpg"
     },
     {
-      "id": "mrzfycfms913a",
-      "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
+      "id": "mrzj2o8z3119e",
+      "name": "Corona_Camera_360_002_АКТУАЛЬНОЕ",
       "file": "images/scene_13.jpg"
     },
     {
-      "id": "mrzfycg5dmjh0",
+      "id": "mrzj2ocl3ck62",
       "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
       "file": "images/scene_14.jpg"
+    },
+    {
+      "id": "mrzj2ogvaqj5u",
+      "name": "Corona_Camera003_0000",
+      "file": "images/scene_15.jpg"
+    },
+    {
+      "id": "mrzj2okmemyrm",
+      "name": "Холл_2_этаж - Кам 360 - 01",
+      "file": "images/scene_16.jpg"
+    },
+    {
+      "id": "mrzj2oogewlqh",
+      "name": "Холл_2_этаж - Кам 360 - 03",
+      "file": "images/scene_17.jpg"
     }
   ]
 }
