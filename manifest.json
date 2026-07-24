@@ -1,19 +1,19 @@
 {
-  "name": "Мой первый тур",
+  "name": "Мачраил 2",
   "scenes": [
     {
-      "id": "mry6tnbujv17j",
-      "name": "Camera_360_01",
+      "id": "mry8m5h9e9y91",
+      "name": "12. Спальня №2 - 360 (2)",
       "file": "images/scene_1.jpg"
     },
     {
-      "id": "mry6tnasftbz4",
-      "name": "Camera_360_02",
+      "id": "mry8m5ifc8u4j",
+      "name": "12. Спальня №2 - 360 (1)",
       "file": "images/scene_2.jpg"
     },
     {
-      "id": "mry6tn9711olu",
-      "name": "Camera_360_03",
+      "id": "mry8m5huhy87x",
+      "name": "12. Спальня №2 - 360 (3)",
       "file": "images/scene_3.jpg"
     }
   ]

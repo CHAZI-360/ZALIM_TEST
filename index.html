@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Мой первый тур</title>
+  <title>Мачраил 2</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <style>
@@ -14,19 +14,33 @@
       background:#0a0a0a;
     }
     #panoContainer .pnlm-container { width:100% !important; height:100% !important; }
+
     #thumbnailsWrapper {
-      position:absolute; bottom:0; left:0; right:0; height:130px;
+      position:absolute; bottom:0; left:0; right:0; height:160px;
       background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-      padding:16px 20px 12px 20px; z-index:50;
-      pointer-events:none;
-      transition:opacity 0.4s ease, transform 0.4s ease;
-      opacity:0; transform:translateY(20px);
+      padding:0 20px;
+      z-index:50;
+      transition:opacity 0.4s ease;
+      opacity:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:auto;
     }
-    #thumbnailsWrapper.visible { opacity:1; transform:translateY(0); pointer-events:auto; }
+    #thumbnailsWrapper.hidden {
+      opacity:0;
+      pointer-events:none;
+    }
     #thumbnailsWrapper .scroll-container {
       display:flex; gap:10px; overflow-x:auto; overflow-y:hidden;
-      padding-bottom:8px; height:100%; align-items:center;
+      padding-bottom:4px;
+      height:auto;
+      max-height:100%;
+      align-items:center;
+      justify-content:center;
       scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.2) transparent;
+      width:100%;
+      flex-wrap:nowrap;
     }
     #thumbnailsWrapper .scroll-container::-webkit-scrollbar { height:4px; }
     #thumbnailsWrapper .scroll-container::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.3); border-radius:4px; }
@@ -36,6 +50,7 @@
       border:2px solid transparent; transition:border .2s, transform .15s;
       display:flex; flex-direction:column; justify-content:flex-end;
       box-shadow:0 4px 12px rgba(0,0,0,0.5);
+      flex-shrink:0;
     }
     .thumbnail-item.active { border-color:#6ab0f7; box-shadow:0 0 20px rgba(106,176,247,0.3); }
     .thumbnail-item:hover { transform:scale(1.02); }
@@ -53,8 +68,8 @@
     }
     .empty-message { color:#666; font-size:14px; padding:20px; text-align:center; width:100%; }
     @media (max-width:700px) {
-      #thumbnailsWrapper { height:100px; padding:12px 12px 8px 12px; }
-      .thumbnail-item { flex:0 0 100px; height:72px; }
+      #thumbnailsWrapper { height:130px; padding:0 12px; }
+      .thumbnail-item { flex:0 0 100px; height:80px; }
       .thumbnail-item .label { font-size:10px; padding:2px 6px; }
     }
   </style>
@@ -66,13 +81,74 @@
       <div class="empty-message">Загрузка панорам...</div>
     </div>
   </div>
+
   <script>
     (function() {
-      var manifest = JSON.parse("{\"name\":\"Мой первый тур\",\"scenes\":[{\"id\":\"mry6tnbujv17j\",\"name\":\"Camera_360_01\",\"file\":\"images/scene_1.jpg\"},{\"id\":\"mry6tnasftbz4\",\"name\":\"Camera_360_02\",\"file\":\"images/scene_2.jpg\"},{\"id\":\"mry6tn9711olu\",\"name\":\"Camera_360_03\",\"file\":\"images/scene_3.jpg\"}]}");
+      const manifest = {"name":"Мачраил 2","scenes":[{"id":"mry8m5h9e9y91","name":"12. Спальня №2 - 360 (2)","file":"images/scene_1.jpg"},{"id":"mry8m5ifc8u4j","name":"12. Спальня №2 - 360 (1)","file":"images/scene_2.jpg"},{"id":"mry8m5huhy87x","name":"12. Спальня №2 - 360 (3)","file":"images/scene_3.jpg"}]};
       let currentSceneId = null;
       let viewer = null;
-      let hideTimer = null;
-      const THUMBNAILS_VISIBLE_DELAY = 3000;
+      let hideTimeout = null;
+      let isVisible = true;
+      const HIDE_DELAY = 5000;
+
+      const panoContainer = document.getElementById('panoContainer');
+      const thumbnailsWrapper = document.getElementById('thumbnailsWrapper');
+      const thumbnailsList = document.getElementById('thumbnailsList');
+
+      function showThumbnails() {
+        thumbnailsWrapper.classList.remove('hidden');
+        isVisible = true;
+        resetHideTimer();
+      }
+
+      function hideThumbnails() {
+        thumbnailsWrapper.classList.add('hidden');
+        isVisible = false;
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+          hideTimeout = null;
+        }
+      }
+
+      function toggleThumbnails() {
+        if (isVisible) {
+          hideThumbnails();
+        } else {
+          showThumbnails();
+        }
+      }
+
+      function resetHideTimer() {
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+          hideTimeout = null;
+        }
+        if (isVisible) {
+          hideTimeout = setTimeout(() => {
+            hideThumbnails();
+          }, HIDE_DELAY);
+        }
+      }
+
+      function onUserActivity() {
+        if (isVisible) {
+          resetHideTimer();
+        }
+      }
+
+      panoContainer.addEventListener('click', function(e) {
+        if (e.target.closest('.pnlm-controls')) return;
+        toggleThumbnails();
+      });
+
+      document.addEventListener('mousemove', onUserActivity);
+      document.addEventListener('touchstart', onUserActivity);
+      panoContainer.addEventListener('mousedown', function(e) {
+        if (isVisible) hideThumbnails();
+      });
+      panoContainer.addEventListener('wheel', function(e) {
+        if (isVisible) hideThumbnails();
+      });
 
       function initViewer() {
         if (viewer) {
@@ -80,15 +156,15 @@
           viewer = null;
         }
         try {
-          viewer = pannellum.viewer("panoContainer", {
-            type: "equirectangular",
-            panorama: "",
+          viewer = pannellum.viewer('panoContainer', {
+            type: 'equirectangular',
+            panorama: '',
             autoLoad: false,
             showZoomCtrl: true,
             showFullscreenCtrl: true
           });
         } catch(e) {
-          console.error("Ошибка инициализации Pannellum:", e);
+          console.error('Ошибка инициализации Pannellum:', e);
         }
       }
 
@@ -99,15 +175,15 @@
         }
         if (viewer) { viewer.destroy(); viewer = null; }
         try {
-          viewer = pannellum.viewer("panoContainer", {
-            type: "equirectangular",
+          viewer = pannellum.viewer('panoContainer', {
+            type: 'equirectangular',
             panorama: url,
             autoLoad: true,
             showZoomCtrl: true,
             showFullscreenCtrl: true
           });
         } catch(e) {
-          console.error("Ошибка загрузки панорамы:", e);
+          console.error('Ошибка загрузки панорамы:', e);
         }
       }
 
@@ -122,65 +198,42 @@
         showPanorama(scene.file);
         currentSceneId = sceneId;
         updateThumbnails();
+        showThumbnails();
       }
 
       function updateThumbnails() {
-        const list = document.getElementById("thumbnailsList");
-        list.innerHTML = "";
+        thumbnailsList.innerHTML = '';
         if (manifest.scenes.length === 0) {
-          list.innerHTML = "<div class=\"empty-message\">Нет панорам</div>";
-          document.getElementById("thumbnailsWrapper").classList.remove("visible");
+          thumbnailsList.innerHTML = '<div class="empty-message">Нет панорам</div>';
+          hideThumbnails();
           return;
         }
         manifest.scenes.forEach((scene) => {
-          const item = document.createElement("div");
-          item.className = "thumbnail-item";
-          if (scene.id === currentSceneId) item.classList.add("active");
+          const item = document.createElement('div');
+          item.className = 'thumbnail-item';
+          if (scene.id === currentSceneId) item.classList.add('active');
           item.dataset.sceneId = scene.id;
 
-          const img = document.createElement("img");
+          const img = document.createElement('img');
           img.src = scene.file;
           img.alt = scene.name;
           img.draggable = false;
           item.appendChild(img);
 
-          const label = document.createElement("div");
-          label.className = "label";
+          const label = document.createElement('div');
+          label.className = 'label';
           label.textContent = scene.name;
           item.appendChild(label);
 
-          item.addEventListener("click", function(e) {
+          item.addEventListener('click', function(e) {
             const sid = this.dataset.sceneId;
             if (sid) switchToScene(sid);
           });
 
-          list.appendChild(item);
+          thumbnailsList.appendChild(item);
         });
-        document.getElementById("thumbnailsWrapper").classList.add("visible");
-        resetHideTimer();
+        showThumbnails();
       }
-
-      function resetHideTimer() {
-        if (hideTimer) clearTimeout(hideTimer);
-        const wrapper = document.getElementById("thumbnailsWrapper");
-        wrapper.classList.add("visible");
-        hideTimer = setTimeout(() => {
-          wrapper.classList.remove("visible");
-        }, THUMBNAILS_VISIBLE_DELAY);
-      }
-
-      document.addEventListener("mousemove", function(e) {
-        const rect = document.getElementById("panoContainer").getBoundingClientRect();
-        const isOverPano = e.clientX >= rect.left && e.clientX <= rect.right &&
-                           e.clientY >= rect.top && e.clientY <= rect.bottom;
-        const isOverThumb = document.getElementById("thumbnailsWrapper").contains(e.target);
-        if (isOverPano || isOverThumb) {
-          if (manifest.scenes.length > 0) {
-            document.getElementById("thumbnailsWrapper").classList.add("visible");
-            resetHideTimer();
-          }
-        }
-      });
 
       initViewer();
       if (manifest.scenes.length > 0) {
