@@ -1,5 +1,5 @@
 {
-  "name": "ТЕСТИЩЕ",
+  "name": "ШАПКА FIX",
   "scenes": [
     {
       "id": "mrzj2m66hsgnf",
@@ -7,18 +7,18 @@
       "file": "images/scene_1.jpg"
     },
     {
-      "id": "mrzj2mdtxdd6n",
-      "name": "Corona_Camera_360_2",
-      "file": "images/scene_2.jpg"
-    },
-    {
       "id": "mrzj2mq2fch86",
       "name": "Camera_360_01",
-      "file": "images/scene_3.jpg"
+      "file": "images/scene_2.jpg"
     },
     {
       "id": "mrzj2mu724v3m",
       "name": "Camera_360_02",
+      "file": "images/scene_3.jpg"
+    },
+    {
+      "id": "mrzj2mdtxdd6n",
+      "name": "Corona_Camera_360_2",
       "file": "images/scene_4.jpg"
     },
     {
