@@ -1,107 +1,95 @@
 {
-  "name": "PERFORMANCE FIX",
+  "name": "FULLSCREEN ICON",
   "scenes": [
     {
-      "id": "mrzj2m66hsgnf",
+      "id": "mrzm00ptza2lx",
       "name": "Camera_360_03",
       "file": "images/scene_1.jpg",
       "thumbnail": "thumbnails/scene_1.jpg"
     },
     {
-      "id": "mrzj2mq2fch86",
-      "name": "Camera_360_01",
+      "id": "mrzm00z9iivdy",
+      "name": "Corona_Camera_360_2",
       "file": "images/scene_2.jpg",
       "thumbnail": "thumbnails/scene_2.jpg"
     },
     {
-      "id": "mrzj2mu724v3m",
-      "name": "Camera_360_02",
+      "id": "mrzm01e3nolpp",
+      "name": "Camera_360_01",
       "file": "images/scene_3.jpg",
       "thumbnail": "thumbnails/scene_3.jpg"
     },
     {
-      "id": "mrzj2mdtxdd6n",
-      "name": "Corona_Camera_360_2",
+      "id": "mrzm01k5mu9rf",
+      "name": "Camera_360_02",
       "file": "images/scene_4.jpg",
       "thumbnail": "thumbnails/scene_4.jpg"
     },
     {
-      "id": "mrzj2n2cnu140",
+      "id": "mrzm01nbgozus",
       "name": "Corona_Camera_360_1",
       "file": "images/scene_5.jpg",
       "thumbnail": "thumbnails/scene_5.jpg"
     },
     {
-      "id": "mrzj2n8eo8xe0",
-      "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
+      "id": "mrzm01y0y013s",
+      "name": "Corona_Camera001_0000",
       "file": "images/scene_6.jpg",
       "thumbnail": "thumbnails/scene_6.jpg"
     },
     {
-      "id": "mrzj2nfczqz9s",
-      "name": "Corona_Camera001_0000",
+      "id": "mrzm021egvtmo",
+      "name": "Corona_Camera005_0000",
       "file": "images/scene_7.jpg",
       "thumbnail": "thumbnails/scene_7.jpg"
     },
     {
-      "id": "mrzj2niqxh488",
+      "id": "mrzm0283qn0ks",
       "name": "Corona_Camera002_0000",
       "file": "images/scene_8.jpg",
       "thumbnail": "thumbnails/scene_8.jpg"
     },
     {
-      "id": "mrzj2nowneei7",
+      "id": "mrzm02gqh43dx",
       "name": "Corona_Camera004_0000",
       "file": "images/scene_9.jpg",
       "thumbnail": "thumbnails/scene_9.jpg"
     },
     {
-      "id": "mrzj2nse5pl5e",
-      "name": "Corona_Camera005_0000",
+      "id": "mrzm02re0d0qe",
+      "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
       "file": "images/scene_10.jpg",
       "thumbnail": "thumbnails/scene_10.jpg"
     },
     {
-      "id": "mrzj2o1cw9jqj",
-      "name": "Холл_2_этаж - Кам 360 - 02",
+      "id": "mrzm02v2u1fkq",
+      "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
       "file": "images/scene_11.jpg",
       "thumbnail": "thumbnails/scene_11.jpg"
     },
     {
-      "id": "mrzj2o545vha7",
-      "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
+      "id": "mrzm030f1ppu9",
+      "name": "Corona_Camera003_0000",
       "file": "images/scene_12.jpg",
       "thumbnail": "thumbnails/scene_12.jpg"
     },
     {
-      "id": "mrzj2o8z3119e",
-      "name": "Corona_Camera_360_002_АКТУАЛЬНОЕ",
+      "id": "mrzm0349srszd",
+      "name": "Холл_2_этаж - Кам 360 - 01",
       "file": "images/scene_13.jpg",
       "thumbnail": "thumbnails/scene_13.jpg"
     },
     {
-      "id": "mrzj2ocl3ck62",
-      "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
+      "id": "mrzm0381g4c7f",
+      "name": "Corona_Camera_360_002_АКТУАЛЬНОЕ",
       "file": "images/scene_14.jpg",
       "thumbnail": "thumbnails/scene_14.jpg"
     },
     {
-      "id": "mrzj2ogvaqj5u",
-      "name": "Corona_Camera003_0000",
+      "id": "mrzm03byhmv88",
+      "name": "Холл_2_этаж - Кам 360 - 03",
       "file": "images/scene_15.jpg",
       "thumbnail": "thumbnails/scene_15.jpg"
-    },
-    {
-      "id": "mrzj2okmemyrm",
-      "name": "Холл_2_этаж - Кам 360 - 01",
-      "file": "images/scene_16.jpg",
-      "thumbnail": "thumbnails/scene_16.jpg"
-    },
-    {
-      "id": "mrzj2oogewlqh",
-      "name": "Холл_2_этаж - Кам 360 - 03",
-      "file": "images/scene_17.jpg",
-      "thumbnail": "thumbnails/scene_17.jpg"
     }
   ]
 }
