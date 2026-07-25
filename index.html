@@ -6,6 +6,7 @@
   <title>ТЕСТ РАКУРСОВ 3</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; user-select:none; }
     html, body { width:100%; height:100%; overflow:hidden; background:#0b0b0b; color:#fff; font-family:'Segoe UI',sans-serif; }
@@ -77,7 +78,7 @@
     #thumbnailsWrapper.hidden { opacity:0; pointer-events:none; }
     #thumbnailsWrapper .scroll-container {
       display:flex; gap:10px; overflow-x:auto; overflow-y:hidden;
-      padding: 8px 10px 10px 10px;
+      padding: 28px 10px 10px 10px;
       height:auto; max-height:100%;
       align-items:center; justify-content:flex-start;
       scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.25) transparent;
@@ -112,15 +113,27 @@
       pointer-events:none;
     }
     .thumbnail-item .vp-btn {
-      position:absolute; top:4px; left:50%; transform:translateX(-50%);
-      z-index:5; background:rgba(106,176,247,0.9); color:#fff;
-      border:none; border-radius:12px; padding:3px 10px; font-size:11px;
+      position:absolute; top:-28px; left:50%; transform:translateX(-50%);
+      z-index:5; background:rgba(106,176,247,0.92); color:#fff;
+      border:none; border-radius:12px; padding:4px 10px; font-size:11px;
       font-weight:500; cursor:pointer; white-space:nowrap;
       opacity:0; transition:opacity .2s; pointer-events:auto;
+      box-shadow:0 2px 8px rgba(0,0,0,0.4);
     }
     .thumbnail-item:hover .vp-btn,
     .thumbnail-item.has-vp .vp-btn { opacity:1; }
     .thumbnail-item .vp-btn:hover { background:#5a9fd6; }
+    .pub-dl-all {
+      position:fixed; top:56px; right:16px; z-index:60;
+      background:rgba(106,176,247,0.9); color:#fff; border:none;
+      border-radius:10px; padding:8px 14px; font-size:13px; font-weight:500;
+      cursor:pointer; display:none; align-items:center; gap:6px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.4);
+      transition:background .2s, opacity .3s;
+    }
+    .pub-dl-all.show { display:flex; }
+    .pub-dl-all:hover { background:#5a9fd6; }
+    #topBar.hidden ~ .pub-dl-all, body.panels-hidden .pub-dl-all { opacity:0; pointer-events:none; }
     #vpLightbox {
       position:fixed; top:0; left:0; right:0; bottom:0;
       background:rgba(0,0,0,0.92); z-index:20000; display:none;
@@ -170,6 +183,26 @@
       position:absolute; top:20px; left:50%; transform:translateX(-50%);
       font-size:14px; color:#aaa; z-index:10;
     }
+    #vpLightbox .lb-loader {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:48px; height:48px; border:3px solid rgba(255,255,255,0.15);
+      border-top-color:#6ab0f7; border-radius:50%;
+      animation: lb-spin 0.7s linear infinite;
+      z-index:5; display:none;
+    }
+    #vpLightbox .lb-loader.show { display:block; }
+    @keyframes lb-spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
+    #vpLightbox .lb-downloads {
+      position:absolute; top:16px; left:20px; z-index:10;
+      display:flex; gap:8px;
+    }
+    #vpLightbox .lb-downloads button {
+      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+      color:#eee; padding:6px 12px; border-radius:8px; font-size:13px;
+      cursor:pointer; display:flex; align-items:center; gap:6px;
+    }
+    #vpLightbox .lb-downloads button:hover { background:rgba(106,176,247,0.35); }
+    #vpLightbox .lb-img-wrap img.loading { opacity:0; }
     #globalTooltip {
       position:absolute;
       bottom:calc(100% + 10px);
@@ -465,13 +498,19 @@
   <div id="vpLightbox">
     <div class="lb-inner">
       <div class="lb-img-wrap" id="lbImgWrap"><img id="lbImage" src="" alt="" /></div>
+      <div class="lb-loader" id="lbLoader"></div>
       <button class="lb-nav lb-prev" id="lbPrev">‹</button>
       <button class="lb-nav lb-next" id="lbNext">›</button>
       <button class="lb-close" id="lbClose">✕</button>
+      <div class="lb-downloads">
+        <button id="lbDlOne" title="Скачать текущий">⬇ Текущий</button>
+        <button id="lbDlAll" title="Скачать все ракурсы этой панорамы">📦 Все</button>
+      </div>
       <div class="lb-counter" id="lbCounter"></div>
       <div class="lb-caption" id="lbCaption"></div>
     </div>
   </div>
+  <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">📦 Все ракурсы</button>
   <script>
     (function() {
       const manifest = {"name":"ТЕСТ РАКУРСОВ 3","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"},{"id":"ms0vktk1hpb9v","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_3/vp_6.jpg","thumbnail":"viewpoints/scene_3/vp_6_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]}]};
@@ -603,7 +642,7 @@
             item.classList.add('has-vp');
             const vpBtn = document.createElement('button');
             vpBtn.className = 'vp-btn';
-            vpBtn.textContent = 'Просмотр ракурсов';
+            vpBtn.textContent = 'Ракурсы (' + scene.viewpoints.length + ')';
             vpBtn.addEventListener('click', function(e) {
               e.stopPropagation();
               openLightbox(scene.viewpoints, 0);
@@ -648,20 +687,106 @@
         const vp = lbViewpoints[lbIndex];
         lbCounter.textContent = (lbIndex + 1) + ' / ' + lbViewpoints.length;
         lbCaption.textContent = vp.name || 'Ракурс';
+        const loader = document.getElementById('lbLoader');
+        const src = vp.file || vp.thumbnail || '';
+        function loadSrc(s, withFade) {
+          if (loader) loader.classList.add('show');
+          lbImage.classList.add('loading');
+          const tmp = new Image();
+          tmp.onload = function() {
+            lbImage.src = s;
+            lbImage.classList.remove('loading');
+            if (loader) loader.classList.remove('show');
+            if (withFade) {
+              lbImgWrap.className = 'lb-img-wrap fade-in';
+              void lbImgWrap.offsetWidth;
+              lbImgWrap.className = 'lb-img-wrap';
+              setTimeout(function() { lbAnimating = false; }, 250);
+            } else {
+              lbImgWrap.className = 'lb-img-wrap';
+              lbAnimating = false;
+            }
+          };
+          tmp.onerror = function() {
+            lbImage.src = s;
+            lbImage.classList.remove('loading');
+            if (loader) loader.classList.remove('show');
+            lbImgWrap.className = 'lb-img-wrap';
+            lbAnimating = false;
+          };
+          tmp.src = s;
+        }
         if (!animate) {
-          lbImage.src = vp.file;
-          lbImgWrap.className = 'lb-img-wrap';
+          lbAnimating = true;
+          loadSrc(src, false);
           return;
         }
         lbAnimating = true;
         lbImgWrap.classList.add('fade-out');
-        setTimeout(function() {
-          lbImage.src = vp.file;
-          lbImgWrap.className = 'lb-img-wrap fade-in';
-          void lbImgWrap.offsetWidth;
-          lbImgWrap.className = 'lb-img-wrap';
-          setTimeout(function() { lbAnimating = false; }, 250);
-        }, 200);
+        setTimeout(function() { loadSrc(src, true); }, 180);
+      }
+      async function downloadCurrentViewpoint() {
+        if (!lbViewpoints.length) return;
+        const vp = lbViewpoints[lbIndex];
+        try {
+          const resp = await fetch(vp.file);
+          const blob = await resp.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = (vp.name || 'viewpoint') + '.jpg';
+          a.click();
+          URL.revokeObjectURL(url);
+        } catch (e) { console.error(e); }
+      }
+      async function downloadSceneViewpointsZip() {
+        if (!lbViewpoints.length || typeof JSZip === 'undefined') return;
+        const zip = new JSZip();
+        const folder = 'viewpoints';
+        for (let i = 0; i < lbViewpoints.length; i++) {
+          const vp = lbViewpoints[i];
+          try {
+            const resp = await fetch(vp.file);
+            const blob = await resp.blob();
+            const name = (vp.name || ('vp_' + (i + 1))).replace(/[/\?%*:|"<>]/g, '_');
+            zip.file(folder + '/' + name + '.jpg', blob);
+          } catch (e) {}
+        }
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'viewpoints.zip';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      async function downloadAllTourViewpoints() {
+        if (typeof JSZip === 'undefined') return;
+        const zip = new JSZip();
+        let count = 0;
+        for (let si = 0; si < manifest.scenes.length; si++) {
+          const scene = manifest.scenes[si];
+          if (!scene.viewpoints || !scene.viewpoints.length) continue;
+          const folder = (scene.name || ('scene_' + (si + 1))).replace(/[/\?%*:|"<>]/g, '_');
+          for (let i = 0; i < scene.viewpoints.length; i++) {
+            const vp = scene.viewpoints[i];
+            try {
+              const resp = await fetch(vp.file);
+              const blob = await resp.blob();
+              const name = (vp.name || ('vp_' + (i + 1))).replace(/[/\?%*:|"<>]/g, '_');
+              zip.file(folder + '/' + name + '.jpg', blob);
+              count++;
+            } catch (e) {}
+          }
+        }
+        if (!count) return;
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = (manifest.name || 'tour') + '_viewpoints.zip';
+        a.click();
+        URL.revokeObjectURL(url);
       }
       function goLbNext() {
         if (lbAnimating || lbViewpoints.length < 2) return;
@@ -681,6 +806,16 @@
       lbClose.addEventListener('click', closeLightbox);
       lbNext.addEventListener('click', goLbNext);
       lbPrev.addEventListener('click', goLbPrev);
+      var lbDlOneBtn = document.getElementById('lbDlOne');
+      var lbDlAllBtn = document.getElementById('lbDlAll');
+      if (lbDlOneBtn) lbDlOneBtn.addEventListener('click', function(e) { e.stopPropagation(); downloadCurrentViewpoint(); });
+      if (lbDlAllBtn) lbDlAllBtn.addEventListener('click', function(e) { e.stopPropagation(); downloadSceneViewpointsZip(); });
+      var pubDlAllBtn = document.getElementById('pubDlAll');
+      if (pubDlAllBtn) {
+        var hasAnyVp = manifest.scenes.some(function(s) { return s.viewpoints && s.viewpoints.length; });
+        if (hasAnyVp) pubDlAllBtn.classList.add('show');
+        pubDlAllBtn.addEventListener('click', downloadAllTourViewpoints);
+      }
       vpLightbox.addEventListener('click', function(e) {
         if (e.target === vpLightbox || e.target.classList.contains('lb-inner')) closeLightbox();
       });
