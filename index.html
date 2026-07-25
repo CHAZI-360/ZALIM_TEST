@@ -134,16 +134,14 @@
     #vpLightbox .lb-img-wrap {
       position:absolute; top:0; left:0; right:0; bottom:0;
       display:flex; align-items:center; justify-content:center;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+      transition: opacity 0.25s ease;
     }
     #vpLightbox .lb-img-wrap img {
       max-width:95%; max-height:90%; object-fit:contain; border-radius:4px;
       box-shadow:0 8px 40px rgba(0,0,0,0.6); user-select:none; pointer-events:none;
     }
-    #vpLightbox .lb-img-wrap.slide-left-out { transform:translateX(-40%); opacity:0; }
-    #vpLightbox .lb-img-wrap.slide-right-out { transform:translateX(40%); opacity:0; }
-    #vpLightbox .lb-img-wrap.slide-left-in { transform:translateX(40%); opacity:0; }
-    #vpLightbox .lb-img-wrap.slide-right-in { transform:translateX(-40%); opacity:0; }
+    #vpLightbox .lb-img-wrap.fade-out { opacity:0; }
+    #vpLightbox .lb-img-wrap.fade-in { opacity:0; }
     #vpLightbox .lb-nav {
       position:absolute; top:50%; transform:translateY(-50%);
       width:48px; height:48px; background:rgba(255,255,255,0.1);
@@ -210,23 +208,24 @@
     .thumbnail-item .vp-add-btn {
       position:absolute; top:4px; left:4px; z-index:4;
       background:rgba(0,0,0,0.7); border:none; border-radius:4px;
-      color:#fff; width:24px; height:24px; font-size:16px;
+      color:#fff; width:22px; height:22px; font-size:14px;
       line-height:1; cursor:pointer; transition:background .2s, opacity .2s;
       display:flex; align-items:center; justify-content:center;
-      opacity:0.7;
+      opacity:0;
     }
     .thumbnail-item:hover .vp-add-btn { opacity:1; }
     .thumbnail-item .vp-add-btn:hover { background:rgba(106,176,247,0.6); }
     .thumbnail-item .vp-count {
-      position:absolute; top:4px; left:32px; z-index:4;
-      background:rgba(106,176,247,0.85); color:#fff;
-      font-size:10px; font-weight:600; padding:2px 6px;
-      border-radius:10px; line-height:1.2;
+      position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+      z-index:4;
+      background:rgba(106,176,247,0.9); color:#fff;
+      font-size:12px; font-weight:600; padding:2px 8px;
+      border-radius:10px; line-height:1.3;
       pointer-events:none;
       opacity:0; transition:opacity .2s;
+      min-width:20px; text-align:center;
     }
     .thumbnail-item.has-viewpoints .vp-count { opacity:1; }
-    .thumbnail-item:hover .vp-count { opacity:1; }
 
     #thumbnailsWrapper {
       transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
@@ -322,6 +321,14 @@
       position:absolute; top:0; left:0; width:100%; height:100%;
       object-fit:cover; pointer-events:none;
     }
+    .viewpoint-item .vp-number {
+      position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+      z-index:3;
+      background:rgba(0,0,0,0.65); color:#ccc;
+      font-size:10px; font-weight:600; padding:1px 6px;
+      border-radius:8px; line-height:1.3;
+      pointer-events:none;
+    }
     .viewpoint-item .label-wrapper {
       position:relative; z-index:2;
       background:rgba(0,0,0,0.65); backdrop-filter:blur(4px);
@@ -337,6 +344,8 @@
     .viewpoint-item .label-wrapper .label[contenteditable="true"] {
       pointer-events:auto; background:rgba(0,0,0,0.85); outline:1px solid #6ab0f7;
       border-radius:3px; padding:0 3px;
+      white-space:normal; overflow:visible; text-overflow:clip;
+      word-break:break-word; max-width:100%;
     }
     .viewpoint-item .label-wrapper .edit-icon {
       pointer-events:auto; opacity:0.5; font-size:9px; cursor:pointer; flex-shrink:0;
@@ -381,16 +390,14 @@
     #vpLightbox .lb-img-wrap {
       position:absolute; top:0; left:0; right:0; bottom:0;
       display:flex; align-items:center; justify-content:center;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+      transition: opacity 0.25s ease;
     }
     #vpLightbox .lb-img-wrap img {
       max-width:95%; max-height:90%; object-fit:contain; border-radius:4px;
       box-shadow:0 8px 40px rgba(0,0,0,0.6); user-select:none; pointer-events:none;
     }
-    #vpLightbox .lb-img-wrap.slide-left-out { transform:translateX(-40%); opacity:0; }
-    #vpLightbox .lb-img-wrap.slide-right-out { transform:translateX(40%); opacity:0; }
-    #vpLightbox .lb-img-wrap.slide-left-in { transform:translateX(40%); opacity:0; }
-    #vpLightbox .lb-img-wrap.slide-right-in { transform:translateX(-40%); opacity:0; }
+    #vpLightbox .lb-img-wrap.fade-out { opacity:0; }
+    #vpLightbox .lb-img-wrap.fade-in { opacity:0; }
     #vpLightbox .lb-nav {
       position:absolute; top:50%; transform:translateY(-50%);
       width:48px; height:48px; background:rgba(255,255,255,0.1);
@@ -457,7 +464,7 @@
   </div>
   <script>
     (function() {
-      const manifest = {"name":"ТЕСТ РАКУРСОВ","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"2. Спальня №2 - Кам_1 ","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"2. Спальня №2 - Кам_6","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vktk1hpb9v","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_6.jpg","thumbnail":"viewpoints/scene_3/vp_6_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]},{"id":"ms0vsu34jrwti","name":"2. Спальня №2 - Кам_5","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","viewpoints":[]},{"id":"ms0vsuhg2ocoz","name":"2. Спальня №2 - Кам_6","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","viewpoints":[]}]};
+      const manifest = {"name":"ТЕСТ РАКУРСОВ","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vktk1hpb9v","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_6.jpg","thumbnail":"viewpoints/scene_3/vp_6_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]},{"id":"ms0vsu34jrwti","name":"2. Спальня №2 - Кам_5","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","viewpoints":[]},{"id":"ms0vsuhg2ocoz","name":"2. Спальня №2 - Кам_6","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","viewpoints":[]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -637,15 +644,13 @@
           return;
         }
         lbAnimating = true;
-        const outClass = direction === 'next' ? 'slide-left-out' : 'slide-right-out';
-        const inClass = direction === 'next' ? 'slide-right-in' : 'slide-left-in';
-        lbImgWrap.classList.add(outClass);
+        lbImgWrap.classList.add('fade-out');
         setTimeout(function() {
           lbImage.src = vp.file;
-          lbImgWrap.className = 'lb-img-wrap ' + inClass;
+          lbImgWrap.className = 'lb-img-wrap fade-in';
           void lbImgWrap.offsetWidth;
           lbImgWrap.className = 'lb-img-wrap';
-          setTimeout(function() { lbAnimating = false; }, 400);
+          setTimeout(function() { lbAnimating = false; }, 250);
         }, 200);
       }
       function goLbNext() {

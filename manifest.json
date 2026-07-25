@@ -22,26 +22,26 @@
       "thumbnail": "thumbnails/scene_3.jpg",
       "viewpoints": [
         {
-          "id": "ms0vkt4belz2d",
-          "name": "2. Спальня №2 - Кам_3",
+          "id": "ms0vkta8ytd64",
+          "name": "2. Спальня №2 - Кам_5",
           "file": "viewpoints/scene_3/vp_1.jpg",
           "thumbnail": "viewpoints/scene_3/vp_1_thumb.jpg"
         },
         {
-          "id": "ms0vkta8ytd64",
-          "name": "2. Спальня №2 - Кам_5",
+          "id": "ms0vkteyyl1t1",
+          "name": "Ракурс",
           "file": "viewpoints/scene_3/vp_2.jpg",
           "thumbnail": "viewpoints/scene_3/vp_2_thumb.jpg"
         },
         {
-          "id": "ms0vkteyyl1t1",
-          "name": "2. Спальня №2 - Кам_1 ",
+          "id": "ms0vkti8xkn7q",
+          "name": "123",
           "file": "viewpoints/scene_3/vp_3.jpg",
           "thumbnail": "viewpoints/scene_3/vp_3_thumb.jpg"
         },
         {
-          "id": "ms0vkti8xkn7q",
-          "name": "2. Спальня №2 - Кам_6",
+          "id": "ms0vkt4belz2d",
+          "name": "2. Спальня №2 - Кам_3",
           "file": "viewpoints/scene_3/vp_4.jpg",
           "thumbnail": "viewpoints/scene_3/vp_4_thumb.jpg"
         },
