@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>ТЕСТ РАКУРСОВ</title>
+  <title>ТЕСТ РАКУРСОВ 3</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <style>
@@ -23,7 +23,7 @@
     }
     #topBar {
       position:fixed; top:0; left:0; right:0; height:48px;
-      background:rgba(10,10,10,0.8); backdrop-filter:blur(8px);
+      background:#0a0a0a;
       border-bottom:1px solid rgba(255,255,255,0.08);
       display:flex; align-items:center; padding:0 20px;
       z-index:50;
@@ -72,7 +72,7 @@
       flex-direction:column;
     }
     #thumbnailsWrapper.panel-open {
-      bottom: 180px;
+      bottom: 195px;
     }
     #thumbnailsWrapper.hidden { opacity:0; pointer-events:none; }
     #thumbnailsWrapper .scroll-container {
@@ -215,23 +215,26 @@
     }
     .thumbnail-item:hover .vp-add-btn { opacity:1; }
     .thumbnail-item .vp-add-btn:hover { background:rgba(106,176,247,0.6); }
-    .thumbnail-item .vp-count {
-      position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
-      z-index:4;
+    .thumbnail-wrap .vp-count {
       background:rgba(106,176,247,0.9); color:#fff;
       font-size:12px; font-weight:600; padding:2px 8px;
       border-radius:10px; line-height:1.3;
       pointer-events:none;
       opacity:0; transition:opacity .2s;
       min-width:20px; text-align:center;
+      white-space:nowrap;
+      flex-shrink:0;
     }
-    .thumbnail-item.has-viewpoints .vp-count { opacity:1; }
+    .thumbnail-wrap.has-viewpoints .vp-count { opacity:1; }
+    .thumbnail-wrap:not(.has-viewpoints) .vp-count {
+      height:0; padding:0; overflow:hidden; opacity:0;
+    }
 
     #thumbnailsWrapper {
       transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
     }
     #thumbnailsWrapper.panel-open {
-      bottom: 180px;
+      bottom: 195px;
     }
 
     /* ===== Нижняя панель ракурсов ===== */
@@ -297,7 +300,7 @@
       gap:10px;
       overflow-x:auto;
       overflow-y:hidden;
-      padding:10px 16px;
+      padding:10px 16px 16px 16px;
       align-items:center;
       scrollbar-width:thin;
       scrollbar-color:rgba(255,255,255,0.25) transparent;
@@ -307,8 +310,13 @@
     #viewpointsList::-webkit-scrollbar-track { background:transparent; }
     #viewpointsList.centered { justify-content:center; }
 
+    .viewpoint-wrap {
+      flex:0 0 120px;
+      position:relative;
+      flex-shrink:0;
+    }
     .viewpoint-item {
-      flex:0 0 120px; height:90px;
+      width:100%; height:90px;
       background:#1a1a1a; border-radius:8px;
       overflow:hidden; position:relative; cursor:pointer;
       border:2px solid transparent;
@@ -321,13 +329,14 @@
       position:absolute; top:0; left:0; width:100%; height:100%;
       object-fit:cover; pointer-events:none;
     }
-    .viewpoint-item .vp-number {
-      position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
-      z-index:3;
-      background:rgba(0,0,0,0.65); color:#ccc;
-      font-size:10px; font-weight:600; padding:1px 6px;
-      border-radius:8px; line-height:1.3;
+    .viewpoint-wrap .vp-number {
+      color:#aaa;
+      font-size:11px; font-weight:600;
+      line-height:1.2;
       pointer-events:none;
+      text-align:center;
+      white-space:nowrap;
+      flex-shrink:0;
     }
     .viewpoint-item .label-wrapper {
       position:relative; z-index:2;
@@ -428,9 +437,10 @@
     }
 
     @media (max-width:700px) {
-      #thumbnailsWrapper.panel-open { bottom:160px; }
-      #viewpointsPanel { height:160px; }
-      .viewpoint-item { flex:0 0 100px; height:75px; }
+      #thumbnailsWrapper.panel-open { bottom:175px; }
+      #viewpointsPanel { height:175px; }
+      .viewpoint-wrap { flex:0 0 100px; width:100px; }
+      .viewpoint-item { width:100px; height:75px; }
       #vpLightbox .lb-nav { width:40px; height:40px; font-size:20px; }
       #vpLightbox .lb-prev { left:10px; }
       #vpLightbox .lb-next { right:10px; }
@@ -444,7 +454,7 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">ТЕСТ РАКУРСОВ</span>
+      <span class="tour-name" id="tourNameDisplay">ТЕСТ РАКУРСОВ 3</span>
     </div>
     <div class="scene-name" id="sceneNameDisplay">Загрузка панорам...</div>
   </div>
@@ -464,7 +474,7 @@
   </div>
   <script>
     (function() {
-      const manifest = {"name":"ТЕСТ РАКУРСОВ","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vktk1hpb9v","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_6.jpg","thumbnail":"viewpoints/scene_3/vp_6_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]},{"id":"ms0vsu34jrwti","name":"2. Спальня №2 - Кам_5","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","viewpoints":[]},{"id":"ms0vsuhg2ocoz","name":"2. Спальня №2 - Кам_6","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","viewpoints":[]}]};
+      const manifest = {"name":"ТЕСТ РАКУРСОВ 3","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"},{"id":"ms0vktk1hpb9v","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_3/vp_6.jpg","thumbnail":"viewpoints/scene_3/vp_6_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
