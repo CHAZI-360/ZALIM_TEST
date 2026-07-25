@@ -1,107 +1,84 @@
 {
-  "name": "RC1 - fullscreen icon fix 3",
+  "name": "ТЕСТ РАКУРСОВ",
   "scenes": [
     {
-      "id": "ms0mcz8t5ewk6",
-      "name": "Corona_Camera001_0000",
-      "file": "images/scene_1.jpg",
-      "thumbnail": "thumbnails/scene_1.jpg"
-    },
-    {
-      "id": "ms0mczitx6vq4",
+      "id": "ms0uyd3986d9a",
       "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
-      "file": "images/scene_2.jpg",
-      "thumbnail": "thumbnails/scene_2.jpg"
+      "file": "images/scene_1.jpg",
+      "thumbnail": "thumbnails/scene_1.jpg",
+      "viewpoints": []
     },
     {
-      "id": "ms0md02gmi8oj",
-      "name": "Camera_360_03",
-      "file": "images/scene_3.jpg",
-      "thumbnail": "thumbnails/scene_3.jpg"
-    },
-    {
-      "id": "ms0md06ijdl5o",
-      "name": "Camera_360_01",
-      "file": "images/scene_4.jpg",
-      "thumbnail": "thumbnails/scene_4.jpg"
-    },
-    {
-      "id": "ms0md0pupfc80",
-      "name": "Corona_Camera005_0000",
-      "file": "images/scene_5.jpg",
-      "thumbnail": "thumbnails/scene_5.jpg"
-    },
-    {
-      "id": "ms0md09wlmthh",
-      "name": "Corona_Camera002_0000",
-      "file": "images/scene_6.jpg",
-      "thumbnail": "thumbnails/scene_6.jpg"
-    },
-    {
-      "id": "ms0md0fuj995f",
-      "name": "Corona_Camera004_0000",
-      "file": "images/scene_7.jpg",
-      "thumbnail": "thumbnails/scene_7.jpg"
-    },
-    {
-      "id": "ms0md0vv96m42",
-      "name": "Холл_2_этаж - Кам 360 - 02",
-      "file": "images/scene_8.jpg",
-      "thumbnail": "thumbnails/scene_8.jpg"
-    },
-    {
-      "id": "ms0mczr15eqyr",
-      "name": "Corona_Camera_360_2",
-      "file": "images/scene_9.jpg",
-      "thumbnail": "thumbnails/scene_9.jpg"
-    },
-    {
-      "id": "ms0md0z90l70a",
-      "name": "Camera_360_02",
-      "file": "images/scene_10.jpg",
-      "thumbnail": "thumbnails/scene_10.jpg"
-    },
-    {
-      "id": "ms0md153xej9j",
-      "name": "Corona_Camera_360_1",
-      "file": "images/scene_11.jpg",
-      "thumbnail": "thumbnails/scene_11.jpg"
-    },
-    {
-      "id": "ms0md1baash2c",
+      "id": "ms0uydcgkyrc6",
       "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
-      "file": "images/scene_12.jpg",
-      "thumbnail": "thumbnails/scene_12.jpg"
+      "file": "images/scene_2.jpg",
+      "thumbnail": "thumbnails/scene_2.jpg",
+      "viewpoints": []
     },
     {
-      "id": "ms0md1f61s4jd",
-      "name": "Corona_Camera003_0000",
-      "file": "images/scene_13.jpg",
-      "thumbnail": "thumbnails/scene_13.jpg"
-    },
-    {
-      "id": "ms0md1ixp4jhd",
+      "id": "ms0uydge6k2ef",
       "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
-      "file": "images/scene_14.jpg",
-      "thumbnail": "thumbnails/scene_14.jpg"
+      "file": "images/scene_3.jpg",
+      "thumbnail": "thumbnails/scene_3.jpg",
+      "viewpoints": [
+        {
+          "id": "ms0vkt4belz2d",
+          "name": "2. Спальня №2 - Кам_3",
+          "file": "viewpoints/scene_3/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_1_thumb.jpg"
+        },
+        {
+          "id": "ms0vkta8ytd64",
+          "name": "2. Спальня №2 - Кам_5",
+          "file": "viewpoints/scene_3/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_2_thumb.jpg"
+        },
+        {
+          "id": "ms0vkteyyl1t1",
+          "name": "2. Спальня №2 - Кам_1 ",
+          "file": "viewpoints/scene_3/vp_3.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_3_thumb.jpg"
+        },
+        {
+          "id": "ms0vkti8xkn7q",
+          "name": "2. Спальня №2 - Кам_6",
+          "file": "viewpoints/scene_3/vp_4.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_4_thumb.jpg"
+        },
+        {
+          "id": "ms0vktk1hpb9v",
+          "name": "2. Спальня №2 - Кам_4",
+          "file": "viewpoints/scene_3/vp_5.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_5_thumb.jpg"
+        },
+        {
+          "id": "ms0vktm3n0s4g",
+          "name": "2. Спальня №2 - Кам_2",
+          "file": "viewpoints/scene_3/vp_6.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_6_thumb.jpg"
+        }
+      ]
     },
     {
-      "id": "ms0md1nbunvo7",
-      "name": "Холл_2_этаж - Кам 360 - 01",
-      "file": "images/scene_15.jpg",
-      "thumbnail": "thumbnails/scene_15.jpg"
-    },
-    {
-      "id": "ms0md1r2sal3f",
+      "id": "ms0uydk9v14jz",
       "name": "Corona_Camera_360_002_АКТУАЛЬНОЕ",
-      "file": "images/scene_16.jpg",
-      "thumbnail": "thumbnails/scene_16.jpg"
+      "file": "images/scene_4.jpg",
+      "thumbnail": "thumbnails/scene_4.jpg",
+      "viewpoints": []
     },
     {
-      "id": "ms0md1v1giks7",
-      "name": "Холл_2_этаж - Кам 360 - 03",
-      "file": "images/scene_17.jpg",
-      "thumbnail": "thumbnails/scene_17.jpg"
+      "id": "ms0vsu34jrwti",
+      "name": "2. Спальня №2 - Кам_5",
+      "file": "images/scene_5.jpg",
+      "thumbnail": "thumbnails/scene_5.jpg",
+      "viewpoints": []
+    },
+    {
+      "id": "ms0vsuhg2ocoz",
+      "name": "2. Спальня №2 - Кам_6",
+      "file": "images/scene_6.jpg",
+      "thumbnail": "thumbnails/scene_6.jpg",
+      "viewpoints": []
     }
   ]
 }
