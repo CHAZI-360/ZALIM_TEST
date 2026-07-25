@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>FULLSCREEN ICON</title>
+  <title>FULLSCREEN ICON DEFAULT</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <style>
@@ -16,40 +16,9 @@
     }
     #panoContainer .pnlm-container { width:100% !important; height:100% !important; }
 
+    /* Скрываем кнопки зума, оставляя полноэкранную */
     .pnlm-zoom-controls { display:none !important; }
-    .pnlm-fullscreen-toggle-button { display:none !important; }
-
-    #customControls {
-      position:fixed;
-      right:20px;
-      bottom:180px;
-      z-index:60;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      transition:bottom 0.3s ease;
-    }
-    #customControls.panel-hidden { bottom:20px; }
-    .ctrl-btn {
-      width:44px;
-      height:44px;
-      background:rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.2);
-      border-radius:8px;
-      color:#fff;
-      font-size:22px;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:background .2s, transform .1s;
-      backdrop-filter:blur(4px);
-      box-shadow:0 2px 12px rgba(0,0,0,0.4);
-      padding:0;
-      line-height:1;
-    }
-    .ctrl-btn:hover { background:rgba(255,255,255,0.2); }
-    .ctrl-btn:active { transform:scale(0.92); }
+    .pnlm-container .pnlm-msg { display:none !important; }
 
     #topBar {
       position:fixed; top:0; left:0; right:0; height:48px;
@@ -105,7 +74,7 @@
     #thumbnailsWrapper.hidden { opacity:0; pointer-events:none; }
     #thumbnailsWrapper .scroll-container {
       display:flex; gap:10px; overflow-x:auto; overflow-y:hidden;
-      padding:8px 10px 10px 10px;
+      padding: 8px 10px 10px 10px;
       height:auto; max-height:100%;
       align-items:center; justify-content:flex-start;
       scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.25) transparent;
@@ -169,9 +138,6 @@
       #thumbnailsWrapper { height:130px; padding:0 12px; }
       .thumbnail-item { flex:0 0 100px; height:78px; }
       .thumbnail-item .label { font-size:10px; padding:2px 6px; }
-      #customControls { right:12px; bottom:150px; }
-      #customControls.panel-hidden { bottom:12px; }
-      .ctrl-btn { width:38px; height:38px; font-size:18px; }
     }
   </style>
 </head>
@@ -181,14 +147,9 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">FULLSCREEN ICON</span>
+      <span class="tour-name" id="tourNameDisplay">FULLSCREEN ICON DEFAULT</span>
     </div>
     <div class="scene-name" id="sceneNameDisplay">Загрузка панорам...</div>
-  </div>
-
-  <div id="customControls">
-    <button class="ctrl-btn" id="gyroBtn" title="Гироскоп" style="display:none;">🔄</button>
-    <button class="ctrl-btn" id="fullscreenBtn" title="Полноэкранный режим">⛶</button>
   </div>
 
   <div id="thumbnailsWrapper">
@@ -198,12 +159,11 @@
 
   <script>
     (function() {
-      const manifest = {"name":"FULLSCREEN ICON","scenes":[{"id":"mrzm00ptza2lx","name":"Camera_360_03","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg"},{"id":"mrzm00z9iivdy","name":"Corona_Camera_360_2","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg"},{"id":"mrzm01e3nolpp","name":"Camera_360_01","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg"},{"id":"mrzm01k5mu9rf","name":"Camera_360_02","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg"},{"id":"mrzm01nbgozus","name":"Corona_Camera_360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg"},{"id":"mrzm01y0y013s","name":"Corona_Camera001_0000","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg"},{"id":"mrzm021egvtmo","name":"Corona_Camera005_0000","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg"},{"id":"mrzm0283qn0ks","name":"Corona_Camera002_0000","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg"},{"id":"mrzm02gqh43dx","name":"Corona_Camera004_0000","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg"},{"id":"mrzm02re0d0qe","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg"},{"id":"mrzm02v2u1fkq","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg"},{"id":"mrzm030f1ppu9","name":"Corona_Camera003_0000","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg"},{"id":"mrzm0349srszd","name":"Холл_2_этаж - Кам 360 - 01","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg"},{"id":"mrzm0381g4c7f","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg"},{"id":"mrzm03byhmv88","name":"Холл_2_этаж - Кам 360 - 03","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg"}]};
+      const manifest = {"name":"FULLSCREEN ICON DEFAULT","scenes":[{"id":"mrzm00ptza2lx","name":"Camera_360_03","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg"},{"id":"mrzm00z9iivdy","name":"Corona_Camera_360_2","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg"},{"id":"mrzm01e3nolpp","name":"Camera_360_01","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg"},{"id":"mrzm01k5mu9rf","name":"Camera_360_02","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg"},{"id":"mrzm01nbgozus","name":"Corona_Camera_360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg"},{"id":"mrzm01y0y013s","name":"Corona_Camera001_0000","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg"},{"id":"mrzm021egvtmo","name":"Corona_Camera005_0000","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg"},{"id":"mrzm0283qn0ks","name":"Corona_Camera002_0000","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg"},{"id":"mrzm02gqh43dx","name":"Corona_Camera004_0000","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg"},{"id":"mrzm02re0d0qe","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg"},{"id":"mrzm02v2u1fkq","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg"},{"id":"mrzm030f1ppu9","name":"Corona_Camera003_0000","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg"},{"id":"mrzm0349srszd","name":"Холл_2_этаж - Кам 360 - 01","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg"},{"id":"mrzm0381g4c7f","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg"},{"id":"mrzm03byhmv88","name":"Холл_2_этаж - Кам 360 - 03","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg"}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
       let mouseDownTime = 0;
-      let isGyroActive = false;
 
       const panoContainer = document.getElementById('panoContainer');
       const thumbnailsWrapper = document.getElementById('thumbnailsWrapper');
@@ -212,30 +172,17 @@
       const sceneNameDisplay = document.getElementById('sceneNameDisplay');
       const tourNameDisplay = document.getElementById('tourNameDisplay');
       const globalTooltip = document.getElementById('globalTooltip');
-      const customControls = document.getElementById('customControls');
-      const fullscreenBtn = document.getElementById('fullscreenBtn');
-      const gyroBtn = document.getElementById('gyroBtn');
-
-      function updateControlsPosition() {
-        if (isVisible) {
-          customControls.classList.remove('panel-hidden');
-        } else {
-          customControls.classList.add('panel-hidden');
-        }
-      }
 
       function showPanels() {
         thumbnailsWrapper.classList.remove('hidden');
         topBar.classList.remove('hidden');
         isVisible = true;
-        updateControlsPosition();
       }
 
       function hidePanels() {
         thumbnailsWrapper.classList.add('hidden');
         topBar.classList.add('hidden');
         isVisible = false;
-        updateControlsPosition();
       }
 
       function togglePanels() {
@@ -270,55 +217,24 @@
         if (!e.relatedTarget || !e.relatedTarget.closest('.thumbnail-item')) showGlobalTooltip('');
       });
 
-      // Полноэкранный режим
-      function toggleFullscreen() {
+      topBar.addEventListener('dblclick', function(e) {
+        if (e.target.closest('.brand') || e.target.closest('.tour-name') || e.target.closest('.scene-name')) return;
         if (!document.fullscreenElement) {
           document.documentElement.requestFullscreen().catch(err => {});
         } else {
           document.exitFullscreen().catch(err => {});
         }
-      }
-
-      fullscreenBtn.addEventListener('click', toggleFullscreen);
-
-      document.addEventListener('fullscreenchange', function() {
-        if (document.fullscreenElement) {
-          fullscreenBtn.textContent = '⤓';
-          fullscreenBtn.title = 'Выйти из полноэкранного режима';
-        } else {
-          fullscreenBtn.textContent = '⛶';
-          fullscreenBtn.title = 'Полноэкранный режим';
-        }
       });
 
-      // Гироскоп (только для мобильных устройств)
-      if (window.DeviceOrientationEvent) {
-        gyroBtn.style.display = 'flex';
-        gyroBtn.addEventListener('click', function() {
-          isGyroActive = !isGyroActive;
-          gyroBtn.textContent = isGyroActive ? '📳' : '🔄';
-          gyroBtn.title = isGyroActive ? 'Отключить гироскоп' : 'Включить гироскоп';
-          // Здесь можно добавить логику управления гироскопом (через Pannellum API)
-          // Но в Pannellum нет встроенной поддержки гироскопа, поэтому оставляем как индикатор.
-        });
-      }
-
-      // Двойной клик по верхней панели (полноэкранный)
-      topBar.addEventListener('dblclick', function(e) {
-        if (e.target.closest('.brand') || e.target.closest('.tour-name') || e.target.closest('.scene-name')) return;
-        toggleFullscreen();
-      });
-
-      // Инициализация Pannellum
       function initViewer() {
         if (viewer) viewer.destroy();
         viewer = pannellum.viewer('panoContainer', {
           type: 'equirectangular',
           panorama: '',
           autoLoad: false,
-          showZoomCtrl: false,
-          showFullscreenCtrl: false,
-          keyboardZoom: false,
+          showZoomCtrl: true,
+          showFullscreenCtrl: true,
+          keyboardZoom: true,
           mouseZoom: true,
           compass: false,
           doubleClick: false
@@ -335,9 +251,9 @@
           type: 'equirectangular',
           panorama: url,
           autoLoad: true,
-          showZoomCtrl: false,
-          showFullscreenCtrl: false,
-          keyboardZoom: false,
+          showZoomCtrl: true,
+          showFullscreenCtrl: true,
+          keyboardZoom: true,
           mouseZoom: true,
           compass: false,
           doubleClick: false
