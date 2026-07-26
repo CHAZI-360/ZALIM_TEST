@@ -44,52 +44,65 @@
       "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
       "file": "images/scene_2.jpg",
       "thumbnail": "thumbnails/scene_2.jpg",
-      "viewpoints": []
+      "viewpoints": [
+        {
+          "id": "ms11jpruln9c9",
+          "name": "Дверь_корона_1",
+          "file": "viewpoints/scene_2/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_1_thumb.jpg"
+        },
+        {
+          "id": "ms11jyy7czjit",
+          "name": "Камин_01",
+          "file": "viewpoints/scene_2/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_2_thumb.jpg"
+        }
+      ]
     },
     {
       "id": "ms0uydge6k2ef",
       "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
       "file": "images/scene_3.jpg",
       "thumbnail": "thumbnails/scene_3.jpg",
-      "viewpoints": [
-        {
-          "id": "ms0vkta8ytd64",
-          "name": "2. Спальня №2 - Кам_5",
-          "file": "viewpoints/scene_3/vp_1.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_1_thumb.jpg"
-        },
-        {
-          "id": "ms0vkteyyl1t1",
-          "name": "Ракурс",
-          "file": "viewpoints/scene_3/vp_2.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_2_thumb.jpg"
-        },
-        {
-          "id": "ms0vktm3n0s4g",
-          "name": "2. Спальня №2 - Кам_2",
-          "file": "viewpoints/scene_3/vp_3.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_3_thumb.jpg"
-        },
-        {
-          "id": "ms0vkt4belz2d",
-          "name": "2. Спальня №2 - Кам_3",
-          "file": "viewpoints/scene_3/vp_4.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_4_thumb.jpg"
-        },
-        {
-          "id": "ms0vkti8xkn7q",
-          "name": "123",
-          "file": "viewpoints/scene_3/vp_5.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_5_thumb.jpg"
-        }
-      ]
+      "viewpoints": []
     },
     {
       "id": "ms0uydk9v14jz",
       "name": "Corona_Camera_360_002_АКТУАЛЬНОЕ",
       "file": "images/scene_4.jpg",
       "thumbnail": "thumbnails/scene_4.jpg",
-      "viewpoints": []
+      "viewpoints": [
+        {
+          "id": "ms11jj8ax4cz8",
+          "name": "Дверь_полотно_1",
+          "file": "viewpoints/scene_4/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_4/vp_1_thumb.jpg"
+        },
+        {
+          "id": "ms11jjbjg6nv8",
+          "name": "Дверь_полотно_ЗС",
+          "file": "viewpoints/scene_4/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_4/vp_2_thumb.jpg"
+        },
+        {
+          "id": "ms11jjgvsg8d3",
+          "name": "Дверь_полотно_2",
+          "file": "viewpoints/scene_4/vp_3.jpg",
+          "thumbnail": "viewpoints/scene_4/vp_3_thumb.jpg"
+        },
+        {
+          "id": "ms11jjjolr3ya",
+          "name": "Дверь_полотно_3",
+          "file": "viewpoints/scene_4/vp_4.jpg",
+          "thumbnail": "viewpoints/scene_4/vp_4_thumb.jpg"
+        },
+        {
+          "id": "ms11jjne6zd73",
+          "name": "Дверь_корона_4",
+          "file": "viewpoints/scene_4/vp_5.jpg",
+          "thumbnail": "viewpoints/scene_4/vp_5_thumb.jpg"
+        }
+      ]
     }
   ]
 }

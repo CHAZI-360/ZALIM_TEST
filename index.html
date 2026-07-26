@@ -92,6 +92,8 @@
       flex:0 0 140px; width:140px;
       display:flex; flex-direction:column; align-items:center;
       flex-shrink:0; gap:4px; position:relative;
+      padding-top:28px;
+      box-sizing:content-box;
     }
     .thumbnail-item {
       width:140px; height:98px;
@@ -118,12 +120,13 @@
       pointer-events:none;
     }
     .thumbnail-wrap .vp-btn {
+      position:absolute; top:0; left:50%; transform:translateX(-50%);
       background:rgba(106,176,247,0.92); color:#fff;
       border:none; border-radius:12px; padding:4px 10px; font-size:11px;
       font-weight:500; cursor:pointer; white-space:nowrap;
       opacity:0; transition:opacity .2s; pointer-events:auto;
       box-shadow:0 2px 8px rgba(0,0,0,0.4);
-      flex-shrink:0; order:-1;
+      z-index:5;
     }
     .thumbnail-wrap:hover .vp-btn,
     .thumbnail-wrap.has-vp .vp-btn { opacity:1; }
@@ -134,21 +137,21 @@
       border-radius:10px; line-height:1.3;
       pointer-events:none; min-width:20px; text-align:center;
       white-space:nowrap; flex-shrink:0;
+      min-height:18px;
     }
     .thumbnail-wrap:not(.has-vp) .vp-count {
-      height:0; padding:0; overflow:hidden; opacity:0;
+      visibility:hidden;
     }
     .pub-dl-all {
-      position:fixed; top:56px; right:16px; z-index:60;
       background:rgba(106,176,247,0.9); color:#fff; border:none;
-      border-radius:10px; padding:8px 14px; font-size:13px; font-weight:500;
+      border-radius:8px; padding:6px 14px; font-size:13px; font-weight:500;
       cursor:pointer; display:none; align-items:center; gap:6px;
-      box-shadow:0 4px 16px rgba(0,0,0,0.4);
       transition:background .2s, opacity .3s;
+      margin-left:auto; flex-shrink:0; white-space:nowrap;
     }
     .pub-dl-all.show { display:flex; }
     .pub-dl-all:hover { background:#5a9fd6; }
-    #topBar.hidden ~ .pub-dl-all, body.panels-hidden .pub-dl-all { opacity:0; pointer-events:none; }
+    #topBar.hidden .pub-dl-all { opacity:0; pointer-events:none; }
     #vpLightbox {
       position:fixed; top:0; left:0; right:0; bottom:0;
       background:rgba(0,0,0,0.92); z-index:20000; display:none;
@@ -219,8 +222,8 @@
     #vpLightbox .lb-downloads button:hover { background:rgba(106,176,247,0.35); }
     #vpLightbox .lb-img-wrap img.loading { opacity:0; }
     #globalTooltip {
-      position:absolute;
-      bottom:calc(100% + 10px);
+      position:fixed;
+      top:56px;
       left:50%;
       transform:translateX(-50%);
       background:rgba(0,0,0,0.5);
@@ -233,9 +236,12 @@
       pointer-events:none;
       opacity:0;
       transition:opacity 0.2s;
-      z-index:60;
+      z-index:100;
       border:1px solid rgba(255,255,255,0.08);
       backdrop-filter:blur(6px);
+      max-width:80vw;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
     #globalTooltip.visible { opacity:1; }
     @media (max-width:700px) {
@@ -341,6 +347,15 @@
       width:28px; height:28px; padding:0;
       display:flex; align-items:center; justify-content:center;
       font-size:16px;
+    }
+    #viewpointsPanelHeader #vpClearBtn:hover {
+      background:rgba(255,80,80,0.2);
+      border-color:#ff6b6b;
+      color:#ff6b6b;
+    }
+    #viewpointsPanel.dragover-vp-panel {
+      outline: 3px solid #6ab0f7;
+      outline-offset: -3px;
     }
 
     #viewpointsList {
@@ -505,7 +520,7 @@
       <div class="brand">CHAZI<span class="highlight">360</span></div>
       <span class="tour-name" id="tourNameDisplay">FIX VIEWER</span>
     </div>
-    <div class="scene-name" id="sceneNameDisplay">Загрузка панорам...</div>
+    <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">Скачать ракурсы</button>
   </div>
   <div id="thumbnailsWrapper">
     <div id="globalTooltip"></div>
@@ -519,17 +534,16 @@
       <button class="lb-nav lb-next" id="lbNext">›</button>
       <button class="lb-close" id="lbClose">✕</button>
       <div class="lb-downloads">
-        <button id="lbDlOne" title="Сохранить текущий ракурс">Сохранить ⬇</button>
-        <button id="lbDlAll" title="Скачать все ракурсы архивом">🗜 Скачать архивом</button>
+        <button id="lbDlOne" title="Сохранить текущий ракурс">Сохранить</button>
+        <button id="lbDlAll" title="Скачать все ракурсы архивом">Скачать ракурсы</button>
       </div>
       <div class="lb-counter" id="lbCounter"></div>
       <div class="lb-caption" id="lbCaption"></div>
     </div>
   </div>
-  <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">🗜 Скачать архивом ракурсы</button>
   <script>
     (function() {
-      const manifest = {"name":"FIX VIEWER","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[{"id":"ms1102birm6cm","name":"LIVING_04","file":"viewpoints/scene_1/vp_1.jpg","thumbnail":"viewpoints/scene_1/vp_1_thumb.jpg"},{"id":"ms1102oyj9m52","name":"LIVING_02","file":"viewpoints/scene_1/vp_2.jpg","thumbnail":"viewpoints/scene_1/vp_2_thumb.jpg"},{"id":"ms1102r3g0gm2","name":"LIVING_06","file":"viewpoints/scene_1/vp_3.jpg","thumbnail":"viewpoints/scene_1/vp_3_thumb.jpg"},{"id":"ms1102t8s9k8m","name":"LIVING_05","file":"viewpoints/scene_1/vp_4.jpg","thumbnail":"viewpoints/scene_1/vp_4_thumb.jpg"},{"id":"ms1102vfp928d","name":"LIVING_03","file":"viewpoints/scene_1/vp_5.jpg","thumbnail":"viewpoints/scene_1/vp_5_thumb.jpg"}]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]}]};
+      const manifest = {"name":"FIX VIEWER","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[{"id":"ms1102birm6cm","name":"LIVING_04","file":"viewpoints/scene_1/vp_1.jpg","thumbnail":"viewpoints/scene_1/vp_1_thumb.jpg"},{"id":"ms1102oyj9m52","name":"LIVING_02","file":"viewpoints/scene_1/vp_2.jpg","thumbnail":"viewpoints/scene_1/vp_2_thumb.jpg"},{"id":"ms1102r3g0gm2","name":"LIVING_06","file":"viewpoints/scene_1/vp_3.jpg","thumbnail":"viewpoints/scene_1/vp_3_thumb.jpg"},{"id":"ms1102t8s9k8m","name":"LIVING_05","file":"viewpoints/scene_1/vp_4.jpg","thumbnail":"viewpoints/scene_1/vp_4_thumb.jpg"},{"id":"ms1102vfp928d","name":"LIVING_03","file":"viewpoints/scene_1/vp_5.jpg","thumbnail":"viewpoints/scene_1/vp_5_thumb.jpg"}]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[{"id":"ms11jpruln9c9","name":"Дверь_корона_1","file":"viewpoints/scene_2/vp_1.jpg","thumbnail":"viewpoints/scene_2/vp_1_thumb.jpg"},{"id":"ms11jyy7czjit","name":"Камин_01","file":"viewpoints/scene_2/vp_2.jpg","thumbnail":"viewpoints/scene_2/vp_2_thumb.jpg"}]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[{"id":"ms11jj8ax4cz8","name":"Дверь_полотно_1","file":"viewpoints/scene_4/vp_1.jpg","thumbnail":"viewpoints/scene_4/vp_1_thumb.jpg"},{"id":"ms11jjbjg6nv8","name":"Дверь_полотно_ЗС","file":"viewpoints/scene_4/vp_2.jpg","thumbnail":"viewpoints/scene_4/vp_2_thumb.jpg"},{"id":"ms11jjgvsg8d3","name":"Дверь_полотно_2","file":"viewpoints/scene_4/vp_3.jpg","thumbnail":"viewpoints/scene_4/vp_3_thumb.jpg"},{"id":"ms11jjjolr3ya","name":"Дверь_полотно_3","file":"viewpoints/scene_4/vp_4.jpg","thumbnail":"viewpoints/scene_4/vp_4_thumb.jpg"},{"id":"ms11jjne6zd73","name":"Дверь_корона_4","file":"viewpoints/scene_4/vp_5.jpg","thumbnail":"viewpoints/scene_4/vp_5_thumb.jpg"}]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -549,7 +563,7 @@
       const lbClose = document.getElementById('lbClose');
       const lbCounter = document.getElementById('lbCounter');
       const lbCaption = document.getElementById('lbCaption');
-      const sceneNameDisplay = document.getElementById('sceneNameDisplay');
+      const sceneNameDisplay = document.getElementById('sceneNameDisplay'); // may be absent
       const tourNameDisplay = document.getElementById('tourNameDisplay');
       const globalTooltip = document.getElementById('globalTooltip');
 
@@ -632,7 +646,7 @@
         }
         showPanorama(scene.file);
         currentSceneId = sceneId;
-        sceneNameDisplay.textContent = scene.name || 'Без названия';
+        if (sceneNameDisplay) sceneNameDisplay.textContent = scene.name || 'Без названия';
         updateThumbnails();
         showPanels();
       }
@@ -876,7 +890,7 @@
       if (manifest.scenes.length > 0) {
         switchToScene(manifest.scenes[0].id);
       } else {
-        sceneNameDisplay.textContent = 'Нет панорам';
+        if (sceneNameDisplay) sceneNameDisplay.textContent = 'Нет панорам';
         hidePanels();
       }
       updateThumbnails();
