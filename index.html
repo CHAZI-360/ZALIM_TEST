@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>ТЕСТ РАКУРСОВ 3</title>
+  <title>FIX VIEWER</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -78,9 +78,9 @@
     #thumbnailsWrapper.hidden { opacity:0; pointer-events:none; }
     #thumbnailsWrapper .scroll-container {
       display:flex; gap:10px; overflow-x:auto; overflow-y:hidden;
-      padding: 28px 10px 10px 10px;
+      padding: 8px 10px 6px 10px;
       height:auto; max-height:100%;
-      align-items:center; justify-content:flex-start;
+      align-items:flex-start; justify-content:flex-start;
       scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.25) transparent;
       width:100%; flex-wrap:nowrap;
     }
@@ -88,14 +88,19 @@
     #thumbnailsWrapper .scroll-container::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.35); border-radius:4px; }
     #thumbnailsWrapper .scroll-container::-webkit-scrollbar-track { background:transparent; }
     #thumbnailsWrapper .scroll-container.centered { justify-content:center; }
+    .thumbnail-wrap {
+      flex:0 0 140px; width:140px;
+      display:flex; flex-direction:column; align-items:center;
+      flex-shrink:0; gap:4px; position:relative;
+    }
     .thumbnail-item {
-      flex:0 0 140px; height:98px;
+      width:140px; height:98px;
       background:#1a1a1a; border-radius:10px;
       overflow:hidden; position:relative; cursor:pointer;
       border:2px solid transparent;
       transition:border .2s, transform .15s;
       display:flex; flex-direction:column; justify-content:flex-end;
-      box-shadow:none; flex-shrink:0; margin-bottom:4px;
+      box-shadow:none; flex-shrink:0; box-sizing:border-box;
     }
     .thumbnail-item.active { border-color:#6ab0f7; }
     .thumbnail-item:hover { transform:scale(1.02); }
@@ -112,17 +117,27 @@
       text-align:center; color:#eee; border-top:1px solid rgba(255,255,255,0.1);
       pointer-events:none;
     }
-    .thumbnail-item .vp-btn {
-      position:absolute; top:-28px; left:50%; transform:translateX(-50%);
-      z-index:5; background:rgba(106,176,247,0.92); color:#fff;
+    .thumbnail-wrap .vp-btn {
+      background:rgba(106,176,247,0.92); color:#fff;
       border:none; border-radius:12px; padding:4px 10px; font-size:11px;
       font-weight:500; cursor:pointer; white-space:nowrap;
       opacity:0; transition:opacity .2s; pointer-events:auto;
       box-shadow:0 2px 8px rgba(0,0,0,0.4);
+      flex-shrink:0; order:-1;
     }
-    .thumbnail-item:hover .vp-btn,
-    .thumbnail-item.has-vp .vp-btn { opacity:1; }
-    .thumbnail-item .vp-btn:hover { background:#5a9fd6; }
+    .thumbnail-wrap:hover .vp-btn,
+    .thumbnail-wrap.has-vp .vp-btn { opacity:1; }
+    .thumbnail-wrap .vp-btn:hover { background:#5a9fd6; }
+    .thumbnail-wrap .vp-count {
+      background:rgba(106,176,247,0.9); color:#fff;
+      font-size:12px; font-weight:600; padding:2px 8px;
+      border-radius:10px; line-height:1.3;
+      pointer-events:none; min-width:20px; text-align:center;
+      white-space:nowrap; flex-shrink:0;
+    }
+    .thumbnail-wrap:not(.has-vp) .vp-count {
+      height:0; padding:0; overflow:hidden; opacity:0;
+    }
     .pub-dl-all {
       position:fixed; top:56px; right:16px; z-index:60;
       background:rgba(106,176,247,0.9); color:#fff; border:none;
@@ -208,7 +223,7 @@
       bottom:calc(100% + 10px);
       left:50%;
       transform:translateX(-50%);
-      background:rgba(0,0,0,0.85);
+      background:rgba(0,0,0,0.5);
       color:#fff;
       padding:6px 16px;
       border-radius:8px;
@@ -219,7 +234,8 @@
       opacity:0;
       transition:opacity 0.2s;
       z-index:60;
-      border:1px solid rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(6px);
     }
     #globalTooltip.visible { opacity:1; }
     @media (max-width:700px) {
@@ -487,7 +503,7 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">ТЕСТ РАКУРСОВ 3</span>
+      <span class="tour-name" id="tourNameDisplay">FIX VIEWER</span>
     </div>
     <div class="scene-name" id="sceneNameDisplay">Загрузка панорам...</div>
   </div>
@@ -503,17 +519,17 @@
       <button class="lb-nav lb-next" id="lbNext">›</button>
       <button class="lb-close" id="lbClose">✕</button>
       <div class="lb-downloads">
-        <button id="lbDlOne" title="Скачать текущий">⬇ Текущий</button>
-        <button id="lbDlAll" title="Скачать все ракурсы этой панорамы">📦 Все</button>
+        <button id="lbDlOne" title="Сохранить текущий ракурс">Сохранить ⬇</button>
+        <button id="lbDlAll" title="Скачать все ракурсы архивом">🗜 Скачать архивом</button>
       </div>
       <div class="lb-counter" id="lbCounter"></div>
       <div class="lb-caption" id="lbCaption"></div>
     </div>
   </div>
-  <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">📦 Все ракурсы</button>
+  <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">🗜 Скачать архивом ракурсы</button>
   <script>
     (function() {
-      const manifest = {"name":"ТЕСТ РАКУРСОВ 3","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"},{"id":"ms0vktk1hpb9v","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_3/vp_6.jpg","thumbnail":"viewpoints/scene_3/vp_6_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]}]};
+      const manifest = {"name":"FIX VIEWER","scenes":[{"id":"ms0uyd3986d9a","name":"Corona_Camera_360_003_АКТУАЛЬНОЕ","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[{"id":"ms1102birm6cm","name":"LIVING_04","file":"viewpoints/scene_1/vp_1.jpg","thumbnail":"viewpoints/scene_1/vp_1_thumb.jpg"},{"id":"ms1102oyj9m52","name":"LIVING_02","file":"viewpoints/scene_1/vp_2.jpg","thumbnail":"viewpoints/scene_1/vp_2_thumb.jpg"},{"id":"ms1102r3g0gm2","name":"LIVING_06","file":"viewpoints/scene_1/vp_3.jpg","thumbnail":"viewpoints/scene_1/vp_3_thumb.jpg"},{"id":"ms1102t8s9k8m","name":"LIVING_05","file":"viewpoints/scene_1/vp_4.jpg","thumbnail":"viewpoints/scene_1/vp_4_thumb.jpg"},{"id":"ms1102vfp928d","name":"LIVING_03","file":"viewpoints/scene_1/vp_5.jpg","thumbnail":"viewpoints/scene_1/vp_5_thumb.jpg"}]},{"id":"ms0uydcgkyrc6","name":"Corona_Camera_360_006_АКТУАЛЬНОЕ","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"ms0uydge6k2ef","name":"Corona_Camera_360_001_АКТУАЛЬНОЕ","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[{"id":"ms0vkta8ytd64","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_3/vp_1.jpg","thumbnail":"viewpoints/scene_3/vp_1_thumb.jpg"},{"id":"ms0vkteyyl1t1","name":"Ракурс","file":"viewpoints/scene_3/vp_2.jpg","thumbnail":"viewpoints/scene_3/vp_2_thumb.jpg"},{"id":"ms0vktm3n0s4g","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_3/vp_3.jpg","thumbnail":"viewpoints/scene_3/vp_3_thumb.jpg"},{"id":"ms0vkt4belz2d","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_3/vp_4.jpg","thumbnail":"viewpoints/scene_3/vp_4_thumb.jpg"},{"id":"ms0vkti8xkn7q","name":"123","file":"viewpoints/scene_3/vp_5.jpg","thumbnail":"viewpoints/scene_3/vp_5_thumb.jpg"}]},{"id":"ms0uydk9v14jz","name":"Corona_Camera_360_002_АКТУАЛЬНОЕ","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -571,11 +587,11 @@
         globalTooltip.classList.toggle('visible', !!text);
       }
       document.addEventListener('mouseover', e => {
-        const item = e.target.closest('.thumbnail-item');
+        const item = e.target.closest('.thumbnail-wrap') || e.target.closest('.thumbnail-item');
         if (item) showGlobalTooltip(item.dataset.fullname || '');
       });
       document.addEventListener('mouseout', e => {
-        if (!e.relatedTarget || !e.relatedTarget.closest('.thumbnail-item')) showGlobalTooltip('');
+        if (!e.relatedTarget || (!e.relatedTarget.closest('.thumbnail-wrap') && !e.relatedTarget.closest('.thumbnail-item'))) showGlobalTooltip('');
       });
 
       topBar.addEventListener('dblclick', function(e) {
@@ -628,6 +644,23 @@
           return;
         }
         manifest.scenes.forEach((scene) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'thumbnail-wrap';
+          wrap.dataset.sceneId = scene.id;
+          wrap.dataset.fullname = scene.name || '';
+          if (scene.viewpoints && scene.viewpoints.length > 0) wrap.classList.add('has-vp');
+
+          if (scene.viewpoints && scene.viewpoints.length > 0) {
+            const vpBtn = document.createElement('button');
+            vpBtn.className = 'vp-btn';
+            vpBtn.textContent = 'Ракурсы (' + scene.viewpoints.length + ')';
+            vpBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              openLightbox(scene.viewpoints, 0);
+            });
+            wrap.appendChild(vpBtn);
+          }
+
           const item = document.createElement('div');
           item.className = 'thumbnail-item';
           if (scene.id === currentSceneId) item.classList.add('active');
@@ -638,26 +671,21 @@
           img.alt = scene.name;
           img.loading = 'lazy';
           item.appendChild(img);
-          if (scene.viewpoints && scene.viewpoints.length > 0) {
-            item.classList.add('has-vp');
-            const vpBtn = document.createElement('button');
-            vpBtn.className = 'vp-btn';
-            vpBtn.textContent = 'Ракурсы (' + scene.viewpoints.length + ')';
-            vpBtn.addEventListener('click', function(e) {
-              e.stopPropagation();
-              openLightbox(scene.viewpoints, 0);
-            });
-            item.appendChild(vpBtn);
-          }
           const label = document.createElement('div');
           label.className = 'label';
           label.textContent = scene.name;
           item.appendChild(label);
           item.addEventListener('click', function(e) {
-            if (e.target.closest('.vp-btn')) return;
             switchToScene(this.dataset.sceneId);
           });
-          thumbnailsList.appendChild(item);
+          wrap.appendChild(item);
+
+          const vpCount = document.createElement('span');
+          vpCount.className = 'vp-count';
+          vpCount.textContent = scene.viewpoints ? scene.viewpoints.length : 0;
+          wrap.appendChild(vpCount);
+
+          thumbnailsList.appendChild(wrap);
         });
         const container = thumbnailsList;
         if (container.scrollWidth <= container.clientWidth) {
@@ -739,8 +767,23 @@
           URL.revokeObjectURL(url);
         } catch (e) { console.error(e); }
       }
+      function pubNotify(text, ms) {
+        ms = ms || 3000;
+        var el = document.getElementById('pubNotify');
+        if (!el) {
+          el = document.createElement('div');
+          el.id = 'pubNotify';
+          el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#eee;padding:12px 20px;border-radius:10px;font-size:14px;z-index:30000;pointer-events:none;transition:opacity .3s;opacity:0;border:1px solid rgba(255,255,255,0.1);';
+          document.body.appendChild(el);
+        }
+        el.textContent = text;
+        el.style.opacity = '1';
+        clearTimeout(el._t);
+        el._t = setTimeout(function() { el.style.opacity = '0'; }, ms);
+      }
       async function downloadSceneViewpointsZip() {
         if (!lbViewpoints.length || typeof JSZip === 'undefined') return;
+        pubNotify('Подготовка файла к скачиванию...', 60000);
         const zip = new JSZip();
         const folder = 'viewpoints';
         for (let i = 0; i < lbViewpoints.length; i++) {
@@ -759,9 +802,11 @@
         a.download = 'viewpoints.zip';
         a.click();
         URL.revokeObjectURL(url);
+        pubNotify('Архив готов, скачивание началось');
       }
       async function downloadAllTourViewpoints() {
         if (typeof JSZip === 'undefined') return;
+        pubNotify('Подготовка файла к скачиванию...', 60000);
         const zip = new JSZip();
         let count = 0;
         for (let si = 0; si < manifest.scenes.length; si++) {
@@ -779,7 +824,7 @@
             } catch (e) {}
           }
         }
-        if (!count) return;
+        if (!count) { pubNotify('Нет ракурсов для скачивания'); return; }
         const blob = await zip.generateAsync({ type: 'blob' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -787,6 +832,7 @@
         a.download = (manifest.name || 'tour') + '_viewpoints.zip';
         a.click();
         URL.revokeObjectURL(url);
+        pubNotify('Архив готов, скачивание началось');
       }
       function goLbNext() {
         if (lbAnimating || lbViewpoints.length < 2) return;

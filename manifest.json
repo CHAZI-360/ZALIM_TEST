@@ -1,12 +1,43 @@
 {
-  "name": "ТЕСТ РАКУРСОВ 3",
+  "name": "FIX VIEWER",
   "scenes": [
     {
       "id": "ms0uyd3986d9a",
       "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
       "file": "images/scene_1.jpg",
       "thumbnail": "thumbnails/scene_1.jpg",
-      "viewpoints": []
+      "viewpoints": [
+        {
+          "id": "ms1102birm6cm",
+          "name": "LIVING_04",
+          "file": "viewpoints/scene_1/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_1_thumb.jpg"
+        },
+        {
+          "id": "ms1102oyj9m52",
+          "name": "LIVING_02",
+          "file": "viewpoints/scene_1/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_2_thumb.jpg"
+        },
+        {
+          "id": "ms1102r3g0gm2",
+          "name": "LIVING_06",
+          "file": "viewpoints/scene_1/vp_3.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_3_thumb.jpg"
+        },
+        {
+          "id": "ms1102t8s9k8m",
+          "name": "LIVING_05",
+          "file": "viewpoints/scene_1/vp_4.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_4_thumb.jpg"
+        },
+        {
+          "id": "ms1102vfp928d",
+          "name": "LIVING_03",
+          "file": "viewpoints/scene_1/vp_5.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_5_thumb.jpg"
+        }
+      ]
     },
     {
       "id": "ms0uydcgkyrc6",
@@ -50,12 +81,6 @@
           "name": "123",
           "file": "viewpoints/scene_3/vp_5.jpg",
           "thumbnail": "viewpoints/scene_3/vp_5_thumb.jpg"
-        },
-        {
-          "id": "ms0vktk1hpb9v",
-          "name": "2. Спальня №2 - Кам_4",
-          "file": "viewpoints/scene_3/vp_6.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_6_thumb.jpg"
         }
       ]
     },
