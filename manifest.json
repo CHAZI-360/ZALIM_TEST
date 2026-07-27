@@ -1,32 +1,56 @@
 {
-  "name": "VERSION 3.0",
+  "name": "VERSION 2.1 FINAL",
   "scenes": [
     {
       "id": "ms0uyd3986d9a",
       "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
       "file": "images/scene_1.jpg",
       "thumbnail": "thumbnails/scene_1.jpg",
-      "viewpoints": []
+      "viewpoints": [
+        {
+          "id": "ms31ywz8y2zhn",
+          "name": "Дверь_полотно_2",
+          "file": "viewpoints/scene_1/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_1_thumb.jpg"
+        },
+        {
+          "id": "ms31yxkqyarn2",
+          "name": "Дверь_полотно_1",
+          "file": "viewpoints/scene_1/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_2_thumb.jpg"
+        },
+        {
+          "id": "ms31yxok4didm",
+          "name": "Дверь_корона_3",
+          "file": "viewpoints/scene_1/vp_3.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_3_thumb.jpg"
+        },
+        {
+          "id": "ms31yxrjd2hxe",
+          "name": "Дверь_корона_2",
+          "file": "viewpoints/scene_1/vp_4.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_4_thumb.jpg"
+        },
+        {
+          "id": "ms31yxuhqhvee",
+          "name": "Дверь_корона_4",
+          "file": "viewpoints/scene_1/vp_5.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_5_thumb.jpg"
+        },
+        {
+          "id": "ms31yxxjfcxxu",
+          "name": "Дверь_корона_1",
+          "file": "viewpoints/scene_1/vp_6.jpg",
+          "thumbnail": "viewpoints/scene_1/vp_6_thumb.jpg"
+        }
+      ]
     },
     {
       "id": "ms0uydcgkyrc6",
       "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
       "file": "images/scene_2.jpg",
       "thumbnail": "thumbnails/scene_2.jpg",
-      "viewpoints": [
-        {
-          "id": "ms11jpruln9c9",
-          "name": "Дверь_корона_1",
-          "file": "viewpoints/scene_2/vp_1.jpg",
-          "thumbnail": "viewpoints/scene_2/vp_1_thumb.jpg"
-        },
-        {
-          "id": "ms11jyy7czjit",
-          "name": "Камин_01",
-          "file": "viewpoints/scene_2/vp_2.jpg",
-          "thumbnail": "viewpoints/scene_2/vp_2_thumb.jpg"
-        }
-      ]
+      "viewpoints": []
     },
     {
       "id": "ms0uydge6k2ef",
@@ -35,52 +59,58 @@
       "thumbnail": "thumbnails/scene_3.jpg",
       "viewpoints": [
         {
-          "id": "ms31fj1v7b23d",
-          "name": "Холл_2_этаж - Кам - 05",
+          "id": "ms35963l9ge6p",
+          "name": "Постирочная - Кам_02",
           "file": "viewpoints/scene_3/vp_1.jpg",
           "thumbnail": "viewpoints/scene_3/vp_1_thumb.jpg"
         },
         {
-          "id": "ms31fjnjg882v",
-          "name": "Холл_2_этаж - Кам - 02",
+          "id": "ms3596hevv9oo",
+          "name": "Постирочная - Кам_03",
           "file": "viewpoints/scene_3/vp_2.jpg",
           "thumbnail": "viewpoints/scene_3/vp_2_thumb.jpg"
         },
         {
-          "id": "ms31fjqje1k5b",
-          "name": "Холл_2_этаж - Кам - 03",
+          "id": "ms3596jvu3vma",
+          "name": "Постирочная - Кам_04",
           "file": "viewpoints/scene_3/vp_3.jpg",
           "thumbnail": "viewpoints/scene_3/vp_3_thumb.jpg"
         },
         {
-          "id": "ms31fju0nny46",
-          "name": "Холл_2_этаж - Кам - 07",
+          "id": "ms3596mwv5brn",
+          "name": "Постирочная - Кам_01",
           "file": "viewpoints/scene_3/vp_4.jpg",
           "thumbnail": "viewpoints/scene_3/vp_4_thumb.jpg"
         },
         {
-          "id": "ms31fjxmp33ae",
-          "name": "Холл_2_этаж - Кам - 06",
+          "id": "ms3596qf7qzvd",
+          "name": "Постирочная - Кам_05",
           "file": "viewpoints/scene_3/vp_5.jpg",
           "thumbnail": "viewpoints/scene_3/vp_5_thumb.jpg"
         },
         {
-          "id": "ms31fk1p8zao8",
-          "name": "Холл_2_этаж - Кам - 01",
+          "id": "ms359f4djobk2",
+          "name": "Постирочная - Кам_03",
           "file": "viewpoints/scene_3/vp_6.jpg",
           "thumbnail": "viewpoints/scene_3/vp_6_thumb.jpg"
         },
         {
-          "id": "ms31fk56t4mu9",
-          "name": "Холл_2_этаж - Кам - 04",
+          "id": "ms359f6za9lvo",
+          "name": "Постирочная - Кам_04",
           "file": "viewpoints/scene_3/vp_7.jpg",
           "thumbnail": "viewpoints/scene_3/vp_7_thumb.jpg"
         },
         {
-          "id": "ms31fk8uv661x",
-          "name": "Холл_2_этаж - Кам - 08",
+          "id": "ms359fbvok1g1",
+          "name": "Постирочная - Кам_02",
           "file": "viewpoints/scene_3/vp_8.jpg",
           "thumbnail": "viewpoints/scene_3/vp_8_thumb.jpg"
+        },
+        {
+          "id": "ms359few467z5",
+          "name": "Постирочная - Кам_05",
+          "file": "viewpoints/scene_3/vp_9.jpg",
+          "thumbnail": "viewpoints/scene_3/vp_9_thumb.jpg"
         }
       ]
     },
