@@ -1,154 +1,177 @@
 {
-  "name": "VERSION 2.1 FINAL",
+  "name": "Новый тур",
   "scenes": [
     {
-      "id": "ms0uyd3986d9a",
-      "name": "Corona_Camera_360_003_АКТУАЛЬНОЕ",
+      "id": "msj5mhi8ix8i7",
+      "name": "4_SU_№1_360_2",
       "file": "images/scene_1.jpg",
       "thumbnail": "thumbnails/scene_1.jpg",
       "viewpoints": [
         {
-          "id": "ms31ywz8y2zhn",
-          "name": "Дверь_полотно_2",
+          "id": "msj8hwg4na7p5",
+          "name": "1.5. Санузел №1 - Кам_01",
           "file": "viewpoints/scene_1/vp_1.jpg",
           "thumbnail": "viewpoints/scene_1/vp_1_thumb.jpg"
         },
         {
-          "id": "ms31yxkqyarn2",
-          "name": "Дверь_полотно_1",
+          "id": "msj8hwl7zz9qo",
+          "name": "1.5. Санузел №1 - Кам_08",
           "file": "viewpoints/scene_1/vp_2.jpg",
           "thumbnail": "viewpoints/scene_1/vp_2_thumb.jpg"
         },
         {
-          "id": "ms31yxok4didm",
-          "name": "Дверь_корона_3",
+          "id": "msj8hx9exh194",
+          "name": "1.5. Санузел №1 - Кам_05",
           "file": "viewpoints/scene_1/vp_3.jpg",
           "thumbnail": "viewpoints/scene_1/vp_3_thumb.jpg"
         },
         {
-          "id": "ms31yxrjd2hxe",
-          "name": "Дверь_корона_2",
+          "id": "msj8hxci5egyb",
+          "name": "1.5. Санузел №1 - Кам_07",
           "file": "viewpoints/scene_1/vp_4.jpg",
           "thumbnail": "viewpoints/scene_1/vp_4_thumb.jpg"
         },
         {
-          "id": "ms31yxuhqhvee",
-          "name": "Дверь_корона_4",
+          "id": "msj8hxg5rkts5",
+          "name": "2. Спальня №2 - Кам_1 ",
           "file": "viewpoints/scene_1/vp_5.jpg",
           "thumbnail": "viewpoints/scene_1/vp_5_thumb.jpg"
-        },
-        {
-          "id": "ms31yxxjfcxxu",
-          "name": "Дверь_корона_1",
-          "file": "viewpoints/scene_1/vp_6.jpg",
-          "thumbnail": "viewpoints/scene_1/vp_6_thumb.jpg"
         }
       ]
     },
     {
-      "id": "ms0uydcgkyrc6",
-      "name": "Corona_Camera_360_006_АКТУАЛЬНОЕ",
+      "id": "msj5m830f8o90",
+      "name": "3. Коридор _ 360_2",
       "file": "images/scene_2.jpg",
       "thumbnail": "thumbnails/scene_2.jpg",
-      "viewpoints": []
+      "viewpoints": [
+        {
+          "id": "msj8hwg4na7p5",
+          "name": "1.5. Санузел №1 - Кам_01",
+          "file": "viewpoints/scene_2/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_1_thumb.jpg"
+        },
+        {
+          "id": "msj8hwl7zz9qo",
+          "name": "1.5. Санузел №1 - Кам_08",
+          "file": "viewpoints/scene_2/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_2_thumb.jpg"
+        },
+        {
+          "id": "msj8hx9exh194",
+          "name": "1.5. Санузел №1 - Кам_05",
+          "file": "viewpoints/scene_2/vp_3.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_3_thumb.jpg"
+        },
+        {
+          "id": "msj8hxci5egyb",
+          "name": "1.5. Санузел №1 - Кам_07",
+          "file": "viewpoints/scene_2/vp_4.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_4_thumb.jpg"
+        },
+        {
+          "id": "msj8hxg5rkts5",
+          "name": "2. Спальня №2 - Кам_1 ",
+          "file": "viewpoints/scene_2/vp_5.jpg",
+          "thumbnail": "viewpoints/scene_2/vp_5_thumb.jpg"
+        }
+      ]
     },
     {
-      "id": "ms0uydge6k2ef",
-      "name": "Corona_Camera_360_001_АКТУАЛЬНОЕ",
+      "id": "msj5j8frrm5ul",
+      "name": "1. Прихожая - 360_2",
       "file": "images/scene_3.jpg",
       "thumbnail": "thumbnails/scene_3.jpg",
       "viewpoints": [
         {
-          "id": "ms35963l9ge6p",
-          "name": "Постирочная - Кам_02",
+          "id": "msj8hwg4na7p5",
+          "name": "1.5. Санузел №1 - Кам_01",
           "file": "viewpoints/scene_3/vp_1.jpg",
           "thumbnail": "viewpoints/scene_3/vp_1_thumb.jpg"
         },
         {
-          "id": "ms3596hevv9oo",
-          "name": "Постирочная - Кам_03",
+          "id": "msj8hwl7zz9qo",
+          "name": "1.5. Санузел №1 - Кам_08",
           "file": "viewpoints/scene_3/vp_2.jpg",
           "thumbnail": "viewpoints/scene_3/vp_2_thumb.jpg"
         },
         {
-          "id": "ms3596jvu3vma",
-          "name": "Постирочная - Кам_04",
+          "id": "msj8hx9exh194",
+          "name": "1.5. Санузел №1 - Кам_05",
           "file": "viewpoints/scene_3/vp_3.jpg",
           "thumbnail": "viewpoints/scene_3/vp_3_thumb.jpg"
         },
         {
-          "id": "ms3596mwv5brn",
-          "name": "Постирочная - Кам_01",
+          "id": "msj8hxci5egyb",
+          "name": "1.5. Санузел №1 - Кам_07",
           "file": "viewpoints/scene_3/vp_4.jpg",
           "thumbnail": "viewpoints/scene_3/vp_4_thumb.jpg"
         },
         {
-          "id": "ms3596qf7qzvd",
-          "name": "Постирочная - Кам_05",
+          "id": "msj8hxg5rkts5",
+          "name": "2. Спальня №2 - Кам_1 ",
           "file": "viewpoints/scene_3/vp_5.jpg",
           "thumbnail": "viewpoints/scene_3/vp_5_thumb.jpg"
-        },
-        {
-          "id": "ms359f4djobk2",
-          "name": "Постирочная - Кам_03",
-          "file": "viewpoints/scene_3/vp_6.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_6_thumb.jpg"
-        },
-        {
-          "id": "ms359f6za9lvo",
-          "name": "Постирочная - Кам_04",
-          "file": "viewpoints/scene_3/vp_7.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_7_thumb.jpg"
-        },
-        {
-          "id": "ms359fbvok1g1",
-          "name": "Постирочная - Кам_02",
-          "file": "viewpoints/scene_3/vp_8.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_8_thumb.jpg"
-        },
-        {
-          "id": "ms359few467z5",
-          "name": "Постирочная - Кам_05",
-          "file": "viewpoints/scene_3/vp_9.jpg",
-          "thumbnail": "viewpoints/scene_3/vp_9_thumb.jpg"
         }
       ]
     },
     {
-      "id": "ms0uydk9v14jz",
-      "name": "Corona_Camera_360_002_АКТУАЛЬНОЕ",
+      "id": "msj5mh5ufxmzd",
+      "name": "4_SU_№1_360_3",
       "file": "images/scene_4.jpg",
       "thumbnail": "thumbnails/scene_4.jpg",
+      "viewpoints": []
+    },
+    {
+      "id": "msj5m86lxjvd1",
+      "name": "3. Коридор _ 360_1",
+      "file": "images/scene_5.jpg",
+      "thumbnail": "thumbnails/scene_5.jpg",
+      "viewpoints": []
+    },
+    {
+      "id": "msj5ku1wu4pkg",
+      "name": "Camera_360",
+      "file": "images/scene_6.jpg",
+      "thumbnail": "thumbnails/scene_6.jpg",
+      "viewpoints": []
+    },
+    {
+      "id": "msj5mh9mul0a6",
+      "name": "4_SU_№1_360_1",
+      "file": "images/scene_7.jpg",
+      "thumbnail": "thumbnails/scene_7.jpg",
+      "viewpoints": []
+    },
+    {
+      "id": "msj5j8c208a7r",
+      "name": "1. Прихожая - 360_1",
+      "file": "images/scene_8.jpg",
+      "thumbnail": "thumbnails/scene_8.jpg",
       "viewpoints": [
         {
-          "id": "ms11jj8ax4cz8",
-          "name": "Дверь_полотно_1",
-          "file": "viewpoints/scene_4/vp_1.jpg",
-          "thumbnail": "viewpoints/scene_4/vp_1_thumb.jpg"
+          "id": "msj8hxj5tg1hg",
+          "name": "1.5. Санузел №1 - Кам_04",
+          "file": "viewpoints/scene_8/vp_1.jpg",
+          "thumbnail": "viewpoints/scene_8/vp_1_thumb.jpg"
         },
         {
-          "id": "ms11jjbjg6nv8",
-          "name": "Дверь_полотно_ЗС",
-          "file": "viewpoints/scene_4/vp_2.jpg",
-          "thumbnail": "viewpoints/scene_4/vp_2_thumb.jpg"
+          "id": "msj8hxlzxk5g4",
+          "name": "1.5. Санузел №1 - Кам_02",
+          "file": "viewpoints/scene_8/vp_2.jpg",
+          "thumbnail": "viewpoints/scene_8/vp_2_thumb.jpg"
         },
         {
-          "id": "ms11jjgvsg8d3",
-          "name": "Дверь_полотно_2",
-          "file": "viewpoints/scene_4/vp_3.jpg",
-          "thumbnail": "viewpoints/scene_4/vp_3_thumb.jpg"
+          "id": "msj8hxph379nv",
+          "name": "1.5. Санузел №1 - Кам_03",
+          "file": "viewpoints/scene_8/vp_3.jpg",
+          "thumbnail": "viewpoints/scene_8/vp_3_thumb.jpg"
         },
         {
-          "id": "ms11jjjolr3ya",
-          "name": "Дверь_полотно_3",
-          "file": "viewpoints/scene_4/vp_4.jpg",
-          "thumbnail": "viewpoints/scene_4/vp_4_thumb.jpg"
-        },
-        {
-          "id": "ms11jjne6zd73",
-          "name": "Дверь_корона_4",
-          "file": "viewpoints/scene_4/vp_5.jpg",
-          "thumbnail": "viewpoints/scene_4/vp_5_thumb.jpg"
+          "id": "msj8hxsyb3dqk",
+          "name": "1.5. Санузел №1 - Кам_06",
+          "file": "viewpoints/scene_8/vp_4.jpg",
+          "thumbnail": "viewpoints/scene_8/vp_4_thumb.jpg"
         }
       ]
     }
