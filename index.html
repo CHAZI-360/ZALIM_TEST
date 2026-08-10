@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>v_5.6</title>
+  <title>v_5.7</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -141,6 +141,39 @@
     .thumbnail-wrap:not(.has-vp) .vp-count {
       visibility:hidden;
     }
+    .public-room-group-wrap {
+      display:flex; flex:0 0 auto; flex-direction:column; align-items:center;
+      min-width:0;
+    }
+    .public-room-group {
+      display:flex; flex-direction:column; align-items:center;
+      padding:8px 8px 6px;
+      border:1px solid rgba(106,176,247,0.4);
+      border-radius:12px;
+      background:rgba(255,255,255,0.05);
+    }
+    .public-room-scenes {
+      display:flex; align-items:flex-start; gap:10px;
+    }
+    .public-room-scenes .thumbnail-wrap { padding-top:0; }
+    .public-room-footer {
+      position:relative;
+      display:flex; align-items:center; justify-content:center;
+      width:100%; min-height:22px; margin-top:5px; padding:0 34px;
+    }
+    .public-room-name {
+      display:block; width:100%; overflow:hidden;
+      color:#6ab0f7; font-size:12px; font-weight:500;
+      text-align:center; text-overflow:ellipsis; white-space:nowrap;
+    }
+    .public-room-count {
+      position:absolute; right:0; top:50%; transform:translateY(-50%);
+      min-width:22px; height:20px; padding:0 7px;
+      border:0; border-radius:10px;
+      background:rgba(106,176,247,0.92); color:#fff;
+      font-size:12px; font-weight:700; cursor:pointer;
+    }
+    .public-room-count.empty { visibility:hidden; pointer-events:none; }
     .pub-dl-all {
       background:rgba(106,176,247,0.9); color:#fff; border:none;
       border-radius:8px; padding:6px 14px; font-size:13px; font-weight:500;
@@ -270,9 +303,31 @@
       #topBar .brand { font-size:14px; }
       #topBar .scene-name { font-size:14px; }
       #topBar .tour-name { font-size:12px; }
-      #thumbnailsWrapper { height:130px; padding:0 12px; }
-      .thumbnail-item { flex:0 0 100px; height:78px; }
+      #thumbnailsWrapper { height:146px; padding:0 12px 8px; align-items:flex-end; }
+      .thumbnail-wrap { flex:0 0 100px; width:100px; padding-top:28px; }
+      .thumbnail-item { width:100px; height:78px; }
       .thumbnail-item .label { font-size:10px; padding:2px 6px; }
+      .public-room-group { padding:6px 6px 4px; }
+      .public-room-scenes { gap:6px; }
+      .public-room-scenes .thumbnail-wrap { padding-top:0; }
+      .public-room-name { font-size:11px; }
+      /* Кнопка полного экрана остаётся на своём месте; гироскоп идёт под ней. */
+      .pnlm-orientation-button {
+        position:absolute !important;
+        top:84px !important;
+        z-index:200 !important;
+      }
+    }
+    @media (max-width:700px) and (orientation:portrait) {
+      #thumbnailsWrapper {
+        bottom:env(safe-area-inset-bottom, 0px);
+        height:calc(154px + env(safe-area-inset-bottom, 0px));
+        padding-bottom:max(12px, env(safe-area-inset-bottom, 0px));
+      }
+      #thumbnailsWrapper .scroll-container {
+        padding-bottom:10px;
+        max-height:none;
+      }
     }
 
     /* ===== Миниатюры: кнопка + и счётчик ракурсов ===== */
@@ -548,7 +603,7 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">v_5.6</span>
+      <span class="tour-name" id="tourNameDisplay">v_5.7</span>
     </div>
     <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">Скачать ракурсы</button>
   </div>
@@ -576,7 +631,7 @@
   </div>
   <script>
     (function() {
-      const manifest = {"name":"v_5.6","scenes":[{"id":"msnd0zy79dqmx","name":"Гостевая - Камера_360_1","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","viewpoints":[{"id":"msj8hxg5rkts5","name":"2. Спальня №2 - Кам_1 ","file":"viewpoints/scene_1/vp_1.jpg","thumbnail":"viewpoints/scene_1/vp_1_thumb.jpg"},{"id":"msj8hxph379nv","name":"1.5. Санузел №1 - Кам_03","file":"viewpoints/scene_1/vp_2.jpg","thumbnail":"viewpoints/scene_1/vp_2_thumb.jpg"},{"id":"msk6qclhh43uj","name":"2. Спальня №2 - Кам_2","file":"viewpoints/scene_1/vp_3.jpg","thumbnail":"viewpoints/scene_1/vp_3_thumb.jpg"},{"id":"msj8hxlzxk5g4","name":"1.5. Санузел №1 - Кам_02","file":"viewpoints/scene_1/vp_4.jpg","thumbnail":"viewpoints/scene_1/vp_4_thumb.jpg"}]},{"id":"msnd16ks3v68h","name":"12. Спальня №2 - 360 (1)","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","viewpoints":[]},{"id":"msnd166wlvlot","name":"12. Спальня №2 - 360 (2)","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","viewpoints":[]},{"id":"msnd10556gz3g","name":"Гостевая - Камера_360_2","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","viewpoints":[]},{"id":"msj5j8c208a7r","name":"1. Прихожая - 360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","viewpoints":[]},{"id":"msnd1q8kxelgk","name":"4_SU_№1_360_2","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","viewpoints":[{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/scene_6/vp_1.jpg","thumbnail":"viewpoints/scene_6/vp_1_thumb.jpg"}]},{"id":"msnd1j4uyyq6c","name":"1. Прихожая - 360_2","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","viewpoints":[{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/scene_7/vp_1.jpg","thumbnail":"viewpoints/scene_7/vp_1_thumb.jpg"}]},{"id":"msnd1c879g8hr","name":"3. Коридор _ 360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","viewpoints":[{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/scene_8/vp_1.jpg","thumbnail":"viewpoints/scene_8/vp_1_thumb.jpg"}]},{"id":"msnd1q4wjq6vb","name":"4_SU_№1_360_3","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","viewpoints":[]},{"id":"msnd16h7mg84g","name":"12. Спальня №2 - 360 (3)","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","viewpoints":[]},{"id":"msnd1j8hxj3vq","name":"1. Прихожая - 360_1","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","viewpoints":[{"id":"msk6qc1hymvoc","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_11/vp_1.jpg","thumbnail":"viewpoints/scene_11/vp_1_thumb.jpg"},{"id":"msk6qc4uyyru0","name":"2. Спальня №2 - Кам_6","file":"viewpoints/scene_11/vp_2.jpg","thumbnail":"viewpoints/scene_11/vp_2_thumb.jpg"},{"id":"msk6qci9twu0h","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_11/vp_3.jpg","thumbnail":"viewpoints/scene_11/vp_3_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/scene_11/vp_4.jpg","thumbnail":"viewpoints/scene_11/vp_4_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/scene_11/vp_5.jpg","thumbnail":"viewpoints/scene_11/vp_5_thumb.jpg"},{"id":"msj8hx9exh194","name":"1.5. Санузел №1 - Кам_05","file":"viewpoints/scene_11/vp_6.jpg","thumbnail":"viewpoints/scene_11/vp_6_thumb.jpg"},{"id":"msk6qcfj0mufl","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_11/vp_7.jpg","thumbnail":"viewpoints/scene_11/vp_7_thumb.jpg"},{"id":"msj8hxsyb3dqk","name":"1.5. Санузел №1 - Кам_06","file":"viewpoints/scene_11/vp_8.jpg","thumbnail":"viewpoints/scene_11/vp_8_thumb.jpg"}]},{"id":"msk6uswb5oxry","name":"Camera_360_2_V2","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","viewpoints":[{"id":"msk6qc1hymvoc","name":"2. Спальня №2 - Кам_4","file":"viewpoints/scene_12/vp_1.jpg","thumbnail":"viewpoints/scene_12/vp_1_thumb.jpg"},{"id":"msk6qc4uyyru0","name":"2. Спальня №2 - Кам_6","file":"viewpoints/scene_12/vp_2.jpg","thumbnail":"viewpoints/scene_12/vp_2_thumb.jpg"},{"id":"msk6qci9twu0h","name":"2. Спальня №2 - Кам_3","file":"viewpoints/scene_12/vp_3.jpg","thumbnail":"viewpoints/scene_12/vp_3_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/scene_12/vp_4.jpg","thumbnail":"viewpoints/scene_12/vp_4_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/scene_12/vp_5.jpg","thumbnail":"viewpoints/scene_12/vp_5_thumb.jpg"},{"id":"msj8hx9exh194","name":"1.5. Санузел №1 - Кам_05","file":"viewpoints/scene_12/vp_6.jpg","thumbnail":"viewpoints/scene_12/vp_6_thumb.jpg"},{"id":"msk6qcfj0mufl","name":"2. Спальня №2 - Кам_5","file":"viewpoints/scene_12/vp_7.jpg","thumbnail":"viewpoints/scene_12/vp_7_thumb.jpg"},{"id":"msj8hxsyb3dqk","name":"1.5. Санузел №1 - Кам_06","file":"viewpoints/scene_12/vp_8.jpg","thumbnail":"viewpoints/scene_12/vp_8_thumb.jpg"}]},{"id":"msnd1c4xa2cyd","name":"3. Коридор _ 360_2","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","viewpoints":[]},{"id":"msnd1qcab2qys","name":"4_SU_№1_360_1","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","viewpoints":[]}]};
+      const manifest = {"name":"v_5.7","scenes":[{"id":"msk6uswb5oxry","name":"Camera_360_2_V2","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"msnkgez83ezum","viewpoints":[]},{"id":"msnd16ks3v68h","name":"12. Спальня №2 - 360 (1)","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd10556gz3g","name":"Гостевая - Камера_360_2","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"msnogbdil5giu","viewpoints":[]},{"id":"msnd1j8hxj3vq","name":"1. Прихожая - 360_1","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"msnog59g5yt2b","viewpoints":[]},{"id":"msnd1q4wjq6vb","name":"4_SU_№1_360_3","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd0zy79dqmx","name":"Гостевая - Камера_360_1","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd1q8kxelgk","name":"4_SU_№1_360_2","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd166wlvlot","name":"12. Спальня №2 - 360 (2)","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"msnogdk73i6dt","viewpoints":[]},{"id":"msnd1c4xa2cyd","name":"3. Коридор _ 360_2","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"msnogdk73i6dt","viewpoints":[]},{"id":"msj5j8c208a7r","name":"1. Прихожая - 360_1","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"msnogdk73i6dt","viewpoints":[]},{"id":"msnd1c879g8hr","name":"3. Коридор _ 360_1","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"msnogdk7sbxt8","viewpoints":[]},{"id":"msnd1j4uyyq6c","name":"1. Прихожая - 360_2","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"msnogdk7cvpkz","viewpoints":[]},{"id":"msnd16h7mg84g","name":"12. Спальня №2 - 360 (3)","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"msnofq21hnfk8","viewpoints":[]},{"id":"msnd1qcab2qys","name":"4_SU_№1_360_1","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"msnd1qcaseh5g","viewpoints":[]}],"groups":[{"id":"msnkgez83ezum","name":"1. Прихожая - 360_1","sceneIds":["msk6uswb5oxry"],"viewpoints":[{"id":"msk6qc1hymvoc","name":"2. Спальня №2 - Кам_4","file":"viewpoints/group_1/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_3.jpg","thumbnail":"viewpoints/group_1/vp_3_thumb.jpg"},{"id":"msk6qcfj0mufl","name":"2. Спальня №2 - Кам_5","file":"viewpoints/group_1/vp_4.jpg","thumbnail":"viewpoints/group_1/vp_4_thumb.jpg"},{"id":"msk6qc4uyyru0","name":"2. Спальня №2 - Кам_6","file":"viewpoints/group_1/vp_5.jpg","thumbnail":"viewpoints/group_1/vp_5_thumb.jpg"}]},{"id":"msnogbdiibxrr","name":"12. Спальня №2 - 360 (1)","sceneIds":["msnd16ks3v68h"],"viewpoints":[]},{"id":"msnogbdil5giu","name":"Гостевая - Камера_360_2","sceneIds":["msnd10556gz3g"],"viewpoints":[]},{"id":"msnog59g5yt2b","name":"1. Прихожая - 360_1","sceneIds":["msnd1j8hxj3vq"],"viewpoints":[]},{"id":"msnog8eefrhnr","name":"Гостевая - Камера_360_1","sceneIds":["msnd1q4wjq6vb","msnd0zy79dqmx","msnd1q8kxelgk"],"viewpoints":[{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/group_5/vp_1.jpg","thumbnail":"viewpoints/group_5/vp_1_thumb.jpg"},{"id":"msj8hxsyb3dqk","name":"1.5. Санузел №1 - Кам_06","file":"viewpoints/group_5/vp_2.jpg","thumbnail":"viewpoints/group_5/vp_2_thumb.jpg"},{"id":"msk6qci9twu0h","name":"2. Спальня №2 - Кам_3","file":"viewpoints/group_5/vp_3.jpg","thumbnail":"viewpoints/group_5/vp_3_thumb.jpg"},{"id":"msj8hx9exh194","name":"1.5. Санузел №1 - Кам_05","file":"viewpoints/group_5/vp_4.jpg","thumbnail":"viewpoints/group_5/vp_4_thumb.jpg"},{"id":"msj8hxlzxk5g4","name":"1.5. Санузел №1 - Кам_02","file":"viewpoints/group_5/vp_5.jpg","thumbnail":"viewpoints/group_5/vp_5_thumb.jpg"},{"id":"msj8hxph379nv","name":"1.5. Санузел №1 - Кам_03","file":"viewpoints/group_5/vp_6.jpg","thumbnail":"viewpoints/group_5/vp_6_thumb.jpg"},{"id":"msk6qclhh43uj","name":"2. Спальня №2 - Кам_2","file":"viewpoints/group_5/vp_7.jpg","thumbnail":"viewpoints/group_5/vp_7_thumb.jpg"},{"id":"msj8hxg5rkts5","name":"2. Спальня №2 - Кам_1 ","file":"viewpoints/group_5/vp_8.jpg","thumbnail":"viewpoints/group_5/vp_8_thumb.jpg"}]},{"id":"msnogdk73i6dt","name":"12. Спальня №2 - 360 (2)","sceneIds":["msnd166wlvlot","msnd1c4xa2cyd","msj5j8c208a7r"],"viewpoints":[]},{"id":"msnogdk7sbxt8","name":"3. Коридор _ 360_1","sceneIds":["msnd1c879g8hr"],"viewpoints":[]},{"id":"msnogdk7cvpkz","name":"1. Прихожая - 360_2","sceneIds":["msnd1j4uyyq6c"],"viewpoints":[]},{"id":"msnofq21hnfk8","name":"12. Спальня №2 - 360 (3)","sceneIds":["msnd16h7mg84g"],"viewpoints":[]},{"id":"msnd1qcaseh5g","name":"4_SU_№1_360_1","sceneIds":["msnd1qcab2qys"],"viewpoints":[]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -702,55 +757,115 @@
         showPanels();
       }
 
+      function getPublicGroups() {
+        const groups = Array.isArray(manifest.groups) ? manifest.groups.slice() : [];
+        const covered = new Set();
+        groups.forEach(group => (group.sceneIds || []).forEach(id => covered.add(id)));
+        manifest.scenes.forEach(scene => {
+          if (!covered.has(scene.id)) {
+            groups.push({
+              id: scene.groupId || ('scene-' + scene.id),
+              name: scene.name || 'Помещение',
+              sceneIds: [scene.id],
+              viewpoints: scene.viewpoints || []
+            });
+          }
+        });
+        return groups;
+      }
+
+      function buildPublicSceneWrap(scene, viewpoints, showViewpointControls) {
+        const wrap = document.createElement('div');
+        wrap.className = 'thumbnail-wrap';
+        wrap.dataset.sceneId = scene.id;
+        wrap.dataset.fullname = scene.name || '';
+        if (viewpoints && viewpoints.length) wrap.classList.add('has-vp');
+
+        if (showViewpointControls && viewpoints && viewpoints.length) {
+          const vpBtn = document.createElement('button');
+          vpBtn.className = 'vp-btn';
+          vpBtn.textContent = 'Ракурсы (' + viewpoints.length + ')';
+          vpBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openLightbox(viewpoints, 0, scene.name);
+          });
+          wrap.appendChild(vpBtn);
+        }
+
+        const item = document.createElement('div');
+        item.className = 'thumbnail-item';
+        if (scene.id === currentSceneId) item.classList.add('active');
+        item.dataset.sceneId = scene.id;
+        item.dataset.fullname = scene.name;
+        const img = document.createElement('img');
+        img.src = scene.thumbnail || scene.file;
+        img.alt = scene.name;
+        img.loading = 'lazy';
+        item.appendChild(img);
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.textContent = scene.name;
+        item.appendChild(label);
+        item.addEventListener('click', function() {
+          switchToScene(this.dataset.sceneId);
+        });
+        wrap.appendChild(item);
+
+        if (showViewpointControls) {
+          const vpCount = document.createElement('span');
+          vpCount.className = 'vp-count';
+          vpCount.textContent = viewpoints ? viewpoints.length : 0;
+          wrap.appendChild(vpCount);
+        }
+        return wrap;
+      }
+
       function updateThumbnails() {
         thumbnailsList.innerHTML = '';
         if (manifest.scenes.length === 0) {
           hidePanels();
           return;
         }
-        manifest.scenes.forEach((scene) => {
-          const wrap = document.createElement('div');
-          wrap.className = 'thumbnail-wrap';
-          wrap.dataset.sceneId = scene.id;
-          wrap.dataset.fullname = scene.name || '';
-          if (scene.viewpoints && scene.viewpoints.length > 0) wrap.classList.add('has-vp');
-
-          if (scene.viewpoints && scene.viewpoints.length > 0) {
-            const vpBtn = document.createElement('button');
-            vpBtn.className = 'vp-btn';
-            vpBtn.textContent = 'Ракурсы (' + scene.viewpoints.length + ')';
-            vpBtn.addEventListener('click', function(e) {
-              e.stopPropagation();
-              openLightbox(scene.viewpoints, 0, scene.name);
-            });
-            wrap.appendChild(vpBtn);
+        const sceneById = new Map(manifest.scenes.map(scene => [scene.id, scene]));
+        getPublicGroups().forEach(group => {
+          const scenes = (group.sceneIds || []).map(id => sceneById.get(id)).filter(Boolean);
+          if (!scenes.length) return;
+          const viewpoints = group.viewpoints || [];
+          if (scenes.length === 1) {
+            thumbnailsList.appendChild(buildPublicSceneWrap(scenes[0], viewpoints, true));
+            return;
           }
 
-          const item = document.createElement('div');
-          item.className = 'thumbnail-item';
-          if (scene.id === currentSceneId) item.classList.add('active');
-          item.dataset.sceneId = scene.id;
-          item.dataset.fullname = scene.name;
-          const img = document.createElement('img');
-          img.src = scene.thumbnail || scene.file;
-          img.alt = scene.name;
-          img.loading = 'lazy';
-          item.appendChild(img);
-          const label = document.createElement('div');
-          label.className = 'label';
-          label.textContent = scene.name;
-          item.appendChild(label);
-          item.addEventListener('click', function(e) {
-            switchToScene(this.dataset.sceneId);
+          const outer = document.createElement('div');
+          outer.className = 'public-room-group-wrap';
+          outer.dataset.groupId = group.id;
+          outer.dataset.fullname = group.name || 'Помещение';
+          const room = document.createElement('div');
+          room.className = 'public-room-group';
+          const row = document.createElement('div');
+          row.className = 'public-room-scenes';
+          scenes.forEach(scene => row.appendChild(buildPublicSceneWrap(scene, viewpoints, false)));
+          room.appendChild(row);
+
+          const footer = document.createElement('div');
+          footer.className = 'public-room-footer';
+          const name = document.createElement('span');
+          name.className = 'public-room-name';
+          name.textContent = group.name || 'Помещение';
+          footer.appendChild(name);
+          const count = document.createElement('button');
+          count.className = 'public-room-count' + (viewpoints.length ? '' : ' empty');
+          count.type = 'button';
+          count.textContent = String(viewpoints.length);
+          count.title = 'Ракурсы помещения';
+          count.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openLightbox(viewpoints, 0, group.name || 'Помещение');
           });
-          wrap.appendChild(item);
-
-          const vpCount = document.createElement('span');
-          vpCount.className = 'vp-count';
-          vpCount.textContent = scene.viewpoints ? scene.viewpoints.length : 0;
-          wrap.appendChild(vpCount);
-
-          thumbnailsList.appendChild(wrap);
+          footer.appendChild(count);
+          room.appendChild(footer);
+          outer.appendChild(room);
+          thumbnailsList.appendChild(outer);
         });
         const container = thumbnailsList;
         if (container.scrollWidth <= container.clientWidth) {
@@ -881,12 +996,14 @@
         pubNotify('Подготовка файла к скачиванию...', 60000);
         const zip = new JSZip();
         let count = 0;
-        for (let si = 0; si < manifest.scenes.length; si++) {
-          const scene = manifest.scenes[si];
-          if (!scene.viewpoints || !scene.viewpoints.length) continue;
-          const folder = (scene.name || ('scene_' + (si + 1))).replace(/[/\?%*:|"<>]/g, '_');
-          for (let i = 0; i < scene.viewpoints.length; i++) {
-            const vp = scene.viewpoints[i];
+        const groups = getPublicGroups();
+        for (let gi = 0; gi < groups.length; gi++) {
+          const group = groups[gi];
+          const viewpoints = group.viewpoints || [];
+          if (!viewpoints.length) continue;
+          const folder = (group.name || ('group_' + (gi + 1))).replace(/[/\?%*:|"<>]/g, '_');
+          for (let i = 0; i < viewpoints.length; i++) {
+            const vp = viewpoints[i];
             try {
               const resp = await fetch(vp.file);
               const blob = await resp.blob();
@@ -938,7 +1055,7 @@
       if (lbDlAllBtn) lbDlAllBtn.addEventListener('click', function(e) { e.stopPropagation(); downloadSceneViewpointsZip(); });
       var pubDlAllBtn = document.getElementById('pubDlAll');
       if (pubDlAllBtn) {
-        var hasAnyVp = manifest.scenes.some(function(s) { return s.viewpoints && s.viewpoints.length; });
+        var hasAnyVp = getPublicGroups().some(function(g) { return g.viewpoints && g.viewpoints.length; });
         if (hasAnyVp) pubDlAllBtn.classList.add('show');
         pubDlAllBtn.addEventListener('click', downloadAllTourViewpoints);
       }
