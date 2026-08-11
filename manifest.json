@@ -1,128 +1,120 @@
 {
-  "name": "v_6.4",
+  "name": "v_6.5",
   "scenes": [
-    {
-      "id": "msk6uswb5oxry",
-      "name": "Camera_360_2_V2",
-      "file": "images/scene_1.jpg",
-      "thumbnail": "thumbnails/scene_1.jpg",
-      "groupId": "msnkgez83ezum",
-      "viewpoints": []
-    },
     {
       "id": "msnd16ks3v68h",
       "name": "12. Спальня №2 - 360 (1)",
-      "file": "images/scene_2.jpg",
-      "thumbnail": "thumbnails/scene_2.jpg",
+      "file": "images/scene_1.jpg",
+      "thumbnail": "thumbnails/scene_1.jpg",
       "groupId": "msox39rub287k",
       "viewpoints": []
     },
     {
       "id": "msnd1j4uyyq6c",
       "name": "1. Прихожая - 360_2",
-      "file": "images/scene_3.jpg",
-      "thumbnail": "thumbnails/scene_3.jpg",
+      "file": "images/scene_2.jpg",
+      "thumbnail": "thumbnails/scene_2.jpg",
       "groupId": "msoxvt19gvxl6",
       "viewpoints": []
     },
     {
       "id": "msnd1j8hxj3vq",
       "name": "1. Прихожая - 360_1",
+      "file": "images/scene_3.jpg",
+      "thumbnail": "thumbnails/scene_3.jpg",
+      "groupId": "msp06x1cobixs",
+      "viewpoints": []
+    },
+    {
+      "id": "msnd1c4xa2cyd",
+      "name": "3. Коридор _ 360_2",
       "file": "images/scene_4.jpg",
       "thumbnail": "thumbnails/scene_4.jpg",
       "groupId": "msnsqvwo2f97c",
       "viewpoints": []
     },
     {
-      "id": "msnd10556gz3g",
-      "name": "Гостевая - Камера_360_2",
+      "id": "msnd1q4wjq6vb",
+      "name": "4_SU_№1_360_3",
       "file": "images/scene_5.jpg",
       "thumbnail": "thumbnails/scene_5.jpg",
       "groupId": "msnsqvwo2f97c",
       "viewpoints": []
     },
     {
-      "id": "msnd1c4xa2cyd",
-      "name": "3. Коридор _ 360_2",
+      "id": "msk6uswb5oxry",
+      "name": "Camera_360_2_V2",
       "file": "images/scene_6.jpg",
       "thumbnail": "thumbnails/scene_6.jpg",
-      "groupId": "msnsqvwo2f97c",
-      "viewpoints": []
-    },
-    {
-      "id": "msnd1qcab2qys",
-      "name": "4_SU_№1_360_1",
-      "file": "images/scene_7.jpg",
-      "thumbnail": "thumbnails/scene_7.jpg",
-      "groupId": "msnsqvwo2f97c",
-      "viewpoints": []
-    },
-    {
-      "id": "msnd16h7mg84g",
-      "name": "12. Спальня №2 - 360 (3)",
-      "file": "images/scene_8.jpg",
-      "thumbnail": "thumbnails/scene_8.jpg",
-      "groupId": "msnog8eefrhnr",
+      "groupId": "msp06s6v4cx5i",
       "viewpoints": []
     },
     {
       "id": "msnd166wlvlot",
       "name": "12. Спальня №2 - 360 (2)",
-      "file": "images/scene_9.jpg",
-      "thumbnail": "thumbnails/scene_9.jpg",
-      "groupId": "msnog8eefrhnr",
+      "file": "images/scene_7.jpg",
+      "thumbnail": "thumbnails/scene_7.jpg",
+      "groupId": "msozqpz9xwsxu",
       "viewpoints": []
     },
     {
-      "id": "msnd0zy79dqmx",
-      "name": "Гостевая - Камера_360_1",
-      "file": "images/scene_10.jpg",
-      "thumbnail": "thumbnails/scene_10.jpg",
-      "groupId": "msnog8eefrhnr",
+      "id": "msnd1qcab2qys",
+      "name": "4_SU_№1_360_1",
+      "file": "images/scene_8.jpg",
+      "thumbnail": "thumbnails/scene_8.jpg",
+      "groupId": "msozqpz9xwsxu",
       "viewpoints": []
     },
     {
       "id": "msj5j8c208a7r",
       "name": "1. Прихожая - 360_1",
-      "file": "images/scene_11.jpg",
-      "thumbnail": "thumbnails/scene_11.jpg",
-      "groupId": "msoxy5gbrukwq",
-      "viewpoints": []
-    },
-    {
-      "id": "msnd1q4wjq6vb",
-      "name": "4_SU_№1_360_3",
-      "file": "images/scene_12.jpg",
-      "thumbnail": "thumbnails/scene_12.jpg",
-      "groupId": "msoxzowp25y2f",
+      "file": "images/scene_9.jpg",
+      "thumbnail": "thumbnails/scene_9.jpg",
+      "groupId": "msp06m70dcz6z",
       "viewpoints": []
     },
     {
       "id": "msnd1q8kxelgk",
       "name": "4_SU_№1_360_2",
-      "file": "images/scene_13.jpg",
-      "thumbnail": "thumbnails/scene_13.jpg",
+      "file": "images/scene_10.jpg",
+      "thumbnail": "thumbnails/scene_10.jpg",
       "groupId": "msoxvwjvdo571",
       "viewpoints": []
     },
     {
       "id": "msnd1c879g8hr",
       "name": "3. Коридор _ 360_1",
+      "file": "images/scene_11.jpg",
+      "thumbnail": "thumbnails/scene_11.jpg",
+      "groupId": "msoxwsd9a1440",
+      "viewpoints": []
+    },
+    {
+      "id": "msnd16h7mg84g",
+      "name": "12. Спальня №2 - 360 (3)",
+      "file": "images/scene_12.jpg",
+      "thumbnail": "thumbnails/scene_12.jpg",
+      "groupId": "msozqkmrrc53c",
+      "viewpoints": []
+    },
+    {
+      "id": "msnd0zy79dqmx",
+      "name": "Гостевая - Камера_360_1",
+      "file": "images/scene_13.jpg",
+      "thumbnail": "thumbnails/scene_13.jpg",
+      "groupId": "msozqncbxfh9u",
+      "viewpoints": []
+    },
+    {
+      "id": "msnd10556gz3g",
+      "name": "Гостевая - Камера_360_2",
       "file": "images/scene_14.jpg",
       "thumbnail": "thumbnails/scene_14.jpg",
-      "groupId": "msoxwsd9a1440",
+      "groupId": "msozwzg3p7hpc",
       "viewpoints": []
     }
   ],
   "groups": [
-    {
-      "id": "msnkgez83ezum",
-      "name": "1. Прихожая - 360_1",
-      "sceneIds": [
-        "msk6uswb5oxry"
-      ],
-      "viewpoints": []
-    },
     {
       "id": "msox39rub287k",
       "name": "12. Спальня №2 - 360 (1)",
@@ -133,32 +125,32 @@
         {
           "id": "msoqybhg0u7b4",
           "name": "9. Терраса - Кам_03",
-          "file": "viewpoints/group_2/vp_1.jpg",
-          "thumbnail": "viewpoints/group_2/vp_1_thumb.jpg"
+          "file": "viewpoints/group_1/vp_1.jpg",
+          "thumbnail": "viewpoints/group_1/vp_1_thumb.jpg"
         },
         {
           "id": "msoqybkbwfozx",
           "name": "9. Терраса - Кам_01",
-          "file": "viewpoints/group_2/vp_2.jpg",
-          "thumbnail": "viewpoints/group_2/vp_2_thumb.jpg"
+          "file": "viewpoints/group_1/vp_2.jpg",
+          "thumbnail": "viewpoints/group_1/vp_2_thumb.jpg"
         },
         {
           "id": "msoqybqw0rxjv",
           "name": "9. Терраса - Кам_08",
-          "file": "viewpoints/group_2/vp_3.jpg",
-          "thumbnail": "viewpoints/group_2/vp_3_thumb.jpg"
+          "file": "viewpoints/group_1/vp_3.jpg",
+          "thumbnail": "viewpoints/group_1/vp_3_thumb.jpg"
         },
         {
           "id": "msoqybwu584m7",
           "name": "9. Терраса - Кам_02",
-          "file": "viewpoints/group_2/vp_4.jpg",
-          "thumbnail": "viewpoints/group_2/vp_4_thumb.jpg"
+          "file": "viewpoints/group_1/vp_4.jpg",
+          "thumbnail": "viewpoints/group_1/vp_4_thumb.jpg"
         },
         {
           "id": "msoqycfe1z04d",
           "name": "9. Терраса - Кам_04",
-          "file": "viewpoints/group_2/vp_5.jpg",
-          "thumbnail": "viewpoints/group_2/vp_5_thumb.jpg"
+          "file": "viewpoints/group_1/vp_5.jpg",
+          "thumbnail": "viewpoints/group_1/vp_5_thumb.jpg"
         }
       ]
     },
@@ -174,100 +166,81 @@
       "id": "msnsqvwo2f97c",
       "name": "1. Прихожая - 360_1 (1)",
       "sceneIds": [
-        "msnd1j8hxj3vq",
-        "msnd10556gz3g",
         "msnd1c4xa2cyd",
-        "msnd1qcab2qys"
+        "msnd1q4wjq6vb"
       ],
       "viewpoints": [
         {
           "id": "msj8hx9exh194",
           "name": "1.5. Санузел №1 - Кам_05",
-          "file": "viewpoints/group_4/vp_1.jpg",
-          "thumbnail": "viewpoints/group_4/vp_1_thumb.jpg"
+          "file": "viewpoints/group_3/vp_1.jpg",
+          "thumbnail": "viewpoints/group_3/vp_1_thumb.jpg"
+        },
+        {
+          "id": "msk6qclhh43uj",
+          "name": "2. Спальня №2 - Кам_2",
+          "file": "viewpoints/group_3/vp_2.jpg",
+          "thumbnail": "viewpoints/group_3/vp_2_thumb.jpg"
+        },
+        {
+          "id": "msj8hxg5rkts5",
+          "name": "2. Спальня №2 - Кам_1 ",
+          "file": "viewpoints/group_3/vp_3.jpg",
+          "thumbnail": "viewpoints/group_3/vp_3_thumb.jpg"
+        },
+        {
+          "id": "msj8hxsyb3dqk",
+          "name": "1.5. Санузел №1 - Кам_06",
+          "file": "viewpoints/group_3/vp_4.jpg",
+          "thumbnail": "viewpoints/group_3/vp_4_thumb.jpg"
         }
       ]
     },
     {
-      "id": "msnog8eefrhnr",
-      "name": "1 (1)",
+      "id": "msozqpz9xwsxu",
+      "name": "12. Спальня №2 - 360 (2) (1)",
       "sceneIds": [
-        "msnd16h7mg84g",
         "msnd166wlvlot",
-        "msnd0zy79dqmx"
+        "msnd1qcab2qys"
       ],
       "viewpoints": [
         {
           "id": "msk6qci9twu0h",
           "name": "2. Спальня №2 - Кам_3",
-          "file": "viewpoints/group_5/vp_1.jpg",
-          "thumbnail": "viewpoints/group_5/vp_1_thumb.jpg"
+          "file": "viewpoints/group_4/vp_1.jpg",
+          "thumbnail": "viewpoints/group_4/vp_1_thumb.jpg"
         },
         {
           "id": "msj8hxj5tg1hg",
           "name": "1.5. Санузел №1 - Кам_04",
-          "file": "viewpoints/group_5/vp_2.jpg",
-          "thumbnail": "viewpoints/group_5/vp_2_thumb.jpg"
+          "file": "viewpoints/group_4/vp_2.jpg",
+          "thumbnail": "viewpoints/group_4/vp_2_thumb.jpg"
         },
         {
           "id": "msk6qc4uyyru0",
           "name": "2. Спальня №2 - Кам_6",
-          "file": "viewpoints/group_5/vp_3.jpg",
-          "thumbnail": "viewpoints/group_5/vp_3_thumb.jpg"
+          "file": "viewpoints/group_4/vp_3.jpg",
+          "thumbnail": "viewpoints/group_4/vp_3_thumb.jpg"
         },
         {
           "id": "msoqycm77k6t7",
           "name": "9. Терраса - Кам_06",
-          "file": "viewpoints/group_5/vp_4.jpg",
-          "thumbnail": "viewpoints/group_5/vp_4_thumb.jpg"
+          "file": "viewpoints/group_4/vp_4.jpg",
+          "thumbnail": "viewpoints/group_4/vp_4_thumb.jpg"
         },
         {
           "id": "msoqycqi44x2m",
           "name": "9. Терраса - Кам_05",
-          "file": "viewpoints/group_5/vp_5.jpg",
-          "thumbnail": "viewpoints/group_5/vp_5_thumb.jpg"
+          "file": "viewpoints/group_4/vp_5.jpg",
+          "thumbnail": "viewpoints/group_4/vp_5_thumb.jpg"
         },
         {
           "id": "msj8hxph379nv",
           "name": "1.5. Санузел №1 - Кам_03",
-          "file": "viewpoints/group_5/vp_6.jpg",
-          "thumbnail": "viewpoints/group_5/vp_6_thumb.jpg"
-        },
-        {
-          "id": "msk6qclhh43uj",
-          "name": "2. Спальня №2 - Кам_2",
-          "file": "viewpoints/group_5/vp_7.jpg",
-          "thumbnail": "viewpoints/group_5/vp_7_thumb.jpg"
-        },
-        {
-          "id": "msj8hxg5rkts5",
-          "name": "2. Спальня №2 - Кам_1 ",
-          "file": "viewpoints/group_5/vp_8.jpg",
-          "thumbnail": "viewpoints/group_5/vp_8_thumb.jpg"
-        },
-        {
-          "id": "msj8hxsyb3dqk",
-          "name": "1.5. Санузел №1 - Кам_06",
-          "file": "viewpoints/group_5/vp_9.jpg",
-          "thumbnail": "viewpoints/group_5/vp_9_thumb.jpg"
+          "file": "viewpoints/group_4/vp_6.jpg",
+          "thumbnail": "viewpoints/group_4/vp_6_thumb.jpg"
         }
       ]
-    },
-    {
-      "id": "msoxy5gbrukwq",
-      "name": "1. Прихожая - 360_1",
-      "sceneIds": [
-        "msj5j8c208a7r"
-      ],
-      "viewpoints": []
-    },
-    {
-      "id": "msoxzowp25y2f",
-      "name": "4_SU_№1_360_3",
-      "sceneIds": [
-        "msnd1q4wjq6vb"
-      ],
-      "viewpoints": []
     },
     {
       "id": "msoxvwjvdo571",
@@ -282,6 +255,54 @@
       "name": "3. Коридор _ 360_1",
       "sceneIds": [
         "msnd1c879g8hr"
+      ],
+      "viewpoints": []
+    },
+    {
+      "id": "msozqkmrrc53c",
+      "name": "12. Спальня №2 - 360 (3)",
+      "sceneIds": [
+        "msnd16h7mg84g"
+      ],
+      "viewpoints": []
+    },
+    {
+      "id": "msozqncbxfh9u",
+      "name": "Гостевая - Камера_360_1",
+      "sceneIds": [
+        "msnd0zy79dqmx"
+      ],
+      "viewpoints": []
+    },
+    {
+      "id": "msozwzg3p7hpc",
+      "name": "Гостевая - Камера_360_2",
+      "sceneIds": [
+        "msnd10556gz3g"
+      ],
+      "viewpoints": []
+    },
+    {
+      "id": "msp06m70dcz6z",
+      "name": "1. Прихожая - 360_1",
+      "sceneIds": [
+        "msj5j8c208a7r"
+      ],
+      "viewpoints": []
+    },
+    {
+      "id": "msp06s6v4cx5i",
+      "name": "Camera_360_2_V2",
+      "sceneIds": [
+        "msk6uswb5oxry"
+      ],
+      "viewpoints": []
+    },
+    {
+      "id": "msp06x1cobixs",
+      "name": "1. Прихожая - 360_1",
+      "sceneIds": [
+        "msnd1j8hxj3vq"
       ],
       "viewpoints": []
     }
