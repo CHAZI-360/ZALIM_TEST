@@ -1,5 +1,5 @@
 {
-  "name": "v_6.2",
+  "name": "v_6.3",
   "scenes": [
     {
       "id": "msk6uswb5oxry",
@@ -161,24 +161,6 @@
           "name": "9. Терраса - Кам_04",
           "file": "viewpoints/group_2/vp_5.jpg",
           "thumbnail": "viewpoints/group_2/vp_5_thumb.jpg"
-        },
-        {
-          "id": "msoqycitcurhz",
-          "name": "9. Терраса - Кам_07",
-          "file": "viewpoints/group_2/vp_6.jpg",
-          "thumbnail": "viewpoints/group_2/vp_6_thumb.jpg"
-        },
-        {
-          "id": "msoqycm77k6t7",
-          "name": "9. Терраса - Кам_06",
-          "file": "viewpoints/group_2/vp_7.jpg",
-          "thumbnail": "viewpoints/group_2/vp_7_thumb.jpg"
-        },
-        {
-          "id": "msoqycqi44x2m",
-          "name": "9. Терраса - Кам_05",
-          "file": "viewpoints/group_2/vp_8.jpg",
-          "thumbnail": "viewpoints/group_2/vp_8_thumb.jpg"
         }
       ]
     },
@@ -208,6 +190,18 @@
           "name": "2. Спальня №2 - Кам_6",
           "file": "viewpoints/group_4/vp_2.jpg",
           "thumbnail": "viewpoints/group_4/vp_2_thumb.jpg"
+        },
+        {
+          "id": "msoqycm77k6t7",
+          "name": "9. Терраса - Кам_06",
+          "file": "viewpoints/group_4/vp_3.jpg",
+          "thumbnail": "viewpoints/group_4/vp_3_thumb.jpg"
+        },
+        {
+          "id": "msoqycqi44x2m",
+          "name": "9. Терраса - Кам_05",
+          "file": "viewpoints/group_4/vp_4.jpg",
+          "thumbnail": "viewpoints/group_4/vp_4_thumb.jpg"
         }
       ]
     },
