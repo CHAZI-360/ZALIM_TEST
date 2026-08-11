@@ -147,7 +147,7 @@
     }
     .public-room-group-wrap {
       display:flex; flex:0 0 auto; flex-direction:column; align-items:center;
-      min-width:0; position:relative; padding-top:34px;
+      min-width:0; position:relative; padding-top:0;
     }
     .public-room-group {
       display:flex; flex-direction:column; align-items:center;
@@ -162,16 +162,28 @@
     .public-room-scenes .thumbnail-wrap { padding-top:0; }
     .public-room-footer {
       position:relative;
-      display:flex; align-items:center; justify-content:center;
-      width:100%; min-height:22px; margin-top:5px; padding:0 34px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:8px; width:100%; min-height:22px; margin-top:5px; padding:0 2px;
     }
     .public-room-name {
-      display:block; width:100%; overflow:hidden;
+      display:block; flex:1 1 auto; min-width:0; overflow:hidden;
       color:#6ab0f7; font-size:12px; font-weight:500;
-      text-align:center; text-overflow:ellipsis; white-space:nowrap;
+      text-align:left; text-overflow:ellipsis; white-space:nowrap;
     }
     .public-room-count {
       background:rgba(106,176,247,0.9);
+    }
+    .public-room-footer .public-room-count {
+      position:static; top:auto; left:auto; transform:none;
+      flex:0 0 auto; margin-left:auto;
+    }
+    .thumbnail-wrap.public-single {
+      padding-top:0;
+      gap:5px;
+    }
+    .thumbnail-wrap.public-single .vp-count {
+      position:static; top:auto; left:auto; transform:none;
+      opacity:1; margin-top:1px;
     }
     .public-room-count.empty { visibility:hidden; pointer-events:none; }
     .pub-dl-all {
@@ -312,6 +324,7 @@
         align-items:stretch;
       }
       .thumbnail-wrap { flex:0 0 100px; width:100px; padding-top:36px; }
+      .thumbnail-wrap.public-single { padding-top:0; }
       .thumbnail-item { width:100px; height:78px; }
       .thumbnail-item .label { font-size:10px; padding:2px 6px; }
       .public-room-group { padding:8px 6px 4px; }
@@ -638,7 +651,7 @@
   </div>
   <script>
     (function() {
-      const manifest = {"name":"v_6.2","scenes":[{"id":"msk6uswb5oxry","name":"Camera_360_2_V2","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"msnkgez83ezum","viewpoints":[]},{"id":"msnd16ks3v68h","name":"12. Спальня №2 - 360 (1)","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd1q4wjq6vb","name":"4_SU_№1_360_3","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd1c4xa2cyd","name":"3. Коридор _ 360_2","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd1j8hxj3vq","name":"1. Прихожая - 360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mson638d5pnnf","viewpoints":[]},{"id":"msnd10556gz3g","name":"Гостевая - Камера_360_2","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"msnogbdil5giu","viewpoints":[]},{"id":"msnd1q8kxelgk","name":"4_SU_№1_360_2","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"msoozt1vjuys0","viewpoints":[]},{"id":"msnd1c879g8hr","name":"3. Коридор _ 360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd16h7mg84g","name":"12. Спальня №2 - 360 (3)","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd1qcab2qys","name":"4_SU_№1_360_1","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"msoozrhar60u0","viewpoints":[]},{"id":"msj5j8c208a7r","name":"1. Прихожая - 360_1","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"msnsqvwo2f97c","viewpoints":[]},{"id":"msnd1j4uyyq6c","name":"1. Прихожая - 360_2","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"msoozrhamrsl3","viewpoints":[]},{"id":"msnd0zy79dqmx","name":"Гостевая - Камера_360_1","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"msnstfwnvesp5","viewpoints":[]},{"id":"msnd166wlvlot","name":"12. Спальня №2 - 360 (2)","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"msoheu0zb9eki","viewpoints":[]}],"groups":[{"id":"msnkgez83ezum","name":"1. Прихожая - 360_1","sceneIds":["msk6uswb5oxry"],"viewpoints":[{"id":"msk6qcfj0mufl","name":"2. Спальня №2 - Кам_5","file":"viewpoints/group_1/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"msk6qcfj0mufl","name":"2. Спальня №2 - Кам_5","file":"viewpoints/group_1/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"},{"id":"msk6qcfj0mufl","name":"2. Спальня №2 - Кам_5","file":"viewpoints/group_1/vp_3.jpg","thumbnail":"viewpoints/group_1/vp_3_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_4.jpg","thumbnail":"viewpoints/group_1/vp_4_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_5.jpg","thumbnail":"viewpoints/group_1/vp_5_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_6.jpg","thumbnail":"viewpoints/group_1/vp_6_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_7.jpg","thumbnail":"viewpoints/group_1/vp_7_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_8.jpg","thumbnail":"viewpoints/group_1/vp_8_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_9.jpg","thumbnail":"viewpoints/group_1/vp_9_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_10.jpg","thumbnail":"viewpoints/group_1/vp_10_thumb.jpg"},{"id":"msk6qc1hymvoc","name":"2. Спальня №2 - Кам_4","file":"viewpoints/group_1/vp_11.jpg","thumbnail":"viewpoints/group_1/vp_11_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_12.jpg","thumbnail":"viewpoints/group_1/vp_12_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_13.jpg","thumbnail":"viewpoints/group_1/vp_13_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_14.jpg","thumbnail":"viewpoints/group_1/vp_14_thumb.jpg"},{"id":"msj8hwg4na7p5","name":"1.5. Санузел №1 - Кам_01","file":"viewpoints/group_1/vp_15.jpg","thumbnail":"viewpoints/group_1/vp_15_thumb.jpg"},{"id":"msk6qc1hymvoc","name":"2. Спальня №2 - Кам_4","file":"viewpoints/group_1/vp_16.jpg","thumbnail":"viewpoints/group_1/vp_16_thumb.jpg"},{"id":"msj8hwl7zz9qo","name":"1.5. Санузел №1 - Кам_08","file":"viewpoints/group_1/vp_17.jpg","thumbnail":"viewpoints/group_1/vp_17_thumb.jpg"}]},{"id":"msnogbdiibxrr","name":"Помещение","sceneIds":["msnd16ks3v68h","msnd1q4wjq6vb","msnd1c4xa2cyd"],"viewpoints":[]},{"id":"mson638d5pnnf","name":"1. Прихожая - 360_1","sceneIds":["msnd1j8hxj3vq"],"viewpoints":[]},{"id":"msnogbdil5giu","name":"Гостевая - Камера_360_2","sceneIds":["msnd10556gz3g"],"viewpoints":[{"id":"msj8hx9exh194","name":"1.5. Санузел №1 - Кам_05","file":"viewpoints/group_4/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"msk6qc4uyyru0","name":"2. Спальня №2 - Кам_6","file":"viewpoints/group_4/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"}]},{"id":"msoozt1vjuys0","name":"4_SU_№1_360_2","sceneIds":["msnd1q8kxelgk"],"viewpoints":[]},{"id":"msnog8eefrhnr","name":"Гостевая - Камера_360_1","sceneIds":["msnd1c879g8hr","msnd16h7mg84g"],"viewpoints":[{"id":"msk6qci9twu0h","name":"2. Спальня №2 - Кам_3","file":"viewpoints/group_6/vp_1.jpg","thumbnail":"viewpoints/group_6/vp_1_thumb.jpg"},{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/group_6/vp_2.jpg","thumbnail":"viewpoints/group_6/vp_2_thumb.jpg"}]},{"id":"msoozrhar60u0","name":"4_SU_№1_360_1","sceneIds":["msnd1qcab2qys"],"viewpoints":[]},{"id":"msnsqvwo2f97c","name":"1. Прихожая - 360_1","sceneIds":["msj5j8c208a7r"],"viewpoints":[]},{"id":"msoozrhamrsl3","name":"1. Прихожая - 360_2","sceneIds":["msnd1j4uyyq6c"],"viewpoints":[{"id":"msj8hxph379nv","name":"1.5. Санузел №1 - Кам_03","file":"viewpoints/group_9/vp_1.jpg","thumbnail":"viewpoints/group_9/vp_1_thumb.jpg"},{"id":"msk6qclhh43uj","name":"2. Спальня №2 - Кам_2","file":"viewpoints/group_9/vp_2.jpg","thumbnail":"viewpoints/group_9/vp_2_thumb.jpg"},{"id":"msj8hxg5rkts5","name":"2. Спальня №2 - Кам_1 ","file":"viewpoints/group_9/vp_3.jpg","thumbnail":"viewpoints/group_9/vp_3_thumb.jpg"},{"id":"msj8hxsyb3dqk","name":"1.5. Санузел №1 - Кам_06","file":"viewpoints/group_9/vp_4.jpg","thumbnail":"viewpoints/group_9/vp_4_thumb.jpg"}]},{"id":"msnstfwnvesp5","name":"Гостевая - Камера_360_1","sceneIds":["msnd0zy79dqmx"],"viewpoints":[]},{"id":"msoheu0zb9eki","name":"12. Спальня №2 - 360 (2)","sceneIds":["msnd166wlvlot"],"viewpoints":[]}]};
+      const manifest = {"name":"v_6.2","scenes":[{"id":"msk6uswb5oxry","name":"Camera_360_2_V2","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"msnkgez83ezum","viewpoints":[]},{"id":"msnd16ks3v68h","name":"12. Спальня №2 - 360 (1)","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd1q4wjq6vb","name":"4_SU_№1_360_3","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd1c4xa2cyd","name":"3. Коридор _ 360_2","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"msnogbdiibxrr","viewpoints":[]},{"id":"msnd1j8hxj3vq","name":"1. Прихожая - 360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mson638d5pnnf","viewpoints":[]},{"id":"msnd10556gz3g","name":"Гостевая - Камера_360_2","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"msnogbdil5giu","viewpoints":[]},{"id":"msnd1q8kxelgk","name":"4_SU_№1_360_2","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"msoozt1vjuys0","viewpoints":[]},{"id":"msnd1c879g8hr","name":"3. Коридор _ 360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd16h7mg84g","name":"12. Спальня №2 - 360 (3)","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"msnog8eefrhnr","viewpoints":[]},{"id":"msnd1qcab2qys","name":"4_SU_№1_360_1","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"msoozrhar60u0","viewpoints":[]},{"id":"msj5j8c208a7r","name":"1. Прихожая - 360_1","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"msnsqvwo2f97c","viewpoints":[]},{"id":"msnd1j4uyyq6c","name":"1. Прихожая - 360_2","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"msoozrhamrsl3","viewpoints":[]},{"id":"msnd0zy79dqmx","name":"Гостевая - Камера_360_1","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"msnstfwnvesp5","viewpoints":[]},{"id":"msnd166wlvlot","name":"12. Спальня №2 - 360 (2)","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"msoheu0zb9eki","viewpoints":[]}],"groups":[{"id":"msnkgez83ezum","name":"1. Прихожая - 360_1","sceneIds":["msk6uswb5oxry"],"viewpoints":[]},{"id":"msnogbdiibxrr","name":"Помещение","sceneIds":["msnd16ks3v68h","msnd1q4wjq6vb","msnd1c4xa2cyd"],"viewpoints":[{"id":"msoqybhg0u7b4","name":"9. Терраса - Кам_03","file":"viewpoints/group_2/vp_1.jpg","thumbnail":"viewpoints/group_2/vp_1_thumb.jpg"},{"id":"msoqybkbwfozx","name":"9. Терраса - Кам_01","file":"viewpoints/group_2/vp_2.jpg","thumbnail":"viewpoints/group_2/vp_2_thumb.jpg"},{"id":"msoqybqw0rxjv","name":"9. Терраса - Кам_08","file":"viewpoints/group_2/vp_3.jpg","thumbnail":"viewpoints/group_2/vp_3_thumb.jpg"},{"id":"msoqybwu584m7","name":"9. Терраса - Кам_02","file":"viewpoints/group_2/vp_4.jpg","thumbnail":"viewpoints/group_2/vp_4_thumb.jpg"},{"id":"msoqycfe1z04d","name":"9. Терраса - Кам_04","file":"viewpoints/group_2/vp_5.jpg","thumbnail":"viewpoints/group_2/vp_5_thumb.jpg"},{"id":"msoqycitcurhz","name":"9. Терраса - Кам_07","file":"viewpoints/group_2/vp_6.jpg","thumbnail":"viewpoints/group_2/vp_6_thumb.jpg"},{"id":"msoqycm77k6t7","name":"9. Терраса - Кам_06","file":"viewpoints/group_2/vp_7.jpg","thumbnail":"viewpoints/group_2/vp_7_thumb.jpg"},{"id":"msoqycqi44x2m","name":"9. Терраса - Кам_05","file":"viewpoints/group_2/vp_8.jpg","thumbnail":"viewpoints/group_2/vp_8_thumb.jpg"}]},{"id":"mson638d5pnnf","name":"1. Прихожая - 360_1","sceneIds":["msnd1j8hxj3vq"],"viewpoints":[]},{"id":"msnogbdil5giu","name":"Гостевая - Камера_360_2","sceneIds":["msnd10556gz3g"],"viewpoints":[{"id":"msj8hx9exh194","name":"1.5. Санузел №1 - Кам_05","file":"viewpoints/group_4/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"msk6qc4uyyru0","name":"2. Спальня №2 - Кам_6","file":"viewpoints/group_4/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"}]},{"id":"msoozt1vjuys0","name":"4_SU_№1_360_2","sceneIds":["msnd1q8kxelgk"],"viewpoints":[]},{"id":"msnog8eefrhnr","name":"Гостевая - Камера_360_1","sceneIds":["msnd1c879g8hr","msnd16h7mg84g"],"viewpoints":[{"id":"msk6qci9twu0h","name":"2. Спальня №2 - Кам_3","file":"viewpoints/group_6/vp_1.jpg","thumbnail":"viewpoints/group_6/vp_1_thumb.jpg"},{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/group_6/vp_2.jpg","thumbnail":"viewpoints/group_6/vp_2_thumb.jpg"}]},{"id":"msoozrhar60u0","name":"4_SU_№1_360_1","sceneIds":["msnd1qcab2qys"],"viewpoints":[]},{"id":"msnsqvwo2f97c","name":"1. Прихожая - 360_1","sceneIds":["msj5j8c208a7r"],"viewpoints":[]},{"id":"msoozrhamrsl3","name":"1. Прихожая - 360_2","sceneIds":["msnd1j4uyyq6c"],"viewpoints":[{"id":"msj8hxph379nv","name":"1.5. Санузел №1 - Кам_03","file":"viewpoints/group_9/vp_1.jpg","thumbnail":"viewpoints/group_9/vp_1_thumb.jpg"},{"id":"msk6qclhh43uj","name":"2. Спальня №2 - Кам_2","file":"viewpoints/group_9/vp_2.jpg","thumbnail":"viewpoints/group_9/vp_2_thumb.jpg"},{"id":"msj8hxg5rkts5","name":"2. Спальня №2 - Кам_1 ","file":"viewpoints/group_9/vp_3.jpg","thumbnail":"viewpoints/group_9/vp_3_thumb.jpg"},{"id":"msj8hxsyb3dqk","name":"1.5. Санузел №1 - Кам_06","file":"viewpoints/group_9/vp_4.jpg","thumbnail":"viewpoints/group_9/vp_4_thumb.jpg"}]},{"id":"msnstfwnvesp5","name":"Гостевая - Камера_360_1","sceneIds":["msnd0zy79dqmx"],"viewpoints":[]},{"id":"msoheu0zb9eki","name":"12. Спальня №2 - 360 (2)","sceneIds":["msnd166wlvlot"],"viewpoints":[]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -733,16 +746,20 @@
 
       var publicGyro = {
         active:false, gesturing:false, latest:null,
-        baseAlpha:null, baseBeta:null, baseYaw:0, basePitch:0
+        baseAlpha:null, baseBeta:null, baseYaw:0, basePitch:0,
+        filteredAlpha:null, filteredBeta:null, lastRawAlpha:null,
+        poleLocked:false, frame:0
       };
       function gyroButton() {
         return panoContainer.querySelector('.pnlm-orientation-button');
       }
       function setGyroButtonState() {
         var button = gyroButton();
-        if (!button) return;
-        button.classList.toggle('pnlm-orientation-button-active', publicGyro.active);
-        button.setAttribute('aria-pressed', publicGyro.active ? 'true' : 'false');
+        panoContainer.classList.toggle('chazi-gyro-active', publicGyro.active);
+        if (button) {
+          button.classList.toggle('pnlm-orientation-button-active', publicGyro.active);
+          button.setAttribute('aria-pressed', publicGyro.active ? 'true' : 'false');
+        }
       }
       function normalizeAngle(value) {
         value = value % 360;
@@ -762,13 +779,86 @@
         if (publicGyro.baseAlpha === null) rebasePublicGyro();
         var yawDelta = normalizeAngle(publicGyro.latest.alpha - publicGyro.baseAlpha);
         var pitchDelta = publicGyro.latest.beta - publicGyro.baseBeta;
-        if (viewer.setYaw) viewer.setYaw(publicGyro.baseYaw - yawDelta, false);
-        if (viewer.setPitch) viewer.setPitch(Math.max(-90, Math.min(90, publicGyro.basePitch + pitchDelta)), false);
+        var targetYaw = publicGyro.baseYaw - yawDelta;
+        var targetPitch = Math.max(-90, Math.min(90, publicGyro.basePitch + pitchDelta));
+        if (viewer.setYaw && viewer.getYaw) {
+          var currentYaw = viewer.getYaw();
+          var yawStep = normalizeAngle(targetYaw - currentYaw) * .24;
+          if (Math.abs(yawStep) > .015) viewer.setYaw(currentYaw + yawStep, false);
+        }
+        if (viewer.setPitch && viewer.getPitch) {
+          var currentPitch = viewer.getPitch();
+          var pitchStep = (targetPitch - currentPitch) * .24;
+          if (Math.abs(pitchStep) > .015) viewer.setPitch(currentPitch + pitchStep, false);
+        }
+      }
+      function multiplyQuaternion(a, b) {
+        return [
+          a[3]*b[0] + a[0]*b[3] + a[1]*b[2] - a[2]*b[1],
+          a[3]*b[1] - a[0]*b[2] + a[1]*b[3] + a[2]*b[0],
+          a[3]*b[2] + a[0]*b[1] - a[1]*b[0] + a[2]*b[3],
+          a[3]*b[3] - a[0]*b[0] - a[1]*b[1] - a[2]*b[2]
+        ];
+      }
+      function deviceLookAngles(alpha, beta, gamma) {
+        var d = Math.PI / 180;
+        var x = beta*d, y = alpha*d, z = -gamma*d;
+        var c1=Math.cos(x/2), c2=Math.cos(y/2), c3=Math.cos(z/2);
+        var s1=Math.sin(x/2), s2=Math.sin(y/2), s3=Math.sin(z/2);
+        var q = [
+          s1*c2*c3 + c1*s2*s3,
+          c1*s2*c3 - s1*c2*s3,
+          c1*c2*s3 - s1*s2*c3,
+          c1*c2*c3 + s1*s2*s3
+        ];
+        var rootHalf = Math.sqrt(.5);
+        q = multiplyQuaternion(q, [-rootHalf,0,0,rootHalf]);
+        var screenAngle = 0;
+        if (screen.orientation && Number.isFinite(screen.orientation.angle)) screenAngle = screen.orientation.angle;
+        else if (Number.isFinite(window.orientation)) screenAngle = window.orientation;
+        var halfScreen = -screenAngle*d/2;
+        q = multiplyQuaternion(q, [0,0,Math.sin(halfScreen),Math.cos(halfScreen)]);
+        var vx = -2*(q[0]*q[2] + q[3]*q[1]);
+        var vy = -2*(q[1]*q[2] - q[3]*q[0]);
+        var vz = -(1 - 2*(q[0]*q[0] + q[1]*q[1]));
+        return {
+          alpha:Math.atan2(-vx, -vz)/d,
+          beta:Math.asin(Math.max(-1, Math.min(1, vy)))/d
+        };
       }
       window.addEventListener('deviceorientation', function(e) {
         if (e.alpha === null || e.beta === null) return;
-        publicGyro.latest = { alpha:e.alpha, beta:e.beta, gamma:e.gamma || 0 };
-        applyPublicGyro();
+        var look = deviceLookAngles(e.alpha, e.beta, e.gamma || 0);
+        if (publicGyro.filteredAlpha === null) {
+          publicGyro.filteredAlpha = look.alpha;
+          publicGyro.filteredBeta = look.beta;
+          publicGyro.lastRawAlpha = look.alpha;
+        } else {
+          var rawAlphaStep = normalizeAngle(look.alpha - publicGyro.lastRawAlpha);
+          publicGyro.lastRawAlpha = look.alpha;
+          publicGyro.filteredBeta += (look.beta - publicGyro.filteredBeta) * .16;
+          var absBeta = Math.abs(publicGyro.filteredBeta);
+          if (!publicGyro.poleLocked && absBeta > 76) publicGyro.poleLocked = true;
+          if (publicGyro.poleLocked && absBeta < 66) {
+            publicGyro.poleLocked = false;
+            publicGyro.baseAlpha = publicGyro.filteredAlpha;
+            publicGyro.baseBeta = publicGyro.filteredBeta;
+            publicGyro.baseYaw = viewer && viewer.getYaw ? viewer.getYaw() : publicGyro.baseYaw;
+            publicGyro.basePitch = viewer && viewer.getPitch ? viewer.getPitch() : publicGyro.basePitch;
+          }
+          if (!publicGyro.poleLocked) publicGyro.filteredAlpha += rawAlphaStep * .16;
+        }
+        publicGyro.latest = {
+          alpha:publicGyro.filteredAlpha,
+          beta:publicGyro.filteredBeta,
+          gamma:e.gamma || 0
+        };
+        if (!publicGyro.frame) {
+          publicGyro.frame = requestAnimationFrame(function() {
+            publicGyro.frame = 0;
+            applyPublicGyro();
+          });
+        }
       }, true);
       async function togglePublicGyro() {
         if (!publicGyro.active && window.DeviceOrientationEvent &&
@@ -781,6 +871,10 @@
         publicGyro.active = !publicGyro.active;
         publicGyro.baseAlpha = null;
         publicGyro.baseBeta = null;
+        publicGyro.filteredAlpha = null;
+        publicGyro.filteredBeta = null;
+        publicGyro.lastRawAlpha = null;
+        publicGyro.poleLocked = false;
         if (publicGyro.active) rebasePublicGyro();
         setGyroButtonState();
       }
@@ -791,6 +885,17 @@
         }
         container.dataset.interactionGuard = '1';
         var lastTouchEnd = 0;
+        if (!container._chaziGyroObserver) {
+          container._chaziGyroObserver = new MutationObserver(function() {
+            var button = gyroButton();
+            if (!button) return;
+            if (button.classList.contains('pnlm-orientation-button-active') !== publicGyro.active ||
+                button.getAttribute('aria-pressed') !== (publicGyro.active ? 'true' : 'false')) {
+              setGyroButtonState();
+            }
+          });
+          container._chaziGyroObserver.observe(container, { childList:true, subtree:true, attributes:true, attributeFilter:['class','aria-pressed'] });
+        }
         function orientationButton(target) {
           return target && target.closest && target.closest('.pnlm-orientation-button');
         }
@@ -850,7 +955,12 @@
         });
         publicGyro.baseAlpha = null;
         publicGyro.baseBeta = null;
+        publicGyro.filteredAlpha = null;
+        publicGyro.filteredBeta = null;
+        publicGyro.lastRawAlpha = null;
+        publicGyro.poleLocked = false;
         guardPublicPannellum(panoContainer);
+        if (viewer && viewer.on) viewer.on('load', setGyroButtonState);
       }
 
       function switchToScene(sceneId) {
@@ -888,6 +998,7 @@
       function buildPublicSceneWrap(scene, viewpoints, showViewpointControls) {
         const wrap = document.createElement('div');
         wrap.className = 'thumbnail-wrap';
+        if (showViewpointControls) wrap.classList.add('public-single');
         wrap.dataset.sceneId = scene.id;
         wrap.dataset.fullname = scene.name || '';
         if (viewpoints && viewpoints.length) wrap.classList.add('has-vp');
@@ -955,7 +1066,6 @@
             e.stopPropagation();
             openLightbox(viewpoints, 0, group.name || 'Помещение');
           });
-          outer.appendChild(count);
           const row = document.createElement('div');
           row.className = 'public-room-scenes';
           scenes.forEach(scene => row.appendChild(buildPublicSceneWrap(scene, viewpoints, false)));
@@ -967,6 +1077,7 @@
           name.className = 'public-room-name';
           name.textContent = group.name || 'Помещение';
           footer.appendChild(name);
+          footer.appendChild(count);
           room.appendChild(footer);
           outer.appendChild(room);
           thumbnailsList.appendChild(outer);
@@ -1180,17 +1291,21 @@
         }
       });
       (function initViewpointZoomAndPan() {
-        var scale=1,x=0,y=0,panning=false,swiping=false,startX=0,startY=0,swipeStartX=0,swipeStartY=0,pinchDistance=0,pinchScale=1,touchStartX=0,touchMoved=false;
+        var scale=1,x=0,y=0,panning=false,swiping=false,startX=0,startY=0,swipeStartX=0,swipeStartY=0,pinchDistance=0,pinchScale=1,touchStartX=0,touchMoved=false,swipePeer=null,swipeDirection=0;
         function clamp(){var bw=lbImage.offsetWidth||1,bh=lbImage.offsetHeight||1,mx=Math.max(0,(bw*scale-lbImgWrap.clientWidth)/2),my=Math.max(0,(bh*scale-lbImgWrap.clientHeight)/2);x=Math.max(-mx,Math.min(mx,x));y=Math.max(-my,Math.min(my,y));}
         function apply(){if(!swiping)clamp();lbImage.style.transform='translate3d('+x+'px,'+y+'px,0) scale('+scale+')';lbImgWrap.classList.toggle('zoomed',scale>1.001);}
-        lbResetView=function(){scale=1;x=0;y=0;panning=false;swiping=false;lbImage.style.transition='';lbImage.style.opacity='';apply();};
+        function clearSwipePeer(){if(swipePeer&&swipePeer.parentNode)swipePeer.remove();swipePeer=null;swipeDirection=0;}
+        function ensureSwipePeer(direction){if(!lbViewpoints.length||!direction)return null;if(swipePeer&&swipeDirection===direction)return swipePeer;clearSwipePeer();var index=(lbIndex+direction+lbViewpoints.length)%lbViewpoints.length,peer=lbImage.cloneNode(false);peer.removeAttribute('id');peer.className='lb-swipe-peer';peer.src=lbViewpoints[index].file||lbViewpoints[index].thumbnail||'';peer.style.cssText='position:absolute;inset:0;margin:auto;pointer-events:none;transition:none;opacity:1;';lbImgWrap.appendChild(peer);swipePeer=peer;swipeDirection=direction;return peer;}
+        function moveSwipe(dx){var direction=dx<0?1:dx>0?-1:swipeDirection,peer=ensureSwipePeer(direction),width=Math.max(1,lbImgWrap.clientWidth);x=dx;y=0;apply();if(peer)peer.style.transform='translate3d('+(dx+direction*width)+'px,0,0) scale(1)';}
+        function finishSwipe(dx){var width=Math.max(1,lbImgWrap.clientWidth),direction=dx<0?1:-1,turn=Math.abs(dx)>Math.min(110,width*.16)&&lbViewpoints.length>1,peer=ensureSwipePeer(direction);lbImage.style.transition='transform .28s cubic-bezier(.2,.78,.22,1)';if(peer)peer.style.transition='transform .28s cubic-bezier(.2,.78,.22,1)';requestAnimationFrame(function(){x=turn?-direction*width:0;apply();if(peer)peer.style.transform='translate3d('+(turn?0:direction*width)+'px,0,0) scale(1)';});setTimeout(function(){if(turn&&peer){lbIndex=(lbIndex+direction+lbViewpoints.length)%lbViewpoints.length;lbCounter.textContent=(lbIndex+1)+' / '+lbViewpoints.length;lbCaption.textContent=lbViewpoints[lbIndex].name||'Ракурс';lbImage.src=peer.src;}x=0;y=0;swiping=false;lbImage.style.transition='none';apply();requestAnimationFrame(function(){clearSwipePeer();lbImage.style.transition='';lbImgWrap.classList.remove('panning');});},285);}
+        lbResetView=function(){scale=1;x=0;y=0;panning=false;swiping=false;clearSwipePeer();lbImage.style.transition='';lbImage.style.opacity='';apply();};
         vpLightbox.addEventListener('wheel',function(e){if(!vpLightbox.classList.contains('show'))return;e.preventDefault();var old=scale;scale=Math.max(1,Math.min(6,scale*Math.exp(-e.deltaY*.0015)));if(scale===1){x=0;y=0;}else{var r=lbImgWrap.getBoundingClientRect(),px=e.clientX-(r.left+r.width/2),py=e.clientY-(r.top+r.height/2);x=px-(px-x)*(scale/old);y=py-(py-y)*(scale/old);}apply();},{passive:false});
         lbImgWrap.addEventListener('mousedown',function(e){if(e.button!==0)return;if(scale>1.001){panning=true;startX=e.clientX-x;startY=e.clientY-y;}else{swiping=true;swipeStartX=e.clientX;swipeStartY=e.clientY;x=0;y=0;lbImage.style.transition='none';}lbImgWrap.classList.add('panning');e.preventDefault();});
-        window.addEventListener('mousemove',function(e){if(panning){window._chaziLbJustPanned=true;x=e.clientX-startX;y=e.clientY-startY;apply();}else if(swiping){x=e.clientX-swipeStartX;y=0;if(Math.abs(x)>4||Math.abs(e.clientY-swipeStartY)>4)window._chaziLbJustPanned=true;lbImage.style.opacity=String(Math.max(.45,1-Math.abs(x)/Math.max(320,lbImgWrap.clientWidth)));apply();}});
-        window.addEventListener('mouseup',function(e){if(panning){panning=false;lbImgWrap.classList.remove('panning');return;}if(!swiping)return;var dx=e.clientX-swipeStartX,turn=Math.abs(dx)>Math.min(110,lbImgWrap.clientWidth*.16)&&lbViewpoints.length>1;lbImage.style.transition='transform .22s cubic-bezier(.2,.75,.25,1), opacity .2s ease';if(turn){x=dx<0?-lbImgWrap.clientWidth:lbImgWrap.clientWidth;lbImage.style.opacity='0';apply();setTimeout(function(){swiping=false;x=0;y=0;lbImage.style.transition='';lbImage.style.opacity='';lbImgWrap.classList.remove('panning');if(dx<0)goLbNext();else goLbPrev();},210);}else{x=0;lbImage.style.opacity='1';apply();setTimeout(function(){swiping=false;lbImage.style.transition='';lbImage.style.opacity='';lbImgWrap.classList.remove('panning');apply();},220);}});
-        lbImgWrap.addEventListener('touchstart',function(e){touchMoved=false;if(e.touches.length===2){pinchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);pinchScale=scale;}else if(e.touches.length===1){touchStartX=e.touches[0].clientX;startX=e.touches[0].clientX-x;startY=e.touches[0].clientY-y;}},{passive:true});
-        lbImgWrap.addEventListener('touchmove',function(e){if(e.touches.length===2&&pinchDistance){e.preventDefault();touchMoved=true;window._chaziLbJustPanned=true;var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);scale=Math.max(1,Math.min(6,pinchScale*d/pinchDistance));if(scale===1){x=0;y=0;}apply();}else if(e.touches.length===1&&scale>1){e.preventDefault();touchMoved=true;window._chaziLbJustPanned=true;x=e.touches[0].clientX-startX;y=e.touches[0].clientY-startY;apply();}},{passive:false});
-        lbImgWrap.addEventListener('touchend',function(e){if(scale<=1.001&&!touchMoved&&e.changedTouches.length){var dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>50){if(dx<0)goLbNext();else goLbPrev();}}if(scale<=1.001)lbResetView();},{passive:true});
+        window.addEventListener('mousemove',function(e){if(panning){window._chaziLbJustPanned=true;x=e.clientX-startX;y=e.clientY-startY;apply();}else if(swiping){var dx=e.clientX-swipeStartX;if(Math.abs(dx)>4||Math.abs(e.clientY-swipeStartY)>4)window._chaziLbJustPanned=true;moveSwipe(dx);}});
+        window.addEventListener('mouseup',function(e){if(panning){panning=false;lbImgWrap.classList.remove('panning');return;}if(!swiping)return;finishSwipe(e.clientX-swipeStartX);});
+        lbImgWrap.addEventListener('touchstart',function(e){touchMoved=false;if(e.touches.length===2){if(swiping){swiping=false;x=0;clearSwipePeer();apply();}pinchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);pinchScale=scale;}else if(e.touches.length===1){touchStartX=e.touches[0].clientX;startX=e.touches[0].clientX-x;startY=e.touches[0].clientY-y;if(scale<=1.001){swiping=true;swipeStartX=touchStartX;swipeStartY=e.touches[0].clientY;x=0;y=0;lbImage.style.transition='none';}}},{passive:true});
+        lbImgWrap.addEventListener('touchmove',function(e){if(e.touches.length===2&&pinchDistance){e.preventDefault();touchMoved=true;window._chaziLbJustPanned=true;var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);scale=Math.max(1,Math.min(6,pinchScale*d/pinchDistance));if(scale===1){x=0;y=0;}apply();}else if(e.touches.length===1&&scale>1){e.preventDefault();touchMoved=true;window._chaziLbJustPanned=true;x=e.touches[0].clientX-startX;y=e.touches[0].clientY-startY;apply();}else if(e.touches.length===1&&swiping){e.preventDefault();var dx=e.touches[0].clientX-swipeStartX;touchMoved=Math.abs(dx)>4||Math.abs(e.touches[0].clientY-swipeStartY)>4;if(touchMoved)window._chaziLbJustPanned=true;moveSwipe(dx);}},{passive:false});
+        lbImgWrap.addEventListener('touchend',function(e){if(scale<=1.001&&swiping&&e.changedTouches.length){finishSwipe(e.changedTouches[0].clientX-swipeStartX);return;}if(scale<=1.001)lbResetView();},{passive:true});
       })();
 
       tourNameDisplay.textContent = manifest.name || 'Тур';
