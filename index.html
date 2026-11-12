@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>v_6.6</title>
+  <title>v6.7</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -201,57 +201,146 @@
     .pub-dl-all.show { display:flex; }
     .pub-dl-all:hover { background:#5a9fd6; }
     #topBar.hidden .pub-dl-all { opacity:0; pointer-events:none; }
+    /* ===== Просмотрщик ракурсов v6.7 ===== */
     #vpLightbox {
-      position:fixed; top:0; left:0; right:0; bottom:0;
-      background:rgba(0,0,0,0.92); z-index:20000; display:none;
-      align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s ease;
+      --lb-top:calc(64px + env(safe-area-inset-top, 0px));
+      --lb-bottom:calc(96px + env(safe-area-inset-bottom, 0px));
+      --lb-side:92px;
+      --lb-ease:cubic-bezier(.22,1,.36,1);
+      position:fixed; inset:0; z-index:20000;
+      visibility:hidden; opacity:0; pointer-events:none;
+      transition:opacity .34s var(--lb-ease), visibility 0s linear .34s;
+      color:#fff; font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+      -webkit-tap-highlight-color:transparent;
     }
-    #vpLightbox.show { display:flex; opacity:1; }
-    #vpLightbox .lb-inner {
-      position:relative; width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    #vpLightbox.show { visibility:visible; opacity:1; pointer-events:auto; transition-delay:0s; }
+    #vpLightbox .lb-backdrop {
+      position:absolute; inset:0;
+      background:radial-gradient(120% 90% at 50% 38%, rgba(20,25,34,.93), rgba(4,5,8,.975));
+      -webkit-backdrop-filter:blur(18px) saturate(1.1); backdrop-filter:blur(18px) saturate(1.1);
     }
+    #vpLightbox .lb-inner { position:absolute; inset:0; overflow:hidden; }
+    #vpLightbox .lb-stage {
+      position:absolute; left:var(--lb-side); right:var(--lb-side); top:var(--lb-top); bottom:var(--lb-bottom);
+      transform:scale(.965); transition:transform .5s var(--lb-ease);
+    }
+    #vpLightbox.show .lb-stage { transform:none; }
     #vpLightbox .lb-img-wrap {
-      position:absolute; top:0; left:0; right:0; bottom:0;
-      display:flex; align-items:center; justify-content:center;
-      transition: opacity 0.25s ease;
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      touch-action:none;
     }
     #vpLightbox .lb-img-wrap img {
-      max-width:95%; max-height:90%; object-fit:contain; border-radius:4px;
-      box-shadow:0 8px 40px rgba(0,0,0,0.6); user-select:none; pointer-events:none;
-      transform:translate3d(0,0,0) scale(1); transform-origin:center center; will-change:transform;
+      max-width:100%; max-height:100%; object-fit:contain; border-radius:12px;
+      box-shadow:0 26px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07);
+      user-select:none; -webkit-user-drag:none; pointer-events:none;
+      transform:translate3d(0,0,0) scale(1); transform-origin:center center;
+      will-change:transform, opacity;
     }
-    #vpLightbox .lb-img-wrap.zoomed { cursor:grab; touch-action:none; }
+    #vpLightbox .lb-img-wrap.zoomed { cursor:grab; }
     #vpLightbox .lb-img-wrap.panning { cursor:grabbing; }
-    #vpLightbox .lb-img-wrap.fade-out { opacity:0; }
-    #vpLightbox .lb-img-wrap.fade-in { opacity:0; }
-    #vpLightbox .lb-nav {
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:48px; height:48px; background:rgba(255,255,255,0.1);
-      border:1px solid rgba(255,255,255,0.15); border-radius:50%;
-      color:#fff; font-size:24px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      transition:background .2s, opacity .2s; z-index:10; opacity:0.7;
+    #vpLightbox .lb-loader {
+      position:absolute; top:50%; left:50%; width:44px; height:44px; margin:-22px 0 0 -22px;
+      border:3px solid rgba(255,255,255,.14); border-top-color:#6ab0f7; border-radius:50%;
+      animation:lb-spin .75s linear infinite; display:none; z-index:5;
     }
-    #vpLightbox .lb-nav:hover { background:rgba(255,255,255,0.25); opacity:1; }
-    #vpLightbox .lb-prev { left:20px; }
-    #vpLightbox .lb-next { right:20px; }
-    #vpLightbox .lb-close {
-      position:absolute; top:16px; right:20px; width:40px; height:40px;
-      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-      border-radius:50%; color:#fff; font-size:20px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center; z-index:10; transition:background .2s;
+    #vpLightbox .lb-loader.show { display:block; }
+    @keyframes lb-spin { to { transform:rotate(360deg); } }
+
+    #vpLightbox .lb-topbar {
+      position:absolute; left:0; right:0; top:0; height:var(--lb-top);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+      pointer-events:none; z-index:10;
     }
-    #vpLightbox .lb-close:hover { background:rgba(255,80,80,0.4); }
-    #vpLightbox .lb-caption {
-      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
-      background:rgba(0,0,0,0.7); padding:8px 20px; border-radius:20px;
-      font-size:15px; color:#eee; z-index:10; white-space:nowrap;
-      border:1px solid rgba(255,255,255,0.1);
-    }
+    #vpLightbox .lb-topbar > * { pointer-events:auto; }
     #vpLightbox .lb-counter {
-      position:absolute; top:20px; left:50%; transform:translateX(-50%);
-      font-size:14px; color:#aaa; z-index:10;
+      font:600 13px/1 'Segoe UI',system-ui,sans-serif; letter-spacing:.06em; color:#dfe6ef;
+      padding:9px 14px; border-radius:999px; font-variant-numeric:tabular-nums;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1);
+      -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    }
+    #vpLightbox .lb-actions { display:flex; align-items:center; gap:10px; }
+    #vpLightbox .lb-icon-btn, #vpLightbox .lb-nav {
+      display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer; color:#eef3f9;
+      background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.14); border-radius:50%;
+      -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+      transition:background .2s, border-color .2s, transform .25s var(--lb-ease), color .2s;
+    }
+    #vpLightbox .lb-icon-btn { width:42px; height:42px; }
+    #vpLightbox .lb-icon-btn:hover, #vpLightbox .lb-nav:hover { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.26); }
+    #vpLightbox .lb-close:hover { background:rgba(255,95,98,.32); border-color:rgba(255,125,128,.5); }
+    #vpLightbox .lb-icon-btn:active, #vpLightbox .lb-nav:active { transform:scale(.92); }
+    #vpLightbox button:focus-visible { outline:2px solid #6ab0f7; outline-offset:2px; }
+    #vpLightbox svg { width:20px; height:20px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    #vpLightbox .lb-downloads { position:relative; }
+    #vpLightbox .lb-menu-items {
+      position:absolute; right:0; top:calc(100% + 10px); min-width:200px; padding:6px;
+      display:flex; flex-direction:column; gap:2px;
+      background:rgba(26,31,40,.94); border:1px solid rgba(255,255,255,.12); border-radius:14px;
+      -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
+      box-shadow:0 18px 44px rgba(0,0,0,.5);
+      opacity:0; transform:translateY(-8px) scale(.96); transform-origin:top right; pointer-events:none;
+      transition:opacity .2s ease, transform .3s var(--lb-ease);
+    }
+    #vpLightbox .lb-menu-items.open { opacity:1; transform:none; pointer-events:auto; }
+    #vpLightbox .lb-menu-items button {
+      display:flex; align-items:center; gap:11px; width:100%; padding:10px 12px; border:0; border-radius:9px;
+      background:transparent; color:#e9eef5; font:500 14px/1.2 'Segoe UI',system-ui,sans-serif; cursor:pointer; text-align:left; white-space:nowrap;
+      transition:background .18s;
+    }
+    #vpLightbox .lb-menu-items button:hover { background:rgba(106,176,247,.18); }
+    #vpLightbox .lb-menu-items svg { width:18px; height:18px; color:#8cc3fa; flex:none; }
+
+    #vpLightbox .lb-nav {
+      position:absolute; width:52px; height:52px; z-index:10;
+      top:calc(50% + (var(--lb-top) - var(--lb-bottom)) / 2); margin-top:-26px;
+    }
+    #vpLightbox .lb-nav svg { width:24px; height:24px; stroke-width:2.2; }
+    #vpLightbox .lb-prev { left:max(18px, env(safe-area-inset-left, 0px)); }
+    #vpLightbox .lb-next { right:max(18px, env(safe-area-inset-right, 0px)); }
+    #vpLightbox .lb-prev:hover svg { transform:translateX(-2px); }
+    #vpLightbox .lb-next:hover svg { transform:translateX(2px); }
+    #vpLightbox .lb-nav svg { transition:transform .25s var(--lb-ease); }
+    #vpLightbox.lb-single .lb-nav, #vpLightbox.lb-single .lb-dots { display:none; }
+
+    #vpLightbox .lb-footer {
+      position:absolute; left:0; right:0; bottom:0; height:var(--lb-bottom);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px;
+      padding:0 24px env(safe-area-inset-bottom, 0px); pointer-events:none; z-index:9;
+    }
+    #vpLightbox .lb-caption {
+      max-width:min(760px, 100%); font:500 17px/1.3 'Segoe UI',system-ui,sans-serif; letter-spacing:.01em; color:#f3f6fa;
+      text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-shadow:0 1px 12px rgba(0,0,0,.5);
+    }
+    #vpLightbox .lb-dots { display:flex; gap:7px; align-items:center; pointer-events:auto; min-height:8px; }
+    #vpLightbox .lb-dot {
+      width:7px; height:7px; padding:0; border:0; border-radius:4px; cursor:pointer;
+      background:rgba(255,255,255,.28); transition:width .35s var(--lb-ease), background .25s;
+    }
+    #vpLightbox .lb-dot:hover { background:rgba(255,255,255,.55); }
+    #vpLightbox .lb-dot.active { width:22px; background:#6ab0f7; }
+
+    @media (max-width:700px) {
+      #vpLightbox { --lb-top:calc(58px + env(safe-area-inset-top, 0px)); --lb-bottom:calc(112px + env(safe-area-inset-bottom, 0px)); --lb-side:12px; }
+      #vpLightbox .lb-nav { top:auto; bottom:calc(env(safe-area-inset-bottom, 0px) + 22px); margin-top:0; width:46px; height:46px; }
+      #vpLightbox .lb-prev { left:16px; }
+      #vpLightbox .lb-next { right:16px; }
+      #vpLightbox .lb-footer { padding-left:76px; padding-right:76px; }
+      #vpLightbox .lb-caption { font-size:16px; }
+      #vpLightbox .lb-img-wrap img { border-radius:10px; }
+    }
+    @media (max-height:520px) {
+      #vpLightbox { --lb-top:calc(52px + env(safe-area-inset-top, 0px)); --lb-bottom:calc(60px + env(safe-area-inset-bottom, 0px)); --lb-side:84px; }
+      #vpLightbox .lb-icon-btn { width:38px; height:38px; }
+      #vpLightbox .lb-nav { top:calc(50% + (var(--lb-top) - var(--lb-bottom)) / 2); bottom:auto; margin-top:-23px; width:46px; height:46px; }
+      #vpLightbox .lb-prev { left:max(14px, env(safe-area-inset-left, 0px)); }
+      #vpLightbox .lb-next { right:max(14px, env(safe-area-inset-right, 0px)); }
+      #vpLightbox .lb-footer { padding-left:24px; padding-right:24px; gap:8px; }
+      #vpLightbox .lb-caption { font-size:15px; }
+      #vpLightbox .lb-dots { display:none; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      #vpLightbox, #vpLightbox * { transition-duration:.01s !important; }
     }
     #vpLightbox .lb-loader {
       position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
@@ -262,35 +351,6 @@
     }
     #vpLightbox .lb-loader.show { display:block; }
     @keyframes lb-spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
-    #vpLightbox .lb-downloads {
-      position:absolute; top:16px; left:20px; z-index:10;
-      display:flex; flex-direction:column; align-items:flex-start; gap:0;
-    }
-    #vpLightbox .lb-menu-toggle {
-      background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.18);
-      color:#eee; width:40px; height:40px; border-radius:10px; font-size:20px;
-      cursor:pointer; transition:background .2s;
-      display:flex; align-items:center; justify-content:center;
-      letter-spacing:1px; line-height:1;
-    }
-    #vpLightbox .lb-menu-toggle:hover { background:rgba(106,176,247,0.35); }
-    #vpLightbox .lb-menu-items {
-      display:flex; flex-direction:column; gap:6px;
-      max-height:0; opacity:0; overflow:hidden;
-      transition: max-height 0.28s ease, opacity 0.28s ease, margin 0.28s ease;
-      margin-top:0;
-    }
-    #vpLightbox .lb-menu-items.open {
-      max-height:120px; opacity:1; margin-top:8px;
-    }
-    #vpLightbox .lb-menu-items button {
-      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-      color:#eee; padding:8px 14px; border-radius:8px; font-size:13px;
-      cursor:pointer; transition:background .2s;
-      display:flex; align-items:center; gap:6px;
-      white-space:nowrap;
-    }
-    #vpLightbox .lb-menu-items button:hover { background:rgba(106,176,247,0.35); }
     #vpLightbox .lb-img-wrap img.loading { opacity:0; }
     #globalTooltip {
       position:fixed;
@@ -323,14 +383,18 @@
       #topBar .brand { font-size:14px; }
       #topBar .scene-name { font-size:14px; }
       #topBar .tour-name { font-size:12px; }
+      /* v6.7: размер миниатюр и отступ панели считаются от экрана, панель прижата к низу */
       #thumbnailsWrapper {
-        height:calc(174px + env(safe-area-inset-bottom, 0px));
-        padding:0 12px max(10px, env(safe-area-inset-bottom, 0px));
+        --pub-th-w:clamp(92px, 26vw, 116px);
+        --pub-th-h:calc(var(--pub-th-w) * .78);
+        height:auto;
+        padding:30px 12px max(10px, env(safe-area-inset-bottom, 0px));
         align-items:stretch;
+        justify-content:flex-end;
       }
-      .thumbnail-wrap { flex:0 0 100px; width:100px; padding-top:36px; }
+      .thumbnail-wrap { flex:0 0 var(--pub-th-w); width:var(--pub-th-w); padding-top:36px; }
       .thumbnail-wrap.public-single { padding-top:9px; }
-      .thumbnail-item { width:100px; height:78px; }
+      .thumbnail-item { width:var(--pub-th-w); height:var(--pub-th-h); }
       .thumbnail-item .label { font-size:10px; padding:2px 6px; }
       .public-room-group { padding:8px 6px 4px; }
       .public-room-scenes { gap:6px; }
@@ -349,8 +413,8 @@
     @media (max-width:700px) and (orientation:portrait) {
       #thumbnailsWrapper {
         bottom:0;
-        height:calc(174px + env(safe-area-inset-bottom, 0px));
-        padding-bottom:max(6px, env(safe-area-inset-bottom, 0px));
+        height:auto;
+        padding-bottom:max(12px, calc(env(safe-area-inset-bottom, 0px) + 6px));
       }
       #thumbnailsWrapper .scroll-container {
         padding-bottom:6px;
@@ -367,8 +431,11 @@
     }
     @media (orientation:landscape) and (max-height:600px) {
       #thumbnailsWrapper {
-        height:calc(126px + env(safe-area-inset-bottom, 0px));
-        padding:0 10px max(6px, env(safe-area-inset-bottom, 0px));
+        --pub-th-w:clamp(72px, 19vh, 96px);
+        --pub-th-h:calc(var(--pub-th-w) * .78);
+        height:auto;
+        padding:16px max(10px, env(safe-area-inset-right, 0px)) max(6px, env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
+        justify-content:flex-end;
       }
       #thumbnailsWrapper .scroll-container {
         gap:7px;
@@ -376,14 +443,14 @@
       }
       .thumbnail-wrap,
       .thumbnail-wrap.public-single {
-        flex:0 0 100px;
-        width:100px;
+        flex:0 0 var(--pub-th-w);
+        width:var(--pub-th-w);
         padding-top:7px;
         gap:3px;
       }
       .thumbnail-item {
-        width:100px;
-        height:78px;
+        width:var(--pub-th-w);
+        height:var(--pub-th-h);
         border-radius:8px;
       }
       .thumbnail-item .label { font-size:10px; padding:2px 6px; }
@@ -610,70 +677,12 @@
     }
     #vpEmptyMsg.show { display:block; }
 
-    /* ===== Lightbox ===== */
-    #vpLightbox {
-      position:fixed; top:0; left:0; right:0; bottom:0;
-      background:rgba(0,0,0,0.92);
-      z-index:20000;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      opacity:0;
-      transition:opacity 0.3s ease;
-    }
-    #vpLightbox.show { display:flex; opacity:1; }
-    #vpLightbox .lb-inner {
-      position:relative; width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center; overflow:hidden;
-    }
-    #vpLightbox .lb-img-wrap {
-      position:absolute; top:0; left:0; right:0; bottom:0;
-      display:flex; align-items:center; justify-content:center;
-      transition: opacity 0.25s ease;
-    }
-    #vpLightbox .lb-img-wrap img {
-      max-width:95%; max-height:90%; object-fit:contain; border-radius:4px;
-      box-shadow:0 8px 40px rgba(0,0,0,0.6); user-select:none; pointer-events:none;
-    }
-    #vpLightbox .lb-img-wrap.fade-out { opacity:0; }
-    #vpLightbox .lb-img-wrap.fade-in { opacity:0; }
-    #vpLightbox .lb-nav {
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:48px; height:48px; background:rgba(255,255,255,0.1);
-      border:1px solid rgba(255,255,255,0.15); border-radius:50%;
-      color:#fff; font-size:24px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      transition:background .2s, opacity .2s; z-index:10; opacity:0.7;
-    }
-    #vpLightbox .lb-nav:hover { background:rgba(255,255,255,0.25); opacity:1; }
-    #vpLightbox .lb-prev { left:20px; }
-    #vpLightbox .lb-next { right:20px; }
-    #vpLightbox .lb-close {
-      position:absolute; top:16px; right:20px; width:40px; height:40px;
-      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-      border-radius:50%; color:#fff; font-size:20px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center; z-index:10; transition:background .2s;
-    }
-    #vpLightbox .lb-close:hover { background:rgba(255,80,80,0.4); }
-    #vpLightbox .lb-caption {
-      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
-      background:rgba(0,0,0,0.7); padding:8px 20px; border-radius:20px;
-      font-size:15px; color:#eee; z-index:10; white-space:nowrap;
-      border:1px solid rgba(255,255,255,0.1);
-    }
-    #vpLightbox .lb-counter {
-      position:absolute; top:20px; left:50%; transform:translateX(-50%);
-      font-size:14px; color:#aaa; z-index:10;
-    }
 
     @media (max-width:700px) {
       #thumbnailsWrapper.panel-open { bottom:175px; }
       #viewpointsPanel { height:175px; }
       .viewpoint-wrap { flex:0 0 100px; width:100px; }
       .viewpoint-item { width:100px; height:75px; }
-      #vpLightbox .lb-nav { width:40px; height:40px; font-size:20px; }
-      #vpLightbox .lb-prev { left:10px; }
-      #vpLightbox .lb-next { right:10px; }
       .thumbnail-wrap .vp-btn { font-size:11px; padding:5px 12px; }
     }
 
@@ -684,7 +693,7 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">v_6.6</span>
+      <span class="tour-name" id="tourNameDisplay">v6.7</span>
     </div>
     <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">Скачать ракурсы</button>
   </div>
@@ -692,27 +701,37 @@
     <div id="globalTooltip"></div>
     <div class="scroll-container" id="thumbnailsList"></div>
   </div>
-  <div id="vpLightbox">
+  <div id="vpLightbox" role="dialog" aria-modal="true" aria-label="Просмотр ракурсов">
+    <div class="lb-backdrop"></div>
     <div class="lb-inner">
-      <div class="lb-img-wrap" id="lbImgWrap"><img id="lbImage" src="" alt="" /></div>
-      <div class="lb-loader" id="lbLoader"></div>
-      <button class="lb-nav lb-prev" id="lbPrev">‹</button>
-      <button class="lb-nav lb-next" id="lbNext">›</button>
-      <button class="lb-close" id="lbClose">✕</button>
-      <div class="lb-downloads">
-        <button class="lb-menu-toggle" id="lbMenuToggle" title="Меню">⋯</button>
-        <div class="lb-menu-items" id="lbMenuItems">
-          <button id="lbDlOne" title="Сохранить текущий ракурс">Сохранить</button>
-          <button id="lbDlAll" title="Архивировать ракурсы панорамы">Архивировать</button>
+      <div class="lb-topbar">
+        <div class="lb-counter" id="lbCounter"></div>
+        <div class="lb-actions">
+          <div class="lb-downloads">
+            <button class="lb-icon-btn lb-menu-toggle" id="lbMenuToggle" type="button" title="Меню" aria-label="Меню"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg></button>
+            <div class="lb-menu-items" id="lbMenuItems">
+              <button id="lbDlOne" type="button" title="Сохранить текущий ракурс"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19.5h14"/></svg>Сохранить ракурс</button>
+              <button id="lbDlAll" type="button" title="Архивировать ракурсы панорамы"><svg viewBox="0 0 24 24"><path d="M3.5 4.5h17v4h-17zM5 8.5v11h14v-11M10 12.5h4"/></svg>Скачать архивом</button>
+            </div>
+          </div>
+          <button class="lb-icon-btn lb-close" id="lbClose" type="button" title="Закрыть (Esc)" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         </div>
       </div>
-      <div class="lb-counter" id="lbCounter"></div>
-      <div class="lb-caption" id="lbCaption"></div>
+      <div class="lb-stage" id="lbStage">
+        <div class="lb-img-wrap" id="lbImgWrap"><img id="lbImage" src="" alt="" /></div>
+        <div class="lb-loader" id="lbLoader"></div>
+      </div>
+      <button class="lb-nav lb-prev" id="lbPrev" type="button" title="Назад" aria-label="Предыдущий ракурс"><svg viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
+      <button class="lb-nav lb-next" id="lbNext" type="button" title="Вперёд" aria-label="Следующий ракурс"><svg viewBox="0 0 24 24"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
+      <div class="lb-footer">
+        <div class="lb-caption" id="lbCaption"></div>
+        <div class="lb-dots" id="lbDots"></div>
+      </div>
     </div>
   </div>
   <script>
     (function() {
-      const manifest = {"name":"v_6.6","scenes":[{"id":"msnd16ks3v68h","name":"12. Спальня №2 - 360 (1)","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"msox39rub287k","viewpoints":[]},{"id":"msnd1j4uyyq6c","name":"1. Прихожая - 360_2","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"msoxvt19gvxl6","viewpoints":[]},{"id":"msnd1j8hxj3vq","name":"1. Прихожая - 360_1","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"msp06x1cobixs","viewpoints":[]},{"id":"msnd1c4xa2cyd","name":"3. Коридор _ 360_2","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"msnsqvwo2f97c","viewpoints":[]},{"id":"msj5j8c208a7r","name":"1. Прихожая - 360_1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"msnsqvwo2f97c","viewpoints":[]},{"id":"msnd1q4wjq6vb","name":"4_SU_№1_360_3","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"msnsqvwo2f97c","viewpoints":[]},{"id":"msnd166wlvlot","name":"12. Спальня №2 - 360 (2)","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"msozqpz9xwsxu","viewpoints":[]},{"id":"msnd1qcab2qys","name":"4_SU_№1_360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"msozqpz9xwsxu","viewpoints":[]},{"id":"msnd1q8kxelgk","name":"4_SU_№1_360_2","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"msoxvwjvdo571","viewpoints":[]},{"id":"msk6uswb5oxry","name":"Camera_360_2_V2","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"msp06s6v4cx5i","viewpoints":[]},{"id":"msnd1c879g8hr","name":"3. Коридор _ 360_1","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"msoxwsd9a1440","viewpoints":[]},{"id":"msnd16h7mg84g","name":"12. Спальня №2 - 360 (3)","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"msozqkmrrc53c","viewpoints":[]},{"id":"msnd0zy79dqmx","name":"Гостевая - Камера_360_1","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"msozqncbxfh9u","viewpoints":[]},{"id":"msnd10556gz3g","name":"Гостевая - Камера_360_2","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"msozwzg3p7hpc","viewpoints":[]}],"groups":[{"id":"msox39rub287k","name":"12. Спальня №2 - 360 (1)","sceneIds":["msnd16ks3v68h"],"viewpoints":[{"id":"msoqybhg0u7b4","name":"9. Терраса - Кам_03","file":"viewpoints/group_1/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"msoqybkbwfozx","name":"9. Терраса - Кам_01","file":"viewpoints/group_1/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"}]},{"id":"msoxvt19gvxl6","name":"1. Прихожая - 360_2","sceneIds":["msnd1j4uyyq6c"],"viewpoints":[]},{"id":"msp06x1cobixs","name":"1. Прихожая - 360_1","sceneIds":["msnd1j8hxj3vq"],"viewpoints":[]},{"id":"msnsqvwo2f97c","name":"1. Прихожая - 360_1 (1)","sceneIds":["msnd1c4xa2cyd","msj5j8c208a7r","msnd1q4wjq6vb"],"viewpoints":[{"id":"msj8hx9exh194","name":"1.5. Санузел №1 - Кам_05","file":"viewpoints/group_4/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"msk6qclhh43uj","name":"2. Спальня №2 - Кам_2","file":"viewpoints/group_4/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"},{"id":"msj8hxg5rkts5","name":"2. Спальня №2 - Кам_1 ","file":"viewpoints/group_4/vp_3.jpg","thumbnail":"viewpoints/group_4/vp_3_thumb.jpg"},{"id":"msj8hxsyb3dqk","name":"1.5. Санузел №1 - Кам_06","file":"viewpoints/group_4/vp_4.jpg","thumbnail":"viewpoints/group_4/vp_4_thumb.jpg"}]},{"id":"msozqpz9xwsxu","name":"12. Спальня №2 - 360 (2) (1)","sceneIds":["msnd166wlvlot","msnd1qcab2qys"],"viewpoints":[{"id":"msk6qci9twu0h","name":"2. Спальня №2 - Кам_3","file":"viewpoints/group_5/vp_1.jpg","thumbnail":"viewpoints/group_5/vp_1_thumb.jpg"},{"id":"msj8hxj5tg1hg","name":"1.5. Санузел №1 - Кам_04","file":"viewpoints/group_5/vp_2.jpg","thumbnail":"viewpoints/group_5/vp_2_thumb.jpg"},{"id":"msk6qc4uyyru0","name":"2. Спальня №2 - Кам_6","file":"viewpoints/group_5/vp_3.jpg","thumbnail":"viewpoints/group_5/vp_3_thumb.jpg"},{"id":"msoqycm77k6t7","name":"9. Терраса - Кам_06","file":"viewpoints/group_5/vp_4.jpg","thumbnail":"viewpoints/group_5/vp_4_thumb.jpg"},{"id":"msoqycqi44x2m","name":"9. Терраса - Кам_05","file":"viewpoints/group_5/vp_5.jpg","thumbnail":"viewpoints/group_5/vp_5_thumb.jpg"},{"id":"msj8hxph379nv","name":"1.5. Санузел №1 - Кам_03","file":"viewpoints/group_5/vp_6.jpg","thumbnail":"viewpoints/group_5/vp_6_thumb.jpg"}]},{"id":"msoxvwjvdo571","name":"4_SU_№1_360_2","sceneIds":["msnd1q8kxelgk"],"viewpoints":[{"id":"msoqybqw0rxjv","name":"9. Терраса - Кам_08","file":"viewpoints/group_6/vp_1.jpg","thumbnail":"viewpoints/group_6/vp_1_thumb.jpg"},{"id":"msoqybwu584m7","name":"9. Терраса - Кам_02","file":"viewpoints/group_6/vp_2.jpg","thumbnail":"viewpoints/group_6/vp_2_thumb.jpg"},{"id":"msoqycfe1z04d","name":"9. Терраса - Кам_04","file":"viewpoints/group_6/vp_3.jpg","thumbnail":"viewpoints/group_6/vp_3_thumb.jpg"}]},{"id":"msp06s6v4cx5i","name":"Camera_360_2_V2","sceneIds":["msk6uswb5oxry"],"viewpoints":[]},{"id":"msoxwsd9a1440","name":"3. Коридор _ 360_1","sceneIds":["msnd1c879g8hr"],"viewpoints":[]},{"id":"msozqkmrrc53c","name":"12. Спальня №2 - 360 (3)","sceneIds":["msnd16h7mg84g"],"viewpoints":[]},{"id":"msozqncbxfh9u","name":"Гостевая - Камера_360_1","sceneIds":["msnd0zy79dqmx"],"viewpoints":[]},{"id":"msozwzg3p7hpc","name":"Гостевая - Камера_360_2","sceneIds":["msnd10556gz3g"],"viewpoints":[]}]};
+      const manifest = {"name":"v6.7","scenes":[{"id":"mwdsn0kcd6brn","name":"Camera_360_002","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn0tnpo8qy","name":"Camera_360_003","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn154s0njp","name":"Camera_360_001","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdso0o4w1k0x","name":"360_002","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"mwdsqz1eeq1k5","viewpoints":[]},{"id":"mwdso0x9myl3u","name":"360_003","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mwdsqz1eeq1k5","viewpoints":[]},{"id":"mwdso0grqclow","name":"360_001","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"mwdsqz1eeq1k5","viewpoints":[]},{"id":"mwdsokc7fy6xz","name":"Camera_360_3","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"mwdsokl3314ah","viewpoints":[]},{"id":"mwdsokl3z5vpl","name":"Camera_360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"mwdsokl3314ah","viewpoints":[]},{"id":"mwdsopxenhcsc","name":"Camera_360_1 (1)","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsok40qmo7a","name":"Camera_360_2","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsoq7spg6qz","name":"Camera_360_2 (1)","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsoqgvkfvyq","name":"Camera_360_3 (1)","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsp2j0ipra3","name":"Camera_360_3 (2)","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"mwdsp2j0hl6p6","viewpoints":[]},{"id":"mwdsp1yyplt6t","name":"Camera_360_1 (2)","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"mwdsp2j0hl6p6","viewpoints":[]},{"id":"mwdsp29vb680h","name":"Camera_360_2 (2)","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg","groupId":"mwdsp2j0hl6p6","viewpoints":[]}],"groups":[{"id":"mwdsni4lw6ad3","name":"Camera_360_002","sceneIds":["mwdsn0kcd6brn","mwdsn0tnpo8qy","mwdsn154s0njp"],"viewpoints":[{"id":"mwdstovkzvfos","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_1/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"mwdstp4vx0c8o","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_1/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"},{"id":"mwdstp7567t6o","name":"12. Спальня №3_Кам_ (7)","file":"viewpoints/group_1/vp_3.jpg","thumbnail":"viewpoints/group_1/vp_3_thumb.jpg"},{"id":"mwdstpdo6u0iq","name":"12. Спальня №3_Кам_ (8)","file":"viewpoints/group_1/vp_4.jpg","thumbnail":"viewpoints/group_1/vp_4_thumb.jpg"},{"id":"mwdstpid8ke4h","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_1/vp_5.jpg","thumbnail":"viewpoints/group_1/vp_5_thumb.jpg"},{"id":"mwdstplpyk8db","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_1/vp_6.jpg","thumbnail":"viewpoints/group_1/vp_6_thumb.jpg"},{"id":"mwdstpp47glpb","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_1/vp_7.jpg","thumbnail":"viewpoints/group_1/vp_7_thumb.jpg"},{"id":"mwdstpsn6h4t3","name":"12. Спальня №3_Кам_ (6)","file":"viewpoints/group_1/vp_8.jpg","thumbnail":"viewpoints/group_1/vp_8_thumb.jpg"}]},{"id":"mwdsqz1eeq1k5","name":"360_002 (1)","sceneIds":["mwdso0o4w1k0x","mwdso0x9myl3u","mwdso0grqclow"],"viewpoints":[{"id":"mwdstfju7fl37","name":"5. Кухня - Ракурс_9","file":"viewpoints/group_2/vp_1.jpg","thumbnail":"viewpoints/group_2/vp_1_thumb.jpg"},{"id":"mwdstfq1b5l2d","name":"5. Кухня - Ракурс_8","file":"viewpoints/group_2/vp_2.jpg","thumbnail":"viewpoints/group_2/vp_2_thumb.jpg"},{"id":"mwdstfvpqb9xm","name":"5. Кухня - Ракурс_11","file":"viewpoints/group_2/vp_3.jpg","thumbnail":"viewpoints/group_2/vp_3_thumb.jpg"},{"id":"mwdstfy092zdz","name":"5. Кухня - Ракурс_10","file":"viewpoints/group_2/vp_4.jpg","thumbnail":"viewpoints/group_2/vp_4_thumb.jpg"},{"id":"mwdstg0l9en6n","name":"5. Кухня - Ракурс_12","file":"viewpoints/group_2/vp_5.jpg","thumbnail":"viewpoints/group_2/vp_5_thumb.jpg"},{"id":"mwdstg3f5jrud","name":"5. Кухня - Ракурс_7","file":"viewpoints/group_2/vp_6.jpg","thumbnail":"viewpoints/group_2/vp_6_thumb.jpg"},{"id":"mwdstg63wvkbo","name":"5. Кухня - Ракурс_13","file":"viewpoints/group_2/vp_7.jpg","thumbnail":"viewpoints/group_2/vp_7_thumb.jpg"}]},{"id":"mwdsokl3314ah","name":"Camera","sceneIds":["mwdsokc7fy6xz","mwdsokl3z5vpl"],"viewpoints":[{"id":"mwdsr91a6sobs","name":"4. Гостиная - Ракурс_2","file":"viewpoints/group_3/vp_1.jpg","thumbnail":"viewpoints/group_3/vp_1_thumb.jpg"},{"id":"mwdsr95w8u0jt","name":"4. Гостиная - Ракурс_3","file":"viewpoints/group_3/vp_2.jpg","thumbnail":"viewpoints/group_3/vp_2_thumb.jpg"},{"id":"mwdsr9duv4cpr","name":"4. Гостиная - Ракурс_7","file":"viewpoints/group_3/vp_3.jpg","thumbnail":"viewpoints/group_3/vp_3_thumb.jpg"},{"id":"mwdsr9g6li7tj","name":"4. Гостиная - Ракурс_6","file":"viewpoints/group_3/vp_4.jpg","thumbnail":"viewpoints/group_3/vp_4_thumb.jpg"},{"id":"mwdsr9igzrl3p","name":"4. Гостиная - Ракурс_4","file":"viewpoints/group_3/vp_5.jpg","thumbnail":"viewpoints/group_3/vp_5_thumb.jpg"},{"id":"mwdsr9kx5rvlh","name":"4. Гостиная - Ракурс_5","file":"viewpoints/group_3/vp_6.jpg","thumbnail":"viewpoints/group_3/vp_6_thumb.jpg"},{"id":"mwdsr9nyvctgz","name":"4. Гостиная - Ракурс_8","file":"viewpoints/group_3/vp_7.jpg","thumbnail":"viewpoints/group_3/vp_7_thumb.jpg"}]},{"id":"mwdsoqgvo42x3","name":"Camera (1)","sceneIds":["mwdsopxenhcsc","mwdsok40qmo7a","mwdsoq7spg6qz","mwdsoqgvkfvyq"],"viewpoints":[{"id":"mwdsrtlpm559z","name":"5. Кухня - Ракурс_1","file":"viewpoints/group_4/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"mwdsrtnsi3tyh","name":"5. Кухня - Ракурс_4","file":"viewpoints/group_4/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"},{"id":"mwdsru1s2nnf7","name":"5. Кухня - Ракурс_3","file":"viewpoints/group_4/vp_3.jpg","thumbnail":"viewpoints/group_4/vp_3_thumb.jpg"},{"id":"mwdsru496yjn1","name":"5. Кухня - Ракурс_2","file":"viewpoints/group_4/vp_4.jpg","thumbnail":"viewpoints/group_4/vp_4_thumb.jpg"},{"id":"mwdsru6vzji9d","name":"5. Кухня - Ракурс_5","file":"viewpoints/group_4/vp_5.jpg","thumbnail":"viewpoints/group_4/vp_5_thumb.jpg"},{"id":"mwdsru9crjtsi","name":"5. Кухня - Ракурс_6","file":"viewpoints/group_4/vp_6.jpg","thumbnail":"viewpoints/group_4/vp_6_thumb.jpg"}]},{"id":"mwdsp2j0hl6p6","name":"Camera (2)","sceneIds":["mwdsp2j0ipra3","mwdsp1yyplt6t","mwdsp29vb680h"],"viewpoints":[{"id":"mwdsu48athvdt","name":"6. Коридор - Ракурс_3","file":"viewpoints/group_5/vp_1.jpg","thumbnail":"viewpoints/group_5/vp_1_thumb.jpg"},{"id":"mwdsu4ar6p1ip","name":"6. Коридор - Ракурс_1","file":"viewpoints/group_5/vp_2.jpg","thumbnail":"viewpoints/group_5/vp_2_thumb.jpg"},{"id":"mwdsu4ddislmi","name":"6. Коридор - Ракурс_4","file":"viewpoints/group_5/vp_3.jpg","thumbnail":"viewpoints/group_5/vp_3_thumb.jpg"},{"id":"mwdsu4fu5tbgl","name":"6. Коридор - Ракурс_2","file":"viewpoints/group_5/vp_4.jpg","thumbnail":"viewpoints/group_5/vp_4_thumb.jpg"},{"id":"mwdsu7nfz5h67","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_5/vp_5.jpg","thumbnail":"viewpoints/group_5/vp_5_thumb.jpg"},{"id":"mwdsu7snlr4ki","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_5/vp_6.jpg","thumbnail":"viewpoints/group_5/vp_6_thumb.jpg"},{"id":"mwdsu7v7r6t8r","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_5/vp_7.jpg","thumbnail":"viewpoints/group_5/vp_7_thumb.jpg"},{"id":"mwdsu7xx4oz2u","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_5/vp_8.jpg","thumbnail":"viewpoints/group_5/vp_8_thumb.jpg"},{"id":"mwdsu818bw8g4","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_5/vp_9.jpg","thumbnail":"viewpoints/group_5/vp_9_thumb.jpg"}]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -1019,19 +1038,48 @@
       }
 
       var publicControlsPositionFrame = 0;
+      var publicSensorSeen = false;
+      window.addEventListener('deviceorientation', function(e) {
+        if (e && (e.alpha !== null || e.beta !== null || e.gamma !== null)) publicSensorSeen = true;
+      });
+      var publicTouchDevice = (navigator.maxTouchPoints || 0) > 0 || ('ontouchstart' in window);
       function positionPublicPannellumControls() {
         publicControlsPositionFrame = 0;
         var fullscreen = panoContainer.querySelector('.pnlm-fullscreen-toggle-button');
         var orientation = panoContainer.querySelector('.pnlm-orientation-button');
-        if (!fullscreen || !orientation) return;
+        if (!orientation) return;
+        /* v6.7: на телефоне штатная кнопка гироскопа Pannellum показывается всегда
+           (сама библиотека прячет её, пока браузер не пришлёт первое событие датчика). */
+        if (publicTouchDevice && typeof window.DeviceOrientationEvent !== 'undefined' &&
+            getComputedStyle(orientation).display === 'none') {
+          orientation.style.setProperty('display', 'block', 'important');
+        }
         var containerRect = panoContainer.getBoundingClientRect();
-        var fullscreenRect = fullscreen.getBoundingClientRect();
+        var fullscreenRect = fullscreen ? fullscreen.getBoundingClientRect() : null;
+        var hasFullscreen = !!(fullscreenRect && fullscreenRect.width > 0 && fullscreenRect.height > 0);
+        var topPx, leftPx;
+        if (hasFullscreen) {
+          topPx = Math.round(fullscreenRect.bottom - containerRect.top + 5);
+          leftPx = Math.round(fullscreenRect.left - containerRect.left);
+        } else {
+          /* без кнопки полного экрана (например, iPhone) гироскоп занимает её место */
+          topPx = 12; leftPx = 4;
+        }
         orientation.style.setProperty('position', 'absolute', 'important');
-        orientation.style.setProperty('top', Math.round(fullscreenRect.bottom - containerRect.top + 5) + 'px', 'important');
-        orientation.style.setProperty('left', Math.round(fullscreenRect.left - containerRect.left) + 'px', 'important');
+        orientation.style.setProperty('top', topPx + 'px', 'important');
+        orientation.style.setProperty('left', leftPx + 'px', 'important');
         orientation.style.setProperty('right', 'auto', 'important');
         orientation.style.setProperty('bottom', 'auto', 'important');
         orientation.style.setProperty('z-index', '200', 'important');
+        if (!orientation._chaziHint) {
+          orientation._chaziHint = true;
+          orientation.addEventListener('click', function() {
+            setTimeout(function() {
+              if (publicSensorSeen || orientation.classList.contains('pnlm-orientation-button-active')) return;
+              pubNotify('Гироскоп недоступен: откройте тур по https:// и разрешите доступ к датчикам движения', 4200);
+            }, 900);
+          });
+        }
       }
       function schedulePublicPannellumControls() {
         if (!publicControlsPositionFrame) {
@@ -1219,71 +1267,103 @@
         document.removeEventListener('keydown', lbKeyHandler);
         lbViewpoints = [];
       }
-      function showLbImage(animate, direction) {
+      function lbSrcOf(vp) { return vp.file || vp.thumbnail || ''; }
+      /* ===== v6.7: просмотрщик ракурсов — показ, мета-данные и переходы ===== */
+      var lbTurn = function() {};
+      var lbShowToken = 0;
+      var LB_EASE = 'cubic-bezier(.22,1,.36,1)';
+      var lbReduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      function lbMs(ms) { return lbReduce ? 1 : ms; }
+      function lbPreload(src) {
+        return new Promise(function(resolve) {
+          var im = new Image();
+          var done = function() { resolve(); };
+          im.onload = function() { if (im.decode) im.decode().then(done, done); else done(); };
+          im.onerror = done;
+          im.src = src;
+        });
+      }
+      function lbRenderDots() {
+        var dots = document.getElementById('lbDots');
+        var n = lbViewpoints.length;
+        vpLightbox.classList.toggle('lb-single', n < 2);
+        if (!dots) return;
+        dots.textContent = '';
+        if (n < 2 || n > 14) return;
+        for (var i = 0; i < n; i++) {
+          (function(idx) {
+            var d = document.createElement('button');
+            d.type = 'button';
+            d.className = 'lb-dot';
+            d.setAttribute('aria-label', 'Ракурс ' + (idx + 1));
+            d.addEventListener('click', function(e) { e.stopPropagation(); lbGoTo(idx); });
+            dots.appendChild(d);
+          })(i);
+        }
+      }
+      function lbMarkDots() {
+        var ds = document.querySelectorAll('#lbDots .lb-dot');
+        for (var i = 0; i < ds.length; i++) ds[i].classList.toggle('active', i === lbIndex);
+      }
+      function lbSetMeta(animate) {
+        if (!lbViewpoints.length) return;
+        lbCounter.textContent = (lbIndex + 1) + ' / ' + lbViewpoints.length;
+        var cur = function() { var v = lbViewpoints[lbIndex]; return (v && v.name) || 'Ракурс'; };
+        if (animate && lbCaption.animate && !lbReduce) {
+          var out = lbCaption.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 130, easing: 'ease-in' });
+          out.onfinish = function() {
+            lbCaption.textContent = cur();
+            lbCaption.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 300, easing: LB_EASE });
+          };
+        } else {
+          lbCaption.textContent = cur();
+        }
+      }
+      function lbGoTo(i) {
+        var n = lbViewpoints.length;
+        if (n < 2 || lbAnimating) return;
+        i = ((i % n) + n) % n;
+        if (i === lbIndex) return;
+        lbResetView();
+        lbTurn(i > lbIndex ? 1 : -1, 0, 0, i);
+      }
+      function showLbImage() {
         if (!lbViewpoints.length) return;
         lbResetView();
-        const vp = lbViewpoints[lbIndex];
-        lbCounter.textContent = (lbIndex + 1) + ' / ' + lbViewpoints.length;
-        lbCaption.textContent = vp.name || 'Ракурс';
-        const loader = document.getElementById('lbLoader');
-        const src = vp.file || vp.thumbnail || '';
-        function loadSrc(s, withFade) {
-          if (loader) loader.classList.add('show');
-          const tmp = new Image();
-          tmp.onload = function() {
-            if (loader) loader.classList.remove('show');
-            if (withFade) {
-              var transitionMs = 460;
-              var transitionEase = 'cubic-bezier(.22,1,.36,1)';
-              const peer = lbImage.cloneNode(false);
-              peer.removeAttribute('id');
-              peer.className = 'lb-crossfade-peer';
-              peer.src = s;
-              peer.style.cssText = 'position:absolute;inset:0;margin:auto;pointer-events:none;opacity:0;transform:translate3d(0,0,0) scale(.985);will-change:opacity,transform;';
-              lbImgWrap.appendChild(peer);
-              peer.style.transition = 'opacity ' + transitionMs + 'ms ' + transitionEase + ', transform ' + transitionMs + 'ms ' + transitionEase;
-              lbImage.style.transition = 'opacity ' + transitionMs + 'ms ' + transitionEase + ', transform ' + transitionMs + 'ms ' + transitionEase;
-              lbImage.style.opacity = '1';
-              lbImage.style.transform = 'translate3d(0,0,0) scale(1)';
-              requestAnimationFrame(function() { requestAnimationFrame(function() {
-                peer.style.opacity = '1';
-                peer.style.transform = 'translate3d(0,0,0) scale(1)';
-                lbImage.style.opacity = '0';
-                lbImage.style.transform = 'translate3d(0,0,0) scale(1.012)';
-              }); });
-              setTimeout(function() {
-                lbImage.src = s;
-                lbImage.style.transition = 'none';
-                lbImage.style.opacity = '1';
-                lbImage.style.transform = 'translate3d(0,0,0) scale(1)';
-                peer.remove();
-                requestAnimationFrame(function() { lbImage.style.transition = ''; });
-                lbAnimating = false;
-              }, transitionMs + 24);
-            } else {
-              lbImage.src = s;
-              lbImage.style.opacity = '1';
-              lbImage.style.transform = 'translate3d(0,0,0) scale(1)';
-              lbAnimating = false;
-            }
-          };
-          tmp.onerror = function() {
-            lbImage.src = s;
-            if (loader) loader.classList.remove('show');
-            lbImage.style.opacity = '1';
-            lbImage.style.transform = 'translate3d(0,0,0) scale(1)';
-            lbAnimating = false;
-          };
-          tmp.src = s;
-        }
-        if (!animate) {
-          lbAnimating = true;
-          loadSrc(src, false);
-          return;
-        }
+        lbSetMeta(false);
+        lbRenderDots();
+        lbMarkDots();
+        var src = lbSrcOf(lbViewpoints[lbIndex]);
+        var loader = document.getElementById('lbLoader');
+        var token = ++lbShowToken;
         lbAnimating = true;
-        loadSrc(src, true);
+        if (loader) loader.classList.add('show');
+        lbImage.style.opacity = '0';
+        lbPreload(src).then(function() {
+          if (token !== lbShowToken) return;
+          if (loader) loader.classList.remove('show');
+          lbImage.src = src;
+          lbImage.style.opacity = '';
+          if (lbImage.animate && !lbReduce) {
+            lbImage.animate([
+              { opacity: 0, transform: 'scale(.93)', filter: 'blur(12px)' },
+              { opacity: 1, transform: 'scale(1)', filter: 'blur(0px)' }
+            ], { duration: 640, easing: LB_EASE });
+          }
+          lbAnimating = false;
+        });
       }
+      function goLbNext() {
+        if (lbAnimating || lbViewpoints.length < 2) return;
+        lbResetView();
+        lbTurn(1, 0, 0);
+      }
+      function goLbPrev() {
+        if (lbAnimating || lbViewpoints.length < 2) return;
+        lbResetView();
+        lbTurn(-1, 0, 0);
+      }
+
       async function downloadCurrentViewpoint() {
         if (!lbViewpoints.length) return;
         const vp = lbViewpoints[lbIndex];
@@ -1382,16 +1462,6 @@
         URL.revokeObjectURL(url);
         pubNotify('Архив готов, скачивание началось');
       }
-      function goLbNext() {
-        if (lbAnimating || lbViewpoints.length < 2) return;
-        lbIndex = (lbIndex + 1) % lbViewpoints.length;
-        showLbImage(true, 'next');
-      }
-      function goLbPrev() {
-        if (lbAnimating || lbViewpoints.length < 2) return;
-        lbIndex = (lbIndex - 1 + lbViewpoints.length) % lbViewpoints.length;
-        showLbImage(true, 'prev');
-      }
       function lbKeyHandler(e) {
         if (e.key === 'Escape') closeLightbox();
         else if (e.key === 'ArrowRight') goLbNext();
@@ -1425,30 +1495,232 @@
           e.stopPropagation();
           return;
         }
-        // Закрыть при клике в свободную область (не по картинке и не по кнопкам)
-        const t = e.target;
-        if (t.closest('button') || t.closest('.lb-downloads') || t.closest('.lb-caption') || t.closest('.lb-counter')) return;
-        if (t.tagName === 'IMG') return;
-        if (t === vpLightbox || t.classList.contains('lb-inner') || t.classList.contains('lb-img-wrap') || t.id === 'lbImgWrap' || t.id === 'lbLoader') {
-          closeLightbox();
-        }
+        var t = e.target;
+        if (!t.closest('.lb-downloads')) collapseLbMenu();
+        if (t.closest('button') || t.closest('.lb-downloads') || t.closest('.lb-counter') || t.closest('.lb-dots')) return;
+        var r = lbImage.getBoundingClientRect();
+        if (r.width > 0 && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) return;
+        closeLightbox();
       });
       (function initViewpointZoomAndPan() {
-        var scale=1,x=0,y=0,panning=false,swiping=false,startX=0,startY=0,swipeStartX=0,swipeStartY=0,pinchDistance=0,pinchScale=1,touchStartX=0,touchMoved=false,swipePeer=null,swipeDirection=0;
-        function clamp(){var bw=lbImage.offsetWidth||1,bh=lbImage.offsetHeight||1,mx=Math.max(0,(bw*scale-lbImgWrap.clientWidth)/2),my=Math.max(0,(bh*scale-lbImgWrap.clientHeight)/2);x=Math.max(-mx,Math.min(mx,x));y=Math.max(-my,Math.min(my,y));}
-        function apply(){if(!swiping)clamp();lbImage.style.transform='translate3d('+x+'px,'+y+'px,0) scale('+scale+')';lbImgWrap.classList.toggle('zoomed',scale>1.001);}
-        function clearSwipePeer(){if(swipePeer&&swipePeer.parentNode)swipePeer.remove();swipePeer=null;swipeDirection=0;}
-        function ensureSwipePeer(direction){if(!lbViewpoints.length||!direction)return null;if(swipePeer&&swipeDirection===direction)return swipePeer;clearSwipePeer();var index=(lbIndex+direction+lbViewpoints.length)%lbViewpoints.length,peer=lbImage.cloneNode(false);peer.removeAttribute('id');peer.className='lb-swipe-peer';peer.src=lbViewpoints[index].file||lbViewpoints[index].thumbnail||'';peer.style.cssText='position:absolute;inset:0;margin:auto;pointer-events:none;transition:none;opacity:0;transform:translate3d(0,0,0) scale(.985);will-change:opacity,transform;';lbImgWrap.appendChild(peer);swipePeer=peer;swipeDirection=direction;return peer;}
-        function moveSwipe(dx){var direction=dx<0?1:dx>0?-1:swipeDirection,peer=ensureSwipePeer(direction),width=Math.max(1,lbImgWrap.clientWidth),progress=Math.min(1,Math.abs(dx)/Math.max(1,width*.28)),eased=1-Math.pow(1-progress,2);x=0;y=0;lbImage.style.transform='translate3d(0,0,0) scale('+(1+eased*.004)+')';lbImage.style.opacity=String(1-eased*.22);if(peer){peer.style.opacity=String(eased*.32);peer.style.transform='translate3d(0,0,0) scale('+(.985+eased*.011)+')';}}
-        function finishSwipe(dx){var width=Math.max(1,lbImgWrap.clientWidth),direction=dx<0?1:-1,turn=Math.abs(dx)>Math.min(96,width*.14)&&lbViewpoints.length>1,peer=ensureSwipePeer(direction),settle=turn?460:240,easing='cubic-bezier(.22,1,.36,1)';lbImage.style.transition='opacity '+settle+'ms '+easing+', transform '+settle+'ms '+easing;if(peer)peer.style.transition='opacity '+settle+'ms '+easing+', transform '+settle+'ms '+easing;requestAnimationFrame(function(){x=0;y=0;lbImage.style.opacity=turn?'0':'1';lbImage.style.transform='translate3d(0,0,0) scale('+(turn?'1.012':'1')+')';if(peer){peer.style.opacity=turn?'1':'0';peer.style.transform='translate3d(0,0,0) scale('+(turn?'1':'.985')+')';}});setTimeout(function(){if(turn&&peer){lbIndex=(lbIndex+direction+lbViewpoints.length)%lbViewpoints.length;lbCounter.textContent=(lbIndex+1)+' / '+lbViewpoints.length;lbCaption.textContent=lbViewpoints[lbIndex].name||'Ракурс';lbImage.src=peer.src;}x=0;y=0;swiping=false;lbImage.style.transition='none';lbImage.style.opacity='1';lbImage.style.transform='translate3d(0,0,0) scale(1)';apply();clearSwipePeer();requestAnimationFrame(function(){lbImage.style.transition='';lbImgWrap.classList.remove('panning');});},settle+20);}
-        lbResetView=function(){scale=1;x=0;y=0;panning=false;swiping=false;clearSwipePeer();lbImage.style.transition='';lbImage.style.opacity='';apply();};
-        vpLightbox.addEventListener('wheel',function(e){if(!vpLightbox.classList.contains('show'))return;e.preventDefault();var old=scale;scale=Math.max(1,Math.min(6,scale*Math.exp(-e.deltaY*.0015)));if(scale===1){x=0;y=0;}else{var r=lbImgWrap.getBoundingClientRect(),px=e.clientX-(r.left+r.width/2),py=e.clientY-(r.top+r.height/2);x=px-(px-x)*(scale/old);y=py-(py-y)*(scale/old);}apply();},{passive:false});
-        lbImgWrap.addEventListener('mousedown',function(e){if(e.button!==0)return;if(scale>1.001){panning=true;startX=e.clientX-x;startY=e.clientY-y;}else{swiping=true;swipeStartX=e.clientX;swipeStartY=e.clientY;x=0;y=0;lbImage.style.transition='none';}lbImgWrap.classList.add('panning');e.preventDefault();});
-        window.addEventListener('mousemove',function(e){if(panning){window._chaziLbJustPanned=true;x=e.clientX-startX;y=e.clientY-startY;apply();}else if(swiping){var dx=e.clientX-swipeStartX;if(Math.abs(dx)>4||Math.abs(e.clientY-swipeStartY)>4)window._chaziLbJustPanned=true;moveSwipe(dx);}});
-        window.addEventListener('mouseup',function(e){if(panning){panning=false;lbImgWrap.classList.remove('panning');return;}if(!swiping)return;finishSwipe(e.clientX-swipeStartX);});
-        lbImgWrap.addEventListener('touchstart',function(e){touchMoved=false;if(e.touches.length===2){if(swiping){swiping=false;x=0;clearSwipePeer();apply();}pinchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);pinchScale=scale;}else if(e.touches.length===1){touchStartX=e.touches[0].clientX;startX=e.touches[0].clientX-x;startY=e.touches[0].clientY-y;if(scale<=1.001){swiping=true;swipeStartX=touchStartX;swipeStartY=e.touches[0].clientY;x=0;y=0;lbImage.style.transition='none';}}},{passive:true});
-        lbImgWrap.addEventListener('touchmove',function(e){if(e.touches.length===2&&pinchDistance){e.preventDefault();touchMoved=true;window._chaziLbJustPanned=true;var d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);scale=Math.max(1,Math.min(6,pinchScale*d/pinchDistance));if(scale===1){x=0;y=0;}apply();}else if(e.touches.length===1&&scale>1){e.preventDefault();touchMoved=true;window._chaziLbJustPanned=true;x=e.touches[0].clientX-startX;y=e.touches[0].clientY-startY;apply();}else if(e.touches.length===1&&swiping){e.preventDefault();var dx=e.touches[0].clientX-swipeStartX;touchMoved=Math.abs(dx)>4||Math.abs(e.touches[0].clientY-swipeStartY)>4;if(touchMoved)window._chaziLbJustPanned=true;moveSwipe(dx);}},{passive:false});
-        lbImgWrap.addEventListener('touchend',function(e){if(scale<=1.001&&swiping&&e.changedTouches.length){finishSwipe(e.changedTouches[0].clientX-swipeStartX);return;}if(scale<=1.001)lbResetView();},{passive:true});
+        var scale = 1, x = 0, y = 0, panning = false, swiping = false, startX = 0, startY = 0;
+        var swipeStartX = 0, swipeStartY = 0, pinchDistance = 0, pinchScale = 1, touchMoved = false;
+        var peer = null, peerDir = 0, peerIdx = -1, lastMX = 0, lastMT = 0, vel = 0;
+        function clamp() {
+          var bw = lbImage.offsetWidth || 1, bh = lbImage.offsetHeight || 1;
+          var mx = Math.max(0, (bw * scale - lbImgWrap.clientWidth) / 2);
+          var my = Math.max(0, (bh * scale - lbImgWrap.clientHeight) / 2);
+          x = Math.max(-mx, Math.min(mx, x));
+          y = Math.max(-my, Math.min(my, y));
+        }
+        function apply() {
+          if (!swiping) clamp();
+          lbImage.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) scale(' + scale + ')';
+          lbImgWrap.classList.toggle('zoomed', scale > 1.001);
+        }
+        function clearPeer() {
+          if (peer && peer.parentNode) peer.parentNode.removeChild(peer);
+          peer = null; peerDir = 0; peerIdx = -1;
+        }
+        function makePeer(dir, idx) {
+          var n = lbViewpoints.length;
+          if (idx == null) idx = (((lbIndex + dir) % n) + n) % n;
+          if (peer && peerDir === dir && peerIdx === idx) return peer;
+          clearPeer();
+          var p = lbImage.cloneNode(false);
+          p.removeAttribute('id');
+          p.removeAttribute('style');
+          p.className = 'lb-peer';
+          p.src = lbSrcOf(lbViewpoints[idx]);
+          p.style.cssText = 'position:absolute;inset:0;margin:auto;pointer-events:none;opacity:0;';
+          lbImgWrap.appendChild(p);
+          peer = p; peerDir = dir; peerIdx = idx;
+          return p;
+        }
+        // кадр «карусели»: текущая картинка едет за пальцем, соседняя подъезжает сбоку
+        function frame(dx) {
+          var W = lbImgWrap.clientWidth || 1;
+          var pr = Math.min(1, Math.abs(dx) / W);
+          var dir = dx < 0 ? 1 : -1;
+          var pe = makePeer(dir);
+          lbImage.style.transition = 'none';
+          lbImage.style.transform = 'translate3d(' + dx + 'px,0,0) scale(' + (1 - 0.06 * pr) + ')';
+          lbImage.style.opacity = String(1 - 0.7 * pr);
+          pe.style.transform = 'translate3d(' + (dir * W + dx) + 'px,0,0) scale(' + (0.94 + 0.06 * pr) + ')';
+          pe.style.opacity = String(Math.min(1, pr * 1.7));
+        }
+        function track(px) {
+          var now = performance.now();
+          if (lastMT) { var dt = Math.max(1, now - lastMT); vel = 0.7 * vel + 0.3 * ((px - lastMX) / dt); }
+          lastMX = px; lastMT = now;
+        }
+        function finishSwipe(dx) {
+          var W = lbImgWrap.clientWidth || 1;
+          var n = lbViewpoints.length;
+          swiping = false;
+          lbImgWrap.classList.remove('panning');
+          setTimeout(function() { window._chaziLbJustPanned = false; }, 60);
+          if (Math.abs(dx) < 2 && !peer) { lbImage.style.transition = ''; return; }
+          var dir = dx < 0 ? 1 : -1;
+          var turn = n > 1 && (Math.abs(dx) > Math.min(90, W * 0.14) || (Math.abs(vel) > 0.45 && vel * dx > 0));
+          if (turn) { lbTurn(dir, dx, vel); return; }
+          lbAnimating = true;
+          var ms = lbMs(380);
+          var from = { transform: lbImage.style.transform || 'translate3d(0,0,0) scale(1)', opacity: lbImage.style.opacity || '1' };
+          if (lbImage.animate) lbImage.animate([from, { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 }], { duration: ms, easing: LB_EASE });
+          if (peer && peer.animate) peer.animate([{ transform: peer.style.transform, opacity: peer.style.opacity || '0' }, { transform: 'translate3d(' + (dir * W) + 'px,0,0) scale(.94)', opacity: 0 }], { duration: ms, easing: LB_EASE, fill: 'forwards' });
+          setTimeout(function() {
+            lbImage.style.transition = '';
+            lbImage.style.transform = 'translate3d(0,0,0) scale(1)';
+            lbImage.style.opacity = '';
+            clearPeer();
+            lbAnimating = false;
+          }, ms + 20);
+        }
+        lbTurn = function(dir, startDx, v, targetIdx) {
+          var n = lbViewpoints.length;
+          if (n < 2) return;
+          var W = lbImgWrap.clientWidth || 1;
+          startDx = startDx || 0;
+          var idx = targetIdx == null ? (((lbIndex + dir) % n) + n) % n : targetIdx;
+          lbAnimating = true;
+          swiping = false;
+          var pe = makePeer(dir, idx);
+          var fromSwipe = startDx !== 0;
+          var travel = fromSwipe ? W : Math.min(W * 0.22, 240);
+          var curFrom = fromSwipe
+            ? { transform: lbImage.style.transform, opacity: lbImage.style.opacity || '1' }
+            : { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 };
+          var peFrom = fromSwipe
+            ? { transform: pe.style.transform, opacity: pe.style.opacity || '0' }
+            : { transform: 'translate3d(' + (dir * travel) + 'px,0,0) scale(.94)', opacity: 0 };
+          var ready = Promise.race([
+            new Promise(function(r) { if (pe.decode) pe.decode().then(r, r); else r(); }),
+            new Promise(function(r) { setTimeout(r, 1200); })
+          ]);
+          ready.then(function() {
+            var ms = lbMs(fromSwipe ? Math.max(300, 520 - Math.min(Math.abs(v || 0), 2) * 120) : 580);
+            var a1 = lbImage.animate([curFrom, { transform: 'translate3d(' + (-dir * travel) + 'px,0,0) scale(.94)', opacity: 0 }], { duration: ms, easing: LB_EASE, fill: 'forwards' });
+            var a2 = pe.animate([peFrom, { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 }], { duration: ms, easing: LB_EASE, fill: 'forwards' });
+            lbIndex = idx;
+            lbSetMeta(true);
+            lbMarkDots();
+            a2.onfinish = function() {
+              lbImage.src = pe.src;
+              var fin = function() {
+                a1.cancel();
+                lbImage.style.transition = 'none';
+                lbImage.style.transform = 'translate3d(0,0,0) scale(1)';
+                lbImage.style.opacity = '';
+                clearPeer();
+                lbAnimating = false;
+                lbImgWrap.classList.remove('panning');
+                requestAnimationFrame(function() { lbImage.style.transition = ''; });
+              };
+              if (lbImage.decode) lbImage.decode().then(fin, fin); else fin();
+            };
+          });
+        };
+        lbResetView = function() {
+          scale = 1; x = 0; y = 0; panning = false; swiping = false; vel = 0; lastMT = 0;
+          clearPeer();
+          lbImage.style.transition = '';
+          lbImage.style.opacity = '';
+          apply();
+        };
+        function zoomAt(newScale, cx, cy, smooth) {
+          var old = scale;
+          scale = Math.max(1, Math.min(6, newScale));
+          if (scale === 1) { x = 0; y = 0; }
+          else {
+            var r = lbImgWrap.getBoundingClientRect();
+            var px = cx - (r.left + r.width / 2), py = cy - (r.top + r.height / 2);
+            x = px - (px - x) * (scale / old); y = py - (py - y) * (scale / old);
+          }
+          if (smooth) {
+            lbImage.style.transition = 'transform .35s ' + LB_EASE;
+            setTimeout(function() { lbImage.style.transition = ''; }, 380);
+          }
+          apply();
+        }
+        vpLightbox.addEventListener('wheel', function(e) {
+          if (!vpLightbox.classList.contains('show')) return;
+          e.preventDefault();
+          if (lbAnimating) return;
+          zoomAt(scale * Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY, false);
+        }, { passive: false });
+        lbImgWrap.addEventListener('dblclick', function(e) {
+          if (lbAnimating) return;
+          zoomAt(scale > 1.001 ? 1 : 2.6, e.clientX, e.clientY, true);
+        });
+        lbImgWrap.addEventListener('mousedown', function(e) {
+          if (e.button !== 0 || lbAnimating) return;
+          if (scale > 1.001) {
+            panning = true; startX = e.clientX - x; startY = e.clientY - y;
+          } else {
+            swiping = true; swipeStartX = e.clientX; swipeStartY = e.clientY; vel = 0; lastMT = 0; lastMX = e.clientX;
+            x = 0; y = 0;
+          }
+          lbImgWrap.classList.add('panning');
+          e.preventDefault();
+        });
+        window.addEventListener('mousemove', function(e) {
+          if (panning) {
+            window._chaziLbJustPanned = true; x = e.clientX - startX; y = e.clientY - startY; apply();
+          } else if (swiping) {
+            var dx = e.clientX - swipeStartX;
+            if (Math.abs(dx) > 4 || Math.abs(e.clientY - swipeStartY) > 4) window._chaziLbJustPanned = true;
+            track(e.clientX);
+            if (Math.abs(dx) > 1) frame(dx);
+          }
+        });
+        window.addEventListener('mouseup', function(e) {
+          if (panning) { panning = false; lbImgWrap.classList.remove('panning'); setTimeout(function() { window._chaziLbJustPanned = false; }, 60); return; }
+          if (!swiping) return;
+          finishSwipe(e.clientX - swipeStartX);
+        });
+        lbImgWrap.addEventListener('touchstart', function(e) {
+          touchMoved = false;
+          if (lbAnimating) return;
+          if (e.touches.length === 2) {
+            if (swiping) { swiping = false; x = 0; clearPeer(); lbImage.style.opacity = ''; apply(); }
+            pinchDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+            pinchScale = scale;
+          } else if (e.touches.length === 1) {
+            startX = e.touches[0].clientX - x; startY = e.touches[0].clientY - y;
+            if (scale <= 1.001) {
+              swiping = true; swipeStartX = e.touches[0].clientX; swipeStartY = e.touches[0].clientY;
+              vel = 0; lastMT = 0; lastMX = swipeStartX; x = 0; y = 0;
+            }
+          }
+        }, { passive: true });
+        lbImgWrap.addEventListener('touchmove', function(e) {
+          if (e.touches.length === 2 && pinchDistance) {
+            e.preventDefault(); touchMoved = true; window._chaziLbJustPanned = true;
+            var d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+            scale = Math.max(1, Math.min(6, pinchScale * d / pinchDistance));
+            if (scale === 1) { x = 0; y = 0; }
+            apply();
+          } else if (e.touches.length === 1 && scale > 1) {
+            e.preventDefault(); touchMoved = true; window._chaziLbJustPanned = true;
+            x = e.touches[0].clientX - startX; y = e.touches[0].clientY - startY; apply();
+          } else if (e.touches.length === 1 && swiping) {
+            e.preventDefault();
+            var dx = e.touches[0].clientX - swipeStartX;
+            touchMoved = Math.abs(dx) > 4 || Math.abs(e.touches[0].clientY - swipeStartY) > 4;
+            if (touchMoved) window._chaziLbJustPanned = true;
+            track(e.touches[0].clientX);
+            if (Math.abs(dx) > 1) frame(dx);
+          }
+        }, { passive: false });
+        lbImgWrap.addEventListener('touchend', function(e) {
+          if (scale <= 1.001 && swiping && e.changedTouches.length) {
+            finishSwipe(e.changedTouches[0].clientX - swipeStartX);
+            return;
+          }
+          pinchDistance = 0;
+          if (scale <= 1.001) lbResetView();
+        }, { passive: true });
       })();
 
       tourNameDisplay.textContent = manifest.name || 'Тур';
