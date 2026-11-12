@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>v6.7</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>v6.8</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -17,14 +17,32 @@
     #panoContainer .pnlm-container { width:100% !important; height:100% !important; }
     .pnlm-zoom-controls { display:none !important; }
     .pnlm-container .pnlm-msg { display:none !important; }
-    .pnlm-fullscreen-toggle-button {
-      position: absolute !important;
-      top: 48px !important;
-      bottom:auto !important;
-      left:4px !important;
-      right:auto !important;
-      z-index: 200 !important;
+    /* v6.7: штатные кнопки Pannellum скрыты, вместо них — собственные (#pubControls) */
+    .pnlm-fullscreen-toggle-button, .pnlm-orientation-button {
+      position:absolute !important; left:-9999px !important; top:0 !important;
+      width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none !important;
     }
+    #pubControls {
+      position:fixed; right:max(12px, env(safe-area-inset-right, 0px)); top:calc(var(--pc-top, 60px) + 10px);
+      display:flex; flex-direction:column; gap:10px; z-index:60;
+      transition:top .3s ease, opacity .3s ease, transform .3s ease;
+    }
+    #pubControls.hidden { opacity:0; pointer-events:none; transform:translateY(-6px); }
+    #pubControls button {
+      width:42px; height:42px; padding:0; display:flex; align-items:center; justify-content:center; cursor:pointer;
+      color:#eef3f9; background:rgba(20,24,31,.62); border:1px solid rgba(255,255,255,.16); border-radius:50%;
+      -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+      -webkit-tap-highlight-color:transparent;
+      transition:background .2s, border-color .2s, color .2s, transform .2s;
+    }
+    #pubControls button:hover { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.28); }
+    #pubControls button:active { transform:scale(.92); }
+    #pubControls button.active { background:rgba(106,176,247,.38); border-color:#6ab0f7; color:#fff; }
+    #pubControls button[hidden] { display:none; }
+    #pubControls svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    #pubControls .ic-exit { display:none; }
+    #pubControls button.is-full .ic-enter { display:none; }
+    #pubControls button.is-full .ic-exit { display:block; }
     #topBar {
       position:fixed; top:0; left:0; right:0; height:48px;
       background:#0a0a0a;
@@ -248,7 +266,7 @@
 
     #vpLightbox .lb-topbar {
       position:absolute; left:0; right:0; top:0; height:var(--lb-top);
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
       padding:env(safe-area-inset-top, 0px) max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
       pointer-events:none; z-index:10;
     }
@@ -259,7 +277,9 @@
       background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1);
       -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     }
-    #vpLightbox .lb-actions { display:flex; align-items:center; gap:10px; }
+    #vpLightbox .lb-downloads { justify-self:start; }
+    #vpLightbox .lb-close { justify-self:end; }
+    #vpLightbox .lb-counter { justify-self:center; }
     #vpLightbox .lb-icon-btn, #vpLightbox .lb-nav {
       display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer; color:#eef3f9;
       background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.14); border-radius:50%;
@@ -274,12 +294,12 @@
     #vpLightbox svg { width:20px; height:20px; display:block; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     #vpLightbox .lb-downloads { position:relative; }
     #vpLightbox .lb-menu-items {
-      position:absolute; right:0; top:calc(100% + 10px); min-width:200px; padding:6px;
+      position:absolute; left:0; top:calc(100% + 10px); min-width:200px; padding:6px;
       display:flex; flex-direction:column; gap:2px;
       background:rgba(26,31,40,.94); border:1px solid rgba(255,255,255,.12); border-radius:14px;
       -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
       box-shadow:0 18px 44px rgba(0,0,0,.5);
-      opacity:0; transform:translateY(-8px) scale(.96); transform-origin:top right; pointer-events:none;
+      opacity:0; transform:translateY(-8px) scale(.96); transform-origin:top left; pointer-events:none;
       transition:opacity .2s ease, transform .3s var(--lb-ease);
     }
     #vpLightbox .lb-menu-items.open { opacity:1; transform:none; pointer-events:auto; }
@@ -342,15 +362,6 @@
     @media (prefers-reduced-motion:reduce) {
       #vpLightbox, #vpLightbox * { transition-duration:.01s !important; }
     }
-    #vpLightbox .lb-loader {
-      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      width:48px; height:48px; border:3px solid rgba(255,255,255,0.15);
-      border-top-color:#6ab0f7; border-radius:50%;
-      animation: lb-spin 0.7s linear infinite;
-      z-index:5; display:none;
-    }
-    #vpLightbox .lb-loader.show { display:block; }
-    @keyframes lb-spin { to { transform:translate(-50%,-50%) rotate(360deg); } }
     #vpLightbox .lb-img-wrap img.loading { opacity:0; }
     #globalTooltip {
       position:fixed;
@@ -400,15 +411,6 @@
       .public-room-scenes { gap:6px; }
       .public-room-scenes .thumbnail-wrap { padding-top:0; }
       .public-room-name { font-size:11px; }
-      /* Кнопка полного экрана остаётся на своём месте; гироскоп идёт под ней. */
-      .pnlm-orientation-button {
-        position:absolute !important;
-        top:84px !important;
-        bottom:auto !important;
-        left:4px !important;
-        right:auto !important;
-        z-index:200 !important;
-      }
     }
     @media (max-width:700px) and (orientation:portrait) {
       #thumbnailsWrapper {
@@ -463,18 +465,6 @@
       .thumbnail-wrap.public-single .vp-count {
         font-size:10px; line-height:18px; height:18px; min-height:18px;
         padding:0 7px; border-radius:10px;
-      }
-      .pnlm-fullscreen-toggle-button {
-        top:48px !important;
-        bottom:auto !important;
-        left:4px !important;
-        right:auto !important;
-      }
-      .pnlm-orientation-button {
-        top:84px !important;
-        bottom:auto !important;
-        left:4px !important;
-        right:auto !important;
       }
     }
 
@@ -693,9 +683,18 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">v6.7</span>
+      <span class="tour-name" id="tourNameDisplay">v6.8</span>
     </div>
     <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">Скачать ракурсы</button>
+  </div>
+  <div id="pubControls" >
+    <button type="button" id="pubFullBtn" title="Полный экран" aria-label="Полный экран" hidden>
+      <svg class="ic-enter" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      <svg class="ic-exit" viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+    </button>
+    <button type="button" id="pubGyroBtn" title="Гироскоп" aria-label="Гироскоп" hidden>
+      <svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/><path d="M3 9.5c-1 1.6-1 3.4 0 5M21 9.5c1 1.6 1 3.4 0 5"/></svg>
+    </button>
   </div>
   <div id="thumbnailsWrapper">
     <div id="globalTooltip"></div>
@@ -705,17 +704,15 @@
     <div class="lb-backdrop"></div>
     <div class="lb-inner">
       <div class="lb-topbar">
-        <div class="lb-counter" id="lbCounter"></div>
-        <div class="lb-actions">
-          <div class="lb-downloads">
-            <button class="lb-icon-btn lb-menu-toggle" id="lbMenuToggle" type="button" title="Меню" aria-label="Меню"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg></button>
-            <div class="lb-menu-items" id="lbMenuItems">
-              <button id="lbDlOne" type="button" title="Сохранить текущий ракурс"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19.5h14"/></svg>Сохранить ракурс</button>
-              <button id="lbDlAll" type="button" title="Архивировать ракурсы панорамы"><svg viewBox="0 0 24 24"><path d="M3.5 4.5h17v4h-17zM5 8.5v11h14v-11M10 12.5h4"/></svg>Скачать архивом</button>
-            </div>
+        <div class="lb-downloads">
+          <button class="lb-icon-btn lb-menu-toggle" id="lbMenuToggle" type="button" title="Меню" aria-label="Меню"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg></button>
+          <div class="lb-menu-items" id="lbMenuItems">
+            <button id="lbDlOne" type="button" title="Сохранить текущий ракурс"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19.5h14"/></svg>Сохранить ракурс</button>
+            <button id="lbDlAll" type="button" title="Архивировать ракурсы панорамы"><svg viewBox="0 0 24 24"><path d="M3.5 4.5h17v4h-17zM5 8.5v11h14v-11M10 12.5h4"/></svg>Скачать архивом</button>
           </div>
-          <button class="lb-icon-btn lb-close" id="lbClose" type="button" title="Закрыть (Esc)" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         </div>
+        <div class="lb-counter" id="lbCounter"></div>
+        <button class="lb-icon-btn lb-close" id="lbClose" type="button" title="Закрыть (Esc)" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       <div class="lb-stage" id="lbStage">
         <div class="lb-img-wrap" id="lbImgWrap"><img id="lbImage" src="" alt="" /></div>
@@ -731,7 +728,7 @@
   </div>
   <script>
     (function() {
-      const manifest = {"name":"v6.7","scenes":[{"id":"mwdsn0kcd6brn","name":"Camera_360_002","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn0tnpo8qy","name":"Camera_360_003","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn154s0njp","name":"Camera_360_001","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdso0o4w1k0x","name":"360_002","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"mwdsqz1eeq1k5","viewpoints":[]},{"id":"mwdso0x9myl3u","name":"360_003","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mwdsqz1eeq1k5","viewpoints":[]},{"id":"mwdso0grqclow","name":"360_001","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"mwdsqz1eeq1k5","viewpoints":[]},{"id":"mwdsokc7fy6xz","name":"Camera_360_3","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"mwdsokl3314ah","viewpoints":[]},{"id":"mwdsokl3z5vpl","name":"Camera_360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"mwdsokl3314ah","viewpoints":[]},{"id":"mwdsopxenhcsc","name":"Camera_360_1 (1)","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsok40qmo7a","name":"Camera_360_2","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsoq7spg6qz","name":"Camera_360_2 (1)","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsoqgvkfvyq","name":"Camera_360_3 (1)","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsp2j0ipra3","name":"Camera_360_3 (2)","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"mwdsp2j0hl6p6","viewpoints":[]},{"id":"mwdsp1yyplt6t","name":"Camera_360_1 (2)","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"mwdsp2j0hl6p6","viewpoints":[]},{"id":"mwdsp29vb680h","name":"Camera_360_2 (2)","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg","groupId":"mwdsp2j0hl6p6","viewpoints":[]}],"groups":[{"id":"mwdsni4lw6ad3","name":"Camera_360_002","sceneIds":["mwdsn0kcd6brn","mwdsn0tnpo8qy","mwdsn154s0njp"],"viewpoints":[{"id":"mwdstovkzvfos","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_1/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"mwdstp4vx0c8o","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_1/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"},{"id":"mwdstp7567t6o","name":"12. Спальня №3_Кам_ (7)","file":"viewpoints/group_1/vp_3.jpg","thumbnail":"viewpoints/group_1/vp_3_thumb.jpg"},{"id":"mwdstpdo6u0iq","name":"12. Спальня №3_Кам_ (8)","file":"viewpoints/group_1/vp_4.jpg","thumbnail":"viewpoints/group_1/vp_4_thumb.jpg"},{"id":"mwdstpid8ke4h","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_1/vp_5.jpg","thumbnail":"viewpoints/group_1/vp_5_thumb.jpg"},{"id":"mwdstplpyk8db","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_1/vp_6.jpg","thumbnail":"viewpoints/group_1/vp_6_thumb.jpg"},{"id":"mwdstpp47glpb","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_1/vp_7.jpg","thumbnail":"viewpoints/group_1/vp_7_thumb.jpg"},{"id":"mwdstpsn6h4t3","name":"12. Спальня №3_Кам_ (6)","file":"viewpoints/group_1/vp_8.jpg","thumbnail":"viewpoints/group_1/vp_8_thumb.jpg"}]},{"id":"mwdsqz1eeq1k5","name":"360_002 (1)","sceneIds":["mwdso0o4w1k0x","mwdso0x9myl3u","mwdso0grqclow"],"viewpoints":[{"id":"mwdstfju7fl37","name":"5. Кухня - Ракурс_9","file":"viewpoints/group_2/vp_1.jpg","thumbnail":"viewpoints/group_2/vp_1_thumb.jpg"},{"id":"mwdstfq1b5l2d","name":"5. Кухня - Ракурс_8","file":"viewpoints/group_2/vp_2.jpg","thumbnail":"viewpoints/group_2/vp_2_thumb.jpg"},{"id":"mwdstfvpqb9xm","name":"5. Кухня - Ракурс_11","file":"viewpoints/group_2/vp_3.jpg","thumbnail":"viewpoints/group_2/vp_3_thumb.jpg"},{"id":"mwdstfy092zdz","name":"5. Кухня - Ракурс_10","file":"viewpoints/group_2/vp_4.jpg","thumbnail":"viewpoints/group_2/vp_4_thumb.jpg"},{"id":"mwdstg0l9en6n","name":"5. Кухня - Ракурс_12","file":"viewpoints/group_2/vp_5.jpg","thumbnail":"viewpoints/group_2/vp_5_thumb.jpg"},{"id":"mwdstg3f5jrud","name":"5. Кухня - Ракурс_7","file":"viewpoints/group_2/vp_6.jpg","thumbnail":"viewpoints/group_2/vp_6_thumb.jpg"},{"id":"mwdstg63wvkbo","name":"5. Кухня - Ракурс_13","file":"viewpoints/group_2/vp_7.jpg","thumbnail":"viewpoints/group_2/vp_7_thumb.jpg"}]},{"id":"mwdsokl3314ah","name":"Camera","sceneIds":["mwdsokc7fy6xz","mwdsokl3z5vpl"],"viewpoints":[{"id":"mwdsr91a6sobs","name":"4. Гостиная - Ракурс_2","file":"viewpoints/group_3/vp_1.jpg","thumbnail":"viewpoints/group_3/vp_1_thumb.jpg"},{"id":"mwdsr95w8u0jt","name":"4. Гостиная - Ракурс_3","file":"viewpoints/group_3/vp_2.jpg","thumbnail":"viewpoints/group_3/vp_2_thumb.jpg"},{"id":"mwdsr9duv4cpr","name":"4. Гостиная - Ракурс_7","file":"viewpoints/group_3/vp_3.jpg","thumbnail":"viewpoints/group_3/vp_3_thumb.jpg"},{"id":"mwdsr9g6li7tj","name":"4. Гостиная - Ракурс_6","file":"viewpoints/group_3/vp_4.jpg","thumbnail":"viewpoints/group_3/vp_4_thumb.jpg"},{"id":"mwdsr9igzrl3p","name":"4. Гостиная - Ракурс_4","file":"viewpoints/group_3/vp_5.jpg","thumbnail":"viewpoints/group_3/vp_5_thumb.jpg"},{"id":"mwdsr9kx5rvlh","name":"4. Гостиная - Ракурс_5","file":"viewpoints/group_3/vp_6.jpg","thumbnail":"viewpoints/group_3/vp_6_thumb.jpg"},{"id":"mwdsr9nyvctgz","name":"4. Гостиная - Ракурс_8","file":"viewpoints/group_3/vp_7.jpg","thumbnail":"viewpoints/group_3/vp_7_thumb.jpg"}]},{"id":"mwdsoqgvo42x3","name":"Camera (1)","sceneIds":["mwdsopxenhcsc","mwdsok40qmo7a","mwdsoq7spg6qz","mwdsoqgvkfvyq"],"viewpoints":[{"id":"mwdsrtlpm559z","name":"5. Кухня - Ракурс_1","file":"viewpoints/group_4/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"mwdsrtnsi3tyh","name":"5. Кухня - Ракурс_4","file":"viewpoints/group_4/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"},{"id":"mwdsru1s2nnf7","name":"5. Кухня - Ракурс_3","file":"viewpoints/group_4/vp_3.jpg","thumbnail":"viewpoints/group_4/vp_3_thumb.jpg"},{"id":"mwdsru496yjn1","name":"5. Кухня - Ракурс_2","file":"viewpoints/group_4/vp_4.jpg","thumbnail":"viewpoints/group_4/vp_4_thumb.jpg"},{"id":"mwdsru6vzji9d","name":"5. Кухня - Ракурс_5","file":"viewpoints/group_4/vp_5.jpg","thumbnail":"viewpoints/group_4/vp_5_thumb.jpg"},{"id":"mwdsru9crjtsi","name":"5. Кухня - Ракурс_6","file":"viewpoints/group_4/vp_6.jpg","thumbnail":"viewpoints/group_4/vp_6_thumb.jpg"}]},{"id":"mwdsp2j0hl6p6","name":"Camera (2)","sceneIds":["mwdsp2j0ipra3","mwdsp1yyplt6t","mwdsp29vb680h"],"viewpoints":[{"id":"mwdsu48athvdt","name":"6. Коридор - Ракурс_3","file":"viewpoints/group_5/vp_1.jpg","thumbnail":"viewpoints/group_5/vp_1_thumb.jpg"},{"id":"mwdsu4ar6p1ip","name":"6. Коридор - Ракурс_1","file":"viewpoints/group_5/vp_2.jpg","thumbnail":"viewpoints/group_5/vp_2_thumb.jpg"},{"id":"mwdsu4ddislmi","name":"6. Коридор - Ракурс_4","file":"viewpoints/group_5/vp_3.jpg","thumbnail":"viewpoints/group_5/vp_3_thumb.jpg"},{"id":"mwdsu4fu5tbgl","name":"6. Коридор - Ракурс_2","file":"viewpoints/group_5/vp_4.jpg","thumbnail":"viewpoints/group_5/vp_4_thumb.jpg"},{"id":"mwdsu7nfz5h67","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_5/vp_5.jpg","thumbnail":"viewpoints/group_5/vp_5_thumb.jpg"},{"id":"mwdsu7snlr4ki","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_5/vp_6.jpg","thumbnail":"viewpoints/group_5/vp_6_thumb.jpg"},{"id":"mwdsu7v7r6t8r","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_5/vp_7.jpg","thumbnail":"viewpoints/group_5/vp_7_thumb.jpg"},{"id":"mwdsu7xx4oz2u","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_5/vp_8.jpg","thumbnail":"viewpoints/group_5/vp_8_thumb.jpg"},{"id":"mwdsu818bw8g4","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_5/vp_9.jpg","thumbnail":"viewpoints/group_5/vp_9_thumb.jpg"}]}]};
+      const manifest = {"name":"v6.8","scenes":[{"id":"mwdsn0kcd6brn","name":"Camera_360_002","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn0tnpo8qy","name":"Camera_360_003","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn154s0njp","name":"Camera_360_001","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdso0o4w1k0x","name":"360_002","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"mwdt6yiqewnk9","viewpoints":[]},{"id":"mwdsokc7fy6xz","name":"Camera_360_3","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mwdto7k8sk6dn","viewpoints":[]},{"id":"mwdso0x9myl3u","name":"360_003","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"mwdto7k8spgh5","viewpoints":[]},{"id":"mwdsp2j0ipra3","name":"Camera_360_3 (2)","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"mwdto7k8spgh5","viewpoints":[]},{"id":"mwdsokl3z5vpl","name":"Camera_360_1","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"mwdto7k8spgh5","viewpoints":[]},{"id":"mwdsp1yyplt6t","name":"Camera_360_1 (2)","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"mwdto7k8spgh5","viewpoints":[]},{"id":"mwdsp29vb680h","name":"Camera_360_2 (2)","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"mwdto7k8spgh5","viewpoints":[]},{"id":"mwdsok40qmo7a","name":"Camera_360_2","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"mwdtoa20u6r3o","viewpoints":[]},{"id":"mwdso0grqclow","name":"360_001","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"mwdvgy4iczx08","viewpoints":[]},{"id":"mwdsopxenhcsc","name":"Camera_360_1 (1)","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsoqgvkfvyq","name":"Camera_360_3 (1)","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"mwdsoqgvo42x3","viewpoints":[]},{"id":"mwdsoq7spg6qz","name":"Camera_360_2 (1)","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg","groupId":"mwdvfvoa1gkks","viewpoints":[]}],"groups":[{"id":"mwdsni4lw6ad3","name":"Camera_360_002","sceneIds":["mwdsn0kcd6brn","mwdsn0tnpo8qy","mwdsn154s0njp"],"viewpoints":[{"id":"mwdstovkzvfos","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_1/vp_1.jpg","original":"viewpoints/group_1/original/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"mwdstp4vx0c8o","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_1/vp_2.jpg","original":"viewpoints/group_1/original/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"},{"id":"mwdstp7567t6o","name":"12. Спальня №3_Кам_ (7)","file":"viewpoints/group_1/vp_3.jpg","original":"viewpoints/group_1/original/vp_3.jpg","thumbnail":"viewpoints/group_1/vp_3_thumb.jpg"},{"id":"mwdstpdo6u0iq","name":"12. Спальня №3_Кам_ (8)","file":"viewpoints/group_1/vp_4.jpg","original":"viewpoints/group_1/original/vp_4.jpg","thumbnail":"viewpoints/group_1/vp_4_thumb.jpg"},{"id":"mwdstpid8ke4h","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_1/vp_5.jpg","original":"viewpoints/group_1/original/vp_5.jpg","thumbnail":"viewpoints/group_1/vp_5_thumb.jpg"},{"id":"mwdstplpyk8db","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_1/vp_6.jpg","original":"viewpoints/group_1/original/vp_6.jpg","thumbnail":"viewpoints/group_1/vp_6_thumb.jpg"},{"id":"mwdstpp47glpb","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_1/vp_7.jpg","original":"viewpoints/group_1/original/vp_7.jpg","thumbnail":"viewpoints/group_1/vp_7_thumb.jpg"},{"id":"mwdstpsn6h4t3","name":"12. Спальня №3_Кам_ (6)","file":"viewpoints/group_1/vp_8.jpg","original":"viewpoints/group_1/original/vp_8.jpg","thumbnail":"viewpoints/group_1/vp_8_thumb.jpg"}]},{"id":"mwdt6yiqewnk9","name":"360_002","sceneIds":["mwdso0o4w1k0x"],"viewpoints":[]},{"id":"mwdto7k8sk6dn","name":"Camera_360_3","sceneIds":["mwdsokc7fy6xz"],"viewpoints":[{"id":"mwdsr91a6sobs","name":"4. Гостиная - Ракурс_2","file":"viewpoints/group_3/vp_1.jpg","original":"viewpoints/group_3/original/vp_1.jpg","thumbnail":"viewpoints/group_3/vp_1_thumb.jpg"},{"id":"mwdsr95w8u0jt","name":"4. Гостиная - Ракурс_3","file":"viewpoints/group_3/vp_2.jpg","original":"viewpoints/group_3/original/vp_2.jpg","thumbnail":"viewpoints/group_3/vp_2_thumb.jpg"},{"id":"mwdsr9duv4cpr","name":"4. Гостиная - Ракурс_7","file":"viewpoints/group_3/vp_3.jpg","original":"viewpoints/group_3/original/vp_3.jpg","thumbnail":"viewpoints/group_3/vp_3_thumb.jpg"}]},{"id":"mwdto7k8spgh5","name":"360_002 (1)","sceneIds":["mwdso0x9myl3u","mwdsp2j0ipra3","mwdsokl3z5vpl","mwdsp1yyplt6t","mwdsp29vb680h"],"viewpoints":[{"id":"mwdstfju7fl37","name":"5. Кухня - Ракурс_9","file":"viewpoints/group_4/vp_1.jpg","original":"viewpoints/group_4/original/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"mwdstfq1b5l2d","name":"5. Кухня - Ракурс_8","file":"viewpoints/group_4/vp_2.jpg","original":"viewpoints/group_4/original/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"},{"id":"mwdstfvpqb9xm","name":"5. Кухня - Ракурс_11","file":"viewpoints/group_4/vp_3.jpg","original":"viewpoints/group_4/original/vp_3.jpg","thumbnail":"viewpoints/group_4/vp_3_thumb.jpg"},{"id":"mwdsu4ar6p1ip","name":"6. Коридор - Ракурс_1","file":"viewpoints/group_4/vp_4.jpg","original":"viewpoints/group_4/original/vp_4.jpg","thumbnail":"viewpoints/group_4/vp_4_thumb.jpg"},{"id":"mwdsu4ddislmi","name":"6. Коридор - Ракурс_4","file":"viewpoints/group_4/vp_5.jpg","original":"viewpoints/group_4/original/vp_5.jpg","thumbnail":"viewpoints/group_4/vp_5_thumb.jpg"},{"id":"mwdsu4fu5tbgl","name":"6. Коридор - Ракурс_2","file":"viewpoints/group_4/vp_6.jpg","original":"viewpoints/group_4/original/vp_6.jpg","thumbnail":"viewpoints/group_4/vp_6_thumb.jpg"},{"id":"mwdstfy092zdz","name":"5. Кухня - Ракурс_10","file":"viewpoints/group_4/vp_7.jpg","original":"viewpoints/group_4/original/vp_7.jpg","thumbnail":"viewpoints/group_4/vp_7_thumb.jpg"},{"id":"mwdstg0l9en6n","name":"5. Кухня - Ракурс_12","file":"viewpoints/group_4/vp_8.jpg","original":"viewpoints/group_4/original/vp_8.jpg","thumbnail":"viewpoints/group_4/vp_8_thumb.jpg"},{"id":"mwdstg3f5jrud","name":"5. Кухня - Ракурс_7","file":"viewpoints/group_4/vp_9.jpg","original":"viewpoints/group_4/original/vp_9.jpg","thumbnail":"viewpoints/group_4/vp_9_thumb.jpg"},{"id":"mwdstg63wvkbo","name":"5. Кухня - Ракурс_13","file":"viewpoints/group_4/vp_10.jpg","original":"viewpoints/group_4/original/vp_10.jpg","thumbnail":"viewpoints/group_4/vp_10_thumb.jpg"},{"id":"mwdsu48athvdt","name":"6. Коридор - Ракурс_3","file":"viewpoints/group_4/vp_11.jpg","original":"viewpoints/group_4/original/vp_11.jpg","thumbnail":"viewpoints/group_4/vp_11_thumb.jpg"},{"id":"mwdsu7nfz5h67","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_4/vp_12.jpg","original":"viewpoints/group_4/original/vp_12.jpg","thumbnail":"viewpoints/group_4/vp_12_thumb.jpg"},{"id":"mwdsu7snlr4ki","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_4/vp_13.jpg","original":"viewpoints/group_4/original/vp_13.jpg","thumbnail":"viewpoints/group_4/vp_13_thumb.jpg"},{"id":"mwdsu7v7r6t8r","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_4/vp_14.jpg","original":"viewpoints/group_4/original/vp_14.jpg","thumbnail":"viewpoints/group_4/vp_14_thumb.jpg"},{"id":"mwdsu7xx4oz2u","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_4/vp_15.jpg","original":"viewpoints/group_4/original/vp_15.jpg","thumbnail":"viewpoints/group_4/vp_15_thumb.jpg"},{"id":"mwdsu818bw8g4","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_4/vp_16.jpg","original":"viewpoints/group_4/original/vp_16.jpg","thumbnail":"viewpoints/group_4/vp_16_thumb.jpg"}]},{"id":"mwdtoa20u6r3o","name":"Camera_360_2","sceneIds":["mwdsok40qmo7a"],"viewpoints":[]},{"id":"mwdvgy4iczx08","name":"360_001","sceneIds":["mwdso0grqclow"],"viewpoints":[]},{"id":"mwdsoqgvo42x3","name":"Camera (1)","sceneIds":["mwdsopxenhcsc","mwdsoqgvkfvyq"],"viewpoints":[{"id":"mwdsrtlpm559z","name":"5. Кухня - Ракурс_1","file":"viewpoints/group_7/vp_1.jpg","original":"viewpoints/group_7/original/vp_1.jpg","thumbnail":"viewpoints/group_7/vp_1_thumb.jpg"},{"id":"mwdsrtnsi3tyh","name":"5. Кухня - Ракурс_4","file":"viewpoints/group_7/vp_2.jpg","original":"viewpoints/group_7/original/vp_2.jpg","thumbnail":"viewpoints/group_7/vp_2_thumb.jpg"},{"id":"mwdsru1s2nnf7","name":"5. Кухня - Ракурс_3","file":"viewpoints/group_7/vp_3.jpg","original":"viewpoints/group_7/original/vp_3.jpg","thumbnail":"viewpoints/group_7/vp_3_thumb.jpg"},{"id":"mwdsru496yjn1","name":"5. Кухня - Ракурс_2","file":"viewpoints/group_7/vp_4.jpg","original":"viewpoints/group_7/original/vp_4.jpg","thumbnail":"viewpoints/group_7/vp_4_thumb.jpg"},{"id":"mwdsru6vzji9d","name":"5. Кухня - Ракурс_5","file":"viewpoints/group_7/vp_5.jpg","original":"viewpoints/group_7/original/vp_5.jpg","thumbnail":"viewpoints/group_7/vp_5_thumb.jpg"},{"id":"mwdsru9crjtsi","name":"5. Кухня - Ракурс_6","file":"viewpoints/group_7/vp_6.jpg","original":"viewpoints/group_7/original/vp_6.jpg","thumbnail":"viewpoints/group_7/vp_6_thumb.jpg"},{"id":"mwdsr9g6li7tj","name":"4. Гостиная - Ракурс_6","file":"viewpoints/group_7/vp_7.jpg","original":"viewpoints/group_7/original/vp_7.jpg","thumbnail":"viewpoints/group_7/vp_7_thumb.jpg"},{"id":"mwdsr9igzrl3p","name":"4. Гостиная - Ракурс_4","file":"viewpoints/group_7/vp_8.jpg","original":"viewpoints/group_7/original/vp_8.jpg","thumbnail":"viewpoints/group_7/vp_8_thumb.jpg"},{"id":"mwdsr9kx5rvlh","name":"4. Гостиная - Ракурс_5","file":"viewpoints/group_7/vp_9.jpg","original":"viewpoints/group_7/original/vp_9.jpg","thumbnail":"viewpoints/group_7/vp_9_thumb.jpg"},{"id":"mwdsr9nyvctgz","name":"4. Гостиная - Ракурс_8","file":"viewpoints/group_7/vp_10.jpg","original":"viewpoints/group_7/original/vp_10.jpg","thumbnail":"viewpoints/group_7/vp_10_thumb.jpg"}]},{"id":"mwdvfvoa1gkks","name":"Camera_360_2 (1)","sceneIds":["mwdsoq7spg6qz"],"viewpoints":[]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -757,15 +754,22 @@
       const tourNameDisplay = document.getElementById('tourNameDisplay');
       const globalTooltip = document.getElementById('globalTooltip');
 
+      const pubControls = document.getElementById('pubControls');
+      const pubFullBtn = document.getElementById('pubFullBtn');
+      const pubGyroBtn = document.getElementById('pubGyroBtn');
       function showPanels() {
         thumbnailsWrapper.classList.remove('hidden');
         topBar.classList.remove('hidden');
+        pubControls.classList.remove('hidden');
         isVisible = true;
+        schedulePublicPannellumControls();
       }
       function hidePanels() {
         thumbnailsWrapper.classList.add('hidden');
         topBar.classList.add('hidden');
+        pubControls.classList.add('hidden');
         isVisible = false;
+        schedulePublicPannellumControls();
       }
       function togglePanels() {
         if (isVisible) hidePanels();
@@ -1043,42 +1047,56 @@
         if (e && (e.alpha !== null || e.beta !== null || e.gamma !== null)) publicSensorSeen = true;
       });
       var publicTouchDevice = (navigator.maxTouchPoints || 0) > 0 || ('ontouchstart' in window);
+      function pubFsElement() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
+      var pubFsSupported = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
       function positionPublicPannellumControls() {
         publicControlsPositionFrame = 0;
-        var fullscreen = panoContainer.querySelector('.pnlm-fullscreen-toggle-button');
         var orientation = panoContainer.querySelector('.pnlm-orientation-button');
-        if (!orientation) return;
-        /* v6.7: на телефоне штатная кнопка гироскопа Pannellum показывается всегда
-           (сама библиотека прячет её, пока браузер не пришлёт первое событие датчика). */
-        if (publicTouchDevice && typeof window.DeviceOrientationEvent !== 'undefined' &&
+        /* Штатная кнопка Pannellum скрыта, но служит «движком» гироскопа: она должна существовать в DOM. */
+        if (orientation && publicTouchDevice && typeof window.DeviceOrientationEvent !== 'undefined' &&
             getComputedStyle(orientation).display === 'none') {
           orientation.style.setProperty('display', 'block', 'important');
         }
-        var containerRect = panoContainer.getBoundingClientRect();
-        var fullscreenRect = fullscreen ? fullscreen.getBoundingClientRect() : null;
-        var hasFullscreen = !!(fullscreenRect && fullscreenRect.width > 0 && fullscreenRect.height > 0);
-        var topPx, leftPx;
-        if (hasFullscreen) {
-          topPx = Math.round(fullscreenRect.bottom - containerRect.top + 5);
-          leftPx = Math.round(fullscreenRect.left - containerRect.left);
-        } else {
-          /* без кнопки полного экрана (например, iPhone) гироскоп занимает её место */
-          topPx = 12; leftPx = 4;
-        }
-        orientation.style.setProperty('position', 'absolute', 'important');
-        orientation.style.setProperty('top', topPx + 'px', 'important');
-        orientation.style.setProperty('left', leftPx + 'px', 'important');
-        orientation.style.setProperty('right', 'auto', 'important');
-        orientation.style.setProperty('bottom', 'auto', 'important');
-        orientation.style.setProperty('z-index', '200', 'important');
-        if (!orientation._chaziHint) {
-          orientation._chaziHint = true;
-          orientation.addEventListener('click', function() {
+        pubFullBtn.hidden = !pubFsSupported;
+        pubGyroBtn.hidden = !(orientation && ((publicTouchDevice && typeof window.DeviceOrientationEvent !== 'undefined') || publicSensorSeen));
+        pubFullBtn.classList.toggle('is-full', !!pubFsElement());
+        pubGyroBtn.classList.toggle('active', !!(orientation && orientation.classList.contains('pnlm-orientation-button-active')));
+        /* Под шапкой, а когда шапка скрыта — у верхнего края видимой области (Telegram и др. встроенные браузеры) */
+        var vv = window.visualViewport;
+        var top = 0;
+        if (vv) top = Math.max(0, vv.offsetTop);
+        var bar = topBar.classList.contains('hidden') ? 0 : Math.max(0, topBar.getBoundingClientRect().bottom);
+        top = Math.max(top, bar);
+        pubControls.style.setProperty('--pc-top', Math.round(top) + 'px');
+        if (!pubControls._chaziInit) {
+          pubControls._chaziInit = true;
+          pubFullBtn.addEventListener('click', function() {
+            var root = document.documentElement;
+            if (!pubFsElement()) {
+              var req = root.requestFullscreen || root.webkitRequestFullscreen;
+              if (req) { try { var r = req.call(root); if (r && r.catch) r.catch(function() {}); } catch (err) {} }
+            } else {
+              var ex = document.exitFullscreen || document.webkitExitFullscreen;
+              if (ex) { try { var r2 = ex.call(document); if (r2 && r2.catch) r2.catch(function() {}); } catch (err) {} }
+            }
+          });
+          pubGyroBtn.addEventListener('click', function() {
+            var native = panoContainer.querySelector('.pnlm-orientation-button');
+            if (!native) return;
+            native.click();
             setTimeout(function() {
-              if (publicSensorSeen || orientation.classList.contains('pnlm-orientation-button-active')) return;
+              pubGyroBtn.classList.toggle('active', native.classList.contains('pnlm-orientation-button-active'));
+              if (publicSensorSeen || native.classList.contains('pnlm-orientation-button-active')) return;
               pubNotify('Гироскоп недоступен: откройте тур по https:// и разрешите доступ к датчикам движения', 4200);
             }, 900);
           });
+          ['fullscreenchange', 'webkitfullscreenchange'].forEach(function(ev) { document.addEventListener(ev, schedulePublicPannellumControls); });
+          if (vv) { vv.addEventListener('resize', schedulePublicPannellumControls); vv.addEventListener('scroll', schedulePublicPannellumControls); }
+          new MutationObserver(function() {
+            var n = panoContainer.querySelector('.pnlm-orientation-button');
+            pubGyroBtn.classList.toggle('active', !!(n && n.classList.contains('pnlm-orientation-button-active')));
+          }).observe(panoContainer, { attributes:true, subtree:true, attributeFilter:['class'] });
+          topBar.addEventListener('transitionend', schedulePublicPannellumControls);
         }
       }
       function schedulePublicPannellumControls() {
@@ -1094,7 +1112,7 @@
         screen.orientation.addEventListener('change', schedulePublicPannellumControls);
       }
 
-      function showPanorama(url) {
+      function showPanorama(url, previewUrl) {
         if (!url) {
           if (viewer) viewer.destroy();
           return;
@@ -1103,6 +1121,7 @@
         viewer = pannellum.viewer('panoContainer', {
           type: 'equirectangular',
           panorama: url,
+          preview: previewUrl || undefined,
           autoLoad: true,
           showZoomCtrl: true,
           showFullscreenCtrl: true,
@@ -1126,7 +1145,7 @@
           }
           return;
         }
-        showPanorama(scene.file);
+        showPanorama(scene.file, scene.thumbnail);
         currentSceneId = sceneId;
         if (sceneNameDisplay) sceneNameDisplay.textContent = scene.name || 'Без названия';
         updateThumbnails();
@@ -1368,7 +1387,7 @@
         if (!lbViewpoints.length) return;
         const vp = lbViewpoints[lbIndex];
         try {
-          const resp = await fetch(vp.file);
+          const resp = await fetch(vp.original || vp.file);
           const blob = await resp.blob();
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
@@ -1401,11 +1420,11 @@
         for (let i = 0; i < lbViewpoints.length; i++) {
           const vp = lbViewpoints[i];
           try {
-            const resp = await fetch(vp.file);
+            const resp = await fetch(vp.original || vp.file);
             if (!resp.ok) throw new Error('HTTP ' + resp.status);
             const blob = await resp.blob();
             const name = (vp.name || ('vp_' + (i + 1))).replace(/[/\?%*:|"<>]/g, '_');
-            const fileExt = ((vp.file || '').match(/\.([a-z0-9]+)(?:[?#]|$)/i) || [])[1];
+            const fileExt = (((vp.original || vp.file) || '').match(/\.([a-z0-9]+)(?:[?#]|$)/i) || [])[1];
             const mimeExt = (blob.type.match(/^image\/([a-z0-9.+-]+)/i) || [])[1];
             const ext = (fileExt || mimeExt || 'jpg').toLowerCase().replace('jpeg', 'jpg');
             zip.file(folder + '/' + name + '.' + ext, blob);
@@ -1440,11 +1459,11 @@
           for (let i = 0; i < viewpoints.length; i++) {
             const vp = viewpoints[i];
             try {
-              const resp = await fetch(vp.file);
+              const resp = await fetch(vp.original || vp.file);
               if (!resp.ok) throw new Error('HTTP ' + resp.status);
               const blob = await resp.blob();
               const name = (vp.name || ('vp_' + (i + 1))).replace(/[/\?%*:|"<>]/g, '_');
-              const fileExt = ((vp.file || '').match(/\.([a-z0-9]+)(?:[?#]|$)/i) || [])[1];
+              const fileExt = (((vp.original || vp.file) || '').match(/\.([a-z0-9]+)(?:[?#]|$)/i) || [])[1];
               const mimeExt = (blob.type.match(/^image\/([a-z0-9.+-]+)/i) || [])[1];
               const ext = (fileExt || mimeExt || 'jpg').toLowerCase().replace('jpeg', 'jpg');
               zip.file(folder + '/' + name + '.' + ext, blob);
