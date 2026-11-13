@@ -1,9 +1,9 @@
 {
-  "name": "v7.4",
+  "name": "v8.7",
   "scenes": [
     {
       "id": "mwdsp1yyplt6t",
-      "name": "1-1",
+      "name": "3.1-1",
       "label": "1",
       "file": "images/scene_1.jpg",
       "thumbnail": "thumbnails/scene_1.jpg",
@@ -12,7 +12,7 @@
     },
     {
       "id": "mwdsok40qmo7a",
-      "name": "2-1",
+      "name": "3.2-1",
       "label": "1",
       "file": "images/scene_2.jpg",
       "thumbnail": "thumbnails/scene_2.jpg",
@@ -21,7 +21,7 @@
     },
     {
       "id": "mwdso0o4w1k0x",
-      "name": "2-2",
+      "name": "3.2-2",
       "label": "2",
       "file": "images/scene_3.jpg",
       "thumbnail": "thumbnails/scene_3.jpg",
@@ -29,89 +29,89 @@
       "viewpoints": []
     },
     {
-      "id": "mwdso0grqclow",
-      "name": "3-1",
+      "id": "mwdsoqgvkfvyq",
+      "name": "3.3-1",
       "label": "1",
       "file": "images/scene_4.jpg",
       "thumbnail": "thumbnails/scene_4.jpg",
-      "groupId": "mwdsni4lw6ad3",
+      "groupId": "mwdz0twpaah41",
       "viewpoints": []
     },
     {
-      "id": "mwdso0x9myl3u",
-      "name": "3-2",
+      "id": "mwdsopxenhcsc",
+      "name": "3.3-2",
       "label": "2",
       "file": "images/scene_5.jpg",
       "thumbnail": "thumbnails/scene_5.jpg",
-      "groupId": "mwdsni4lw6ad3",
+      "groupId": "mwdz0twpaah41",
       "viewpoints": []
     },
     {
-      "id": "mwdsn0kcd6brn",
-      "name": "3-3",
-      "label": "3",
+      "id": "mwdsokl3z5vpl",
+      "name": "3.4-1",
+      "label": "1",
       "file": "images/scene_6.jpg",
       "thumbnail": "thumbnails/scene_6.jpg",
-      "groupId": "mwdsni4lw6ad3",
+      "groupId": "mwdwiyhczcsdr",
       "viewpoints": []
     },
     {
-      "id": "mwdsn0tnpo8qy",
-      "name": "3-4",
-      "label": "4",
+      "id": "mwdsp2j0ipra3",
+      "name": "3.5-1",
+      "label": "1",
       "file": "images/scene_7.jpg",
       "thumbnail": "thumbnails/scene_7.jpg",
-      "groupId": "mwdsni4lw6ad3",
+      "groupId": "mwe9umz22ug4i",
       "viewpoints": []
     },
     {
-      "id": "mwdsn154s0njp",
-      "name": "3-5",
-      "label": "5",
+      "id": "mwdso0grqclow",
+      "name": "3.6-1",
+      "label": "1",
       "file": "images/scene_8.jpg",
       "thumbnail": "thumbnails/scene_8.jpg",
       "groupId": "mwdsni4lw6ad3",
       "viewpoints": []
     },
     {
-      "id": "mwdsokl3z5vpl",
-      "name": "4-1",
-      "label": "1",
+      "id": "mwdso0x9myl3u",
+      "name": "3.6-2",
+      "label": "2",
       "file": "images/scene_9.jpg",
       "thumbnail": "thumbnails/scene_9.jpg",
-      "groupId": "mwdwiyhczcsdr",
+      "groupId": "mwdsni4lw6ad3",
       "viewpoints": []
     },
     {
-      "id": "mwdsopxenhcsc",
-      "name": "5-1",
-      "label": "1",
+      "id": "mwdsn0kcd6brn",
+      "name": "3.6-3",
+      "label": "3",
       "file": "images/scene_10.jpg",
       "thumbnail": "thumbnails/scene_10.jpg",
-      "groupId": "mwdz0twpaah41",
+      "groupId": "mwdsni4lw6ad3",
       "viewpoints": []
     },
     {
-      "id": "mwdsp2j0ipra3",
-      "name": "5-2",
-      "label": "2",
+      "id": "mwdsn0tnpo8qy",
+      "name": "3.6-4",
+      "label": "4",
       "file": "images/scene_11.jpg",
       "thumbnail": "thumbnails/scene_11.jpg",
-      "groupId": "mwdz0twpaah41",
+      "groupId": "mwdsni4lw6ad3",
       "viewpoints": []
     },
     {
-      "id": "mwdsoqgvkfvyq",
-      "name": "6-1",
-      "label": "1",
+      "id": "mwdsn154s0njp",
+      "name": "3.6-5",
+      "label": "5",
       "file": "images/scene_12.jpg",
       "thumbnail": "thumbnails/scene_12.jpg",
-      "groupId": "mwdw9kx99oat7",
+      "groupId": "mwdsni4lw6ad3",
       "viewpoints": []
     },
     {
       "id": "mwdsoq7spg6qz",
-      "name": "7-1",
+      "name": "3.7-1",
       "label": "1",
       "file": "images/scene_13.jpg",
       "thumbnail": "thumbnails/scene_13.jpg",
@@ -120,7 +120,7 @@
     },
     {
       "id": "mwdsp29vb680h",
-      "name": "7-2",
+      "name": "3.7-2",
       "label": "2",
       "file": "images/scene_14.jpg",
       "thumbnail": "thumbnails/scene_14.jpg",
@@ -129,7 +129,7 @@
     },
     {
       "id": "mwdsokc7fy6xz",
-      "name": "8-1",
+      "name": "3.8-1",
       "label": "1",
       "file": "images/scene_15.jpg",
       "thumbnail": "thumbnails/scene_15.jpg",
@@ -140,7 +140,7 @@
   "groups": [
     {
       "id": "mwdz4udsmo67s",
-      "name": "1. Camera_360_1 (2)",
+      "name": "3.1 3.1-1",
       "sceneIds": [
         "mwdsp1yyplt6t"
       ],
@@ -148,7 +148,7 @@
     },
     {
       "id": "mwdwihi81xe7o",
-      "name": "2. Camera_360_2",
+      "name": "3.2 Camera_360_2",
       "sceneIds": [
         "mwdsok40qmo7a",
         "mwdso0o4w1k0x"
@@ -265,69 +265,17 @@
       ]
     },
     {
-      "id": "mwdsni4lw6ad3",
-      "name": "3. Camera_360_002",
+      "id": "mwdz0twpaah41",
+      "name": "3.3 Camera_360_3 (2)",
       "sceneIds": [
-        "mwdso0grqclow",
-        "mwdso0x9myl3u",
-        "mwdsn0kcd6brn",
-        "mwdsn0tnpo8qy",
-        "mwdsn154s0njp"
+        "mwdsoqgvkfvyq",
+        "mwdsopxenhcsc"
       ],
-      "viewpoints": [
-        {
-          "id": "mwdstovkzvfos",
-          "name": "12. Спальня №3_Кам_ (1)",
-          "file": "viewpoints/group_3/vp_1.jpg",
-          "thumbnail": "viewpoints/group_3/vp_1_thumb.jpg"
-        },
-        {
-          "id": "mwdstp4vx0c8o",
-          "name": "12. Спальня №3_Кам_ (5)",
-          "file": "viewpoints/group_3/vp_2.jpg",
-          "thumbnail": "viewpoints/group_3/vp_2_thumb.jpg"
-        },
-        {
-          "id": "mwdstp7567t6o",
-          "name": "12. Спальня №3_Кам_ (7)",
-          "file": "viewpoints/group_3/vp_3.jpg",
-          "thumbnail": "viewpoints/group_3/vp_3_thumb.jpg"
-        },
-        {
-          "id": "mwdstpdo6u0iq",
-          "name": "12. Спальня №3_Кам_ (8)",
-          "file": "viewpoints/group_3/vp_4.jpg",
-          "thumbnail": "viewpoints/group_3/vp_4_thumb.jpg"
-        },
-        {
-          "id": "mwdstpid8ke4h",
-          "name": "12. Спальня №3_Кам_ (3)",
-          "file": "viewpoints/group_3/vp_5.jpg",
-          "thumbnail": "viewpoints/group_3/vp_5_thumb.jpg"
-        },
-        {
-          "id": "mwdstplpyk8db",
-          "name": "12. Спальня №3_Кам_ (4)",
-          "file": "viewpoints/group_3/vp_6.jpg",
-          "thumbnail": "viewpoints/group_3/vp_6_thumb.jpg"
-        },
-        {
-          "id": "mwdstpp47glpb",
-          "name": "12. Спальня №3_Кам_ (2)",
-          "file": "viewpoints/group_3/vp_7.jpg",
-          "thumbnail": "viewpoints/group_3/vp_7_thumb.jpg"
-        },
-        {
-          "id": "mwdstpsn6h4t3",
-          "name": "12. Спальня №3_Кам_ (6)",
-          "file": "viewpoints/group_3/vp_8.jpg",
-          "thumbnail": "viewpoints/group_3/vp_8_thumb.jpg"
-        }
-      ]
+      "viewpoints": []
     },
     {
       "id": "mwdwiyhczcsdr",
-      "name": "4. Camera_360_1",
+      "name": "3.4 3.4-1",
       "sceneIds": [
         "mwdsokl3z5vpl"
       ],
@@ -361,29 +309,81 @@
           "name": "4. Гостиная - Ракурс_4",
           "file": "viewpoints/group_4/vp_5.jpg",
           "thumbnail": "viewpoints/group_4/vp_5_thumb.jpg"
+        },
+        {
+          "id": "mwdstpid8ke4h",
+          "name": "12. Спальня №3_Кам_ (3)",
+          "file": "viewpoints/group_4/vp_6.jpg",
+          "thumbnail": "viewpoints/group_4/vp_6_thumb.jpg"
+        },
+        {
+          "id": "mwdstpp47glpb",
+          "name": "12. Спальня №3_Кам_ (2)",
+          "file": "viewpoints/group_4/vp_7.jpg",
+          "thumbnail": "viewpoints/group_4/vp_7_thumb.jpg"
+        },
+        {
+          "id": "mwdstpsn6h4t3",
+          "name": "12. Спальня №3_Кам_ (6)",
+          "file": "viewpoints/group_4/vp_8.jpg",
+          "thumbnail": "viewpoints/group_4/vp_8_thumb.jpg"
         }
       ]
     },
     {
-      "id": "mwdz0twpaah41",
-      "name": "5. Camera_360_3 (2)",
+      "id": "mwe9umz22ug4i",
+      "name": "3.5 3.5-1",
       "sceneIds": [
-        "mwdsopxenhcsc",
         "mwdsp2j0ipra3"
       ],
       "viewpoints": []
     },
     {
-      "id": "mwdw9kx99oat7",
-      "name": "6. Camera_360_3 (1)",
+      "id": "mwdsni4lw6ad3",
+      "name": "3.6 Camera_360_002",
       "sceneIds": [
-        "mwdsoqgvkfvyq"
+        "mwdso0grqclow",
+        "mwdso0x9myl3u",
+        "mwdsn0kcd6brn",
+        "mwdsn0tnpo8qy",
+        "mwdsn154s0njp"
       ],
-      "viewpoints": []
+      "viewpoints": [
+        {
+          "id": "mwdstovkzvfos",
+          "name": "12. Спальня №3_Кам_ (1)",
+          "file": "viewpoints/group_6/vp_1.jpg",
+          "thumbnail": "viewpoints/group_6/vp_1_thumb.jpg"
+        },
+        {
+          "id": "mwdstp4vx0c8o",
+          "name": "12. Спальня №3_Кам_ (5)",
+          "file": "viewpoints/group_6/vp_2.jpg",
+          "thumbnail": "viewpoints/group_6/vp_2_thumb.jpg"
+        },
+        {
+          "id": "mwdstp7567t6o",
+          "name": "12. Спальня №3_Кам_ (7)",
+          "file": "viewpoints/group_6/vp_3.jpg",
+          "thumbnail": "viewpoints/group_6/vp_3_thumb.jpg"
+        },
+        {
+          "id": "mwdstpdo6u0iq",
+          "name": "12. Спальня №3_Кам_ (8)",
+          "file": "viewpoints/group_6/vp_4.jpg",
+          "thumbnail": "viewpoints/group_6/vp_4_thumb.jpg"
+        },
+        {
+          "id": "mwdstplpyk8db",
+          "name": "12. Спальня №3_Кам_ (4)",
+          "file": "viewpoints/group_6/vp_5.jpg",
+          "thumbnail": "viewpoints/group_6/vp_5_thumb.jpg"
+        }
+      ]
     },
     {
       "id": "mwe3l7v0x7ubx",
-      "name": "7. Camera_360_2 (2)",
+      "name": "3.7 Camera_360_2 (2)",
       "sceneIds": [
         "mwdsoq7spg6qz",
         "mwdsp29vb680h"
@@ -392,7 +392,7 @@
     },
     {
       "id": "mwdw9kx9ecxww",
-      "name": "8. Camera_360_2 (2)",
+      "name": "3.8 3.8-1",
       "sceneIds": [
         "mwdsokc7fy6xz"
       ],
