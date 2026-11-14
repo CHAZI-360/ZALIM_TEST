@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" />
-  <title>v9.4</title>
+  <title>Бетал и Наташа - Дом</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -50,7 +50,7 @@
       width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none !important;
     }
     #pubControls {
-      position:fixed; right:max(12px, env(safe-area-inset-right, 0px)); top:calc(var(--pc-top, 60px) + 10px);
+      position:fixed; right:max(12px, env(safe-area-inset-right, 0px)); top:calc(max(var(--pc-top, 60px), var(--pc-floor, 0px)) + 10px);
       display:flex; flex-direction:column; gap:10px; z-index:60;
       transition:top .3s ease, opacity .3s ease, transform .3s ease;
     }
@@ -82,6 +82,8 @@
       gap:12px;
     }
     #topBar.hidden { opacity:0; pointer-events:none; }
+    :root { --pc-floor:50px; }
+    @media (max-width:700px) { :root { --pc-floor:42px; } }
     #topBar .brand {
       font-weight:600; font-size:16px; color:#b0b0b0; white-space:nowrap;
     }
@@ -304,9 +306,9 @@
       background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1);
       -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
     }
-    #vpLightbox .lb-downloads { justify-self:start; }
-    #vpLightbox .lb-close { justify-self:end; }
-    #vpLightbox .lb-counter { justify-self:center; }
+    #vpLightbox .lb-downloads { justify-self:start; grid-column:1; }
+    #vpLightbox .lb-close { justify-self:end; grid-column:3; }
+    #vpLightbox .lb-counter { justify-self:center; grid-column:2; }
     #vpLightbox .lb-icon-btn, #vpLightbox .lb-nav {
       display:flex; align-items:center; justify-content:center; padding:0; cursor:var(--cur-hand); color:#eef3f9;
       background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.14); border-radius:50%;
@@ -408,6 +410,7 @@
       z-index:12000;
       border:1px solid rgba(255,255,255,0.12);
       backdrop-filter:blur(8px);
+      box-sizing:border-box;
       max-width:80vw;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -421,6 +424,7 @@
       #topBar .brand { font-size:14px; }
       #topBar .scene-name { font-size:14px; }
       #topBar .tour-name { font-size:12px; }
+      #topBar .tour-area { font-size:12px; }
       /* v6.7: размер миниатюр и отступ панели считаются от экрана, панель прижата к низу */
       #thumbnailsWrapper {
         --pub-th-w:clamp(92px, 26vw, 116px);
@@ -735,6 +739,7 @@
       transition:background .2s, border-color .2s;
     }
     .pub-dl-all:hover { background:rgba(106,176,247,.34) !important; border-color:rgba(106,176,247,.85) !important; }
+    @media (max-width:700px) { .pub-dl-all, #topBar .pub-dl-all { padding:3px 8px !important; font-size:11.5px !important; border-radius:8px !important; line-height:1.2 !important; } }
     .public-room-group {
       background:rgba(255,255,255,.07); border:1px solid rgba(106,176,247,.5);
     }
@@ -756,6 +761,28 @@
     .public-room-count svg { width:14px; height:14px; flex:none; }
     .thumbnail-item .label { position:absolute !important; left:0 !important; right:0 !important; bottom:0 !important; transform:none !important; width:100% !important; height:20px; padding:0 !important; box-sizing:border-box; border:0 !important; border-top:1px solid rgba(255,255,255,.1) !important; border-radius:0 !important; background:transparent !important; -webkit-backdrop-filter:none; backdrop-filter:none; font-size:11.5px; font-weight:700; line-height:19px; color:#eee; text-shadow:none; text-align:center; overflow:hidden; z-index:2; }
     @media (max-width:700px) { .thumbnail-item .label { height:18px; line-height:17px; font-size:10.5px; } }
+    .thumbnail-item { background:#14181f !important; }
+    .thumbnail-item > img { -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 20px),rgba(0,0,0,.32) calc(100% - 20px)); mask-image:linear-gradient(to bottom,#000 calc(100% - 20px),rgba(0,0,0,.32) calc(100% - 20px)); }
+    @media (max-width:700px) { .thumbnail-item > img { -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 18px),rgba(0,0,0,.32) calc(100% - 18px)); mask-image:linear-gradient(to bottom,#000 calc(100% - 18px),rgba(0,0,0,.32) calc(100% - 18px)); } }
+
+    /* v10.0 */
+    .tt-seg sup, .tb-unit sup, .public-room-area sup, .room-group-area sup, .vp-info sup { font-size:.7em; line-height:0; vertical-align:super; }
+    #globalTooltip { box-sizing:border-box; }
+    #globalTooltip.rich .tt-seg svg { stroke-width:2.2; }
+    .public-room-area { display:inline-flex; align-items:center; gap:5px; height:22px; padding:0 7px; position:relative; color:#cfe5fd; font-size:12.5px; font-weight:600; flex:none; }
+    .public-room-area::before { content:''; position:absolute; left:0; top:5px; width:1px; height:12px; background:rgba(255,255,255,.25); }
+    .public-room-area svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; flex:none; }
+    #topBar .tour-area { display:inline-flex; align-items:center; color:#aaa; font-size:14px; white-space:nowrap; margin-left:-4px; padding-left:8px; position:relative; flex:none; }
+    #topBar .tour-area::before { content:''; position:absolute; left:0; top:50%; width:1px; height:16px; margin-top:-8px; background:rgba(255,255,255,.3); }
+    #topBar .tour-area svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    #topBar .tour-area[hidden] { display:none; }
+    #topBar .tour-area sup { font-size:.62em; line-height:0; vertical-align:super; }
+    #topBar .pub-dl-all { padding:4px 11px !important; font-size:12.5px !important; border-radius:9px !important; line-height:1.25 !important; }
+    .lb-caption .vp-info { display:inline-flex; align-items:center; gap:8px; }
+    .lb-caption .vp-info .seg { display:inline-flex; align-items:center; gap:5px; }
+    .lb-caption .vp-info svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; flex:none; opacity:.9; }
+    .lb-caption .vp-info .sep { width:1px; height:15px; background:currentColor; opacity:.4; flex:none; }
+    .lb-counter { display:none !important; }
 </style>
 </head>
 <body class="edit-locked">
@@ -763,7 +790,8 @@
   <div id="topBar">
     <div class="left-group">
       <div class="brand">CHAZI<span class="highlight">360</span></div>
-      <span class="tour-name" id="tourNameDisplay">v9.4</span>
+      <span class="tour-name" id="tourNameDisplay">Бетал и Наташа - Дом</span>
+      <span class="tour-area" id="tourAreaDisplay" hidden></span>
     </div>
     <button class="pub-dl-all" id="pubDlAll" title="Скачать все ракурсы тура">Скачать ракурсы</button>
   </div>
@@ -808,7 +836,7 @@
   </div>
   <script>
     (function() {
-      const manifest = {"name":"v9.4","scenes":[{"id":"mwdsp1yyplt6t","name":"2.1-1","label":"1","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"mwdz4udsmo67s","viewpoints":[]},{"id":"mwdsok40qmo7a","name":"2.2-1","label":"1","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"mwdwihi81xe7o","viewpoints":[]},{"id":"mwdso0o4w1k0x","name":"2.2-2","label":"2","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"mwdwihi81xe7o","viewpoints":[]},{"id":"mwdsokl3z5vpl","name":"2.3-1","label":"1","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"mwf4t0y4478xe","viewpoints":[]},{"id":"mwdsoq7spg6qz","name":"2.4-1","label":"1","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mwe3l7v0x7ubx","viewpoints":[]},{"id":"mwdsp29vb680h","name":"2.4-2","label":"2","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"mwe3l7v0x7ubx","viewpoints":[]},{"id":"mwdsoqgvkfvyq","name":"2.5-1","label":"1","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"mwdz0twpaah41","viewpoints":[]},{"id":"mwdsopxenhcsc","name":"2.5-2","label":"2","file":"images/scene_8.jpg","thumbnail":"thumbnails/scene_8.jpg","groupId":"mwdz0twpaah41","viewpoints":[]},{"id":"mwdso0grqclow","name":"2.6-1","label":"1","file":"images/scene_9.jpg","thumbnail":"thumbnails/scene_9.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdso0x9myl3u","name":"2.6-2","label":"2","file":"images/scene_10.jpg","thumbnail":"thumbnails/scene_10.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn0kcd6brn","name":"2.6-3","label":"3","file":"images/scene_11.jpg","thumbnail":"thumbnails/scene_11.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn0tnpo8qy","name":"2.6-4","label":"4","file":"images/scene_12.jpg","thumbnail":"thumbnails/scene_12.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsn154s0njp","name":"2.6-5","label":"5","file":"images/scene_13.jpg","thumbnail":"thumbnails/scene_13.jpg","groupId":"mwdsni4lw6ad3","viewpoints":[]},{"id":"mwdsp2j0ipra3","name":"2.7-1","label":"1","file":"images/scene_14.jpg","thumbnail":"thumbnails/scene_14.jpg","groupId":"mwe9umz22ug4i","viewpoints":[]},{"id":"mwdsokc7fy6xz","name":"2.8-1","label":"1","file":"images/scene_15.jpg","thumbnail":"thumbnails/scene_15.jpg","groupId":"mwdw9kx9ecxww","viewpoints":[]}],"groups":[{"id":"mwdz4udsmo67s","name":"2.1 3.1-1","code":"2.1","rawName":"3.1-1","sceneIds":["mwdsp1yyplt6t"],"viewpoints":[]},{"id":"mwdwihi81xe7o","name":"2.2 Camera_360_2","code":"2.2","rawName":"Camera_360_2","sceneIds":["mwdsok40qmo7a","mwdso0o4w1k0x"],"viewpoints":[{"id":"mwdsrtlpm559z","name":"5. Кухня - Ракурс_1","file":"viewpoints/group_2/vp_1.jpg","thumbnail":"viewpoints/group_2/vp_1_thumb.jpg"},{"id":"mwdsrtnsi3tyh","name":"5. Кухня - Ракурс_4","file":"viewpoints/group_2/vp_2.jpg","thumbnail":"viewpoints/group_2/vp_2_thumb.jpg"},{"id":"mwdsru1s2nnf7","name":"5. Кухня - Ракурс_3","file":"viewpoints/group_2/vp_3.jpg","thumbnail":"viewpoints/group_2/vp_3_thumb.jpg"},{"id":"mwdsru496yjn1","name":"5. Кухня - Ракурс_2","file":"viewpoints/group_2/vp_4.jpg","thumbnail":"viewpoints/group_2/vp_4_thumb.jpg"},{"id":"mwdsu7nfz5h67","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_2/vp_5.jpg","thumbnail":"viewpoints/group_2/vp_5_thumb.jpg"},{"id":"mwdsu7snlr4ki","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_2/vp_6.jpg","thumbnail":"viewpoints/group_2/vp_6_thumb.jpg"},{"id":"mwdsu7v7r6t8r","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_2/vp_7.jpg","thumbnail":"viewpoints/group_2/vp_7_thumb.jpg"},{"id":"mwdsu7xx4oz2u","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_2/vp_8.jpg","thumbnail":"viewpoints/group_2/vp_8_thumb.jpg"},{"id":"mwdsu818bw8g4","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_2/vp_9.jpg","thumbnail":"viewpoints/group_2/vp_9_thumb.jpg"}]},{"id":"mwf4t0y4478xe","name":"2.3 Коридор","code":"2.3","rawName":"Коридор","sceneIds":["mwdsokl3z5vpl"],"viewpoints":[{"id":"mwdstovkzvfos","name":"12. Спальня №3_Кам_ (1)","file":"viewpoints/group_3/vp_1.jpg","thumbnail":"viewpoints/group_3/vp_1_thumb.jpg"},{"id":"mwdstp4vx0c8o","name":"12. Спальня №3_Кам_ (5)","file":"viewpoints/group_3/vp_2.jpg","thumbnail":"viewpoints/group_3/vp_2_thumb.jpg"},{"id":"mwdstp7567t6o","name":"12. Спальня №3_Кам_ (7)","file":"viewpoints/group_3/vp_3.jpg","thumbnail":"viewpoints/group_3/vp_3_thumb.jpg"},{"id":"mwdstpdo6u0iq","name":"12. Спальня №3_Кам_ (8)","file":"viewpoints/group_3/vp_4.jpg","thumbnail":"viewpoints/group_3/vp_4_thumb.jpg"},{"id":"mwdstplpyk8db","name":"12. Спальня №3_Кам_ (4)","file":"viewpoints/group_3/vp_5.jpg","thumbnail":"viewpoints/group_3/vp_5_thumb.jpg"}]},{"id":"mwe3l7v0x7ubx","name":"2.4 Кухня-гостиная","code":"2.4","rawName":"Кухня-гостиная","sceneIds":["mwdsoq7spg6qz","mwdsp29vb680h"],"viewpoints":[{"id":"mwdstfvpqb9xm","name":"5. Кухня - Ракурс_11","file":"viewpoints/group_4/vp_1.jpg","thumbnail":"viewpoints/group_4/vp_1_thumb.jpg"},{"id":"mwdsu4ar6p1ip","name":"6. Коридор - Ракурс_1","file":"viewpoints/group_4/vp_2.jpg","thumbnail":"viewpoints/group_4/vp_2_thumb.jpg"},{"id":"mwdsu4ddislmi","name":"6. Коридор - Ракурс_4","file":"viewpoints/group_4/vp_3.jpg","thumbnail":"viewpoints/group_4/vp_3_thumb.jpg"},{"id":"mwdsu4fu5tbgl","name":"6. Коридор - Ракурс_2","file":"viewpoints/group_4/vp_4.jpg","thumbnail":"viewpoints/group_4/vp_4_thumb.jpg"},{"id":"mwdstfy092zdz","name":"5. Кухня - Ракурс_10","file":"viewpoints/group_4/vp_5.jpg","thumbnail":"viewpoints/group_4/vp_5_thumb.jpg"},{"id":"mwdstg0l9en6n","name":"5. Кухня - Ракурс_12","file":"viewpoints/group_4/vp_6.jpg","thumbnail":"viewpoints/group_4/vp_6_thumb.jpg"},{"id":"mwdsru9crjtsi","name":"5. Кухня - Ракурс_6","file":"viewpoints/group_4/vp_7.jpg","thumbnail":"viewpoints/group_4/vp_7_thumb.jpg"},{"id":"mwdstfq1b5l2d","name":"5. Кухня - Ракурс_8","file":"viewpoints/group_4/vp_8.jpg","thumbnail":"viewpoints/group_4/vp_8_thumb.jpg"},{"id":"mwdsru6vzji9d","name":"5. Кухня - Ракурс_5","file":"viewpoints/group_4/vp_9.jpg","thumbnail":"viewpoints/group_4/vp_9_thumb.jpg"}]},{"id":"mwdz0twpaah41","name":"2.5 Camera_360_3 (2)","code":"2.5","rawName":"Camera_360_3 (2)","sceneIds":["mwdsoqgvkfvyq","mwdsopxenhcsc"],"viewpoints":[]},{"id":"mwdsni4lw6ad3","name":"2.6 Camera_360_002","code":"2.6","rawName":"Camera_360_002","sceneIds":["mwdso0grqclow","mwdso0x9myl3u","mwdsn0kcd6brn","mwdsn0tnpo8qy","mwdsn154s0njp"],"viewpoints":[{"id":"mwdsr9g6li7tj","name":"4. Гостиная - Ракурс_6","file":"viewpoints/group_6/vp_1.jpg","thumbnail":"viewpoints/group_6/vp_1_thumb.jpg"},{"id":"mwdsr9kx5rvlh","name":"4. Гостиная - Ракурс_5","file":"viewpoints/group_6/vp_2.jpg","thumbnail":"viewpoints/group_6/vp_2_thumb.jpg"},{"id":"mwdsr9nyvctgz","name":"4. Гостиная - Ракурс_8","file":"viewpoints/group_6/vp_3.jpg","thumbnail":"viewpoints/group_6/vp_3_thumb.jpg"},{"id":"mwdstfju7fl37","name":"5. Кухня - Ракурс_9","file":"viewpoints/group_6/vp_4.jpg","thumbnail":"viewpoints/group_6/vp_4_thumb.jpg"},{"id":"mwdsr9igzrl3p","name":"4. Гостиная - Ракурс_4","file":"viewpoints/group_6/vp_5.jpg","thumbnail":"viewpoints/group_6/vp_5_thumb.jpg"},{"id":"mwdstpid8ke4h","name":"12. Спальня №3_Кам_ (3)","file":"viewpoints/group_6/vp_6.jpg","thumbnail":"viewpoints/group_6/vp_6_thumb.jpg"},{"id":"mwdstpp47glpb","name":"12. Спальня №3_Кам_ (2)","file":"viewpoints/group_6/vp_7.jpg","thumbnail":"viewpoints/group_6/vp_7_thumb.jpg"},{"id":"mwdstpsn6h4t3","name":"12. Спальня №3_Кам_ (6)","file":"viewpoints/group_6/vp_8.jpg","thumbnail":"viewpoints/group_6/vp_8_thumb.jpg"}]},{"id":"mwe9umz22ug4i","name":"2.7 3.5-1","code":"2.7","rawName":"3.5-1","sceneIds":["mwdsp2j0ipra3"],"viewpoints":[]},{"id":"mwdw9kx9ecxww","name":"2.8 3.8-1","code":"2.8","rawName":"3.8-1","sceneIds":["mwdsokc7fy6xz"],"viewpoints":[{"id":"mwdstg3f5jrud","name":"5. Кухня - Ракурс_7","file":"viewpoints/group_8/vp_1.jpg","thumbnail":"viewpoints/group_8/vp_1_thumb.jpg"},{"id":"mwdstg63wvkbo","name":"5. Кухня - Ракурс_13","file":"viewpoints/group_8/vp_2.jpg","thumbnail":"viewpoints/group_8/vp_2_thumb.jpg"},{"id":"mwdsr91a6sobs","name":"4. Гостиная - Ракурс_2","file":"viewpoints/group_8/vp_3.jpg","thumbnail":"viewpoints/group_8/vp_3_thumb.jpg"},{"id":"mwdsr95w8u0jt","name":"4. Гостиная - Ракурс_3","file":"viewpoints/group_8/vp_4.jpg","thumbnail":"viewpoints/group_8/vp_4_thumb.jpg"},{"id":"mwdsr9duv4cpr","name":"4. Гостиная - Ракурс_7","file":"viewpoints/group_8/vp_5.jpg","thumbnail":"viewpoints/group_8/vp_5_thumb.jpg"},{"id":"mwdsu48athvdt","name":"6. Коридор - Ракурс_3","file":"viewpoints/group_8/vp_6.jpg","thumbnail":"viewpoints/group_8/vp_6_thumb.jpg"}]}]};
+      const manifest = {"name":"Бетал и Наташа - Дом","tourArea":"102,4","scenes":[{"id":"mwfkul04a79xu","name":"1-1","label":"1","file":"images/scene_1.jpg","thumbnail":"thumbnails/scene_1.jpg","groupId":"mwfkul04des18","viewpoints":[]},{"id":"mwfkwm2ud5p87","name":"2-1","label":"1","file":"images/scene_2.jpg","thumbnail":"thumbnails/scene_2.jpg","groupId":"mwfkwmcsvipgz","viewpoints":[]},{"id":"mwfkwmcs21piy","name":"2-2","label":"2","file":"images/scene_3.jpg","thumbnail":"thumbnails/scene_3.jpg","groupId":"mwfkwmcsvipgz","viewpoints":[]},{"id":"mwfky5icq1j5t","name":"3-1","label":"1","file":"images/scene_4.jpg","thumbnail":"thumbnails/scene_4.jpg","groupId":"mwfky6ro2n3rn","viewpoints":[]},{"id":"mwfky5yfknm0w","name":"3-2","label":"2","file":"images/scene_5.jpg","thumbnail":"thumbnails/scene_5.jpg","groupId":"mwfky6ro2n3rn","viewpoints":[]},{"id":"mwfky6bxvpqf2","name":"3-3","label":"3","file":"images/scene_6.jpg","thumbnail":"thumbnails/scene_6.jpg","groupId":"mwfky6ro2n3rn","viewpoints":[]},{"id":"mwfky6rot8dz1","name":"3-4","label":"4","file":"images/scene_7.jpg","thumbnail":"thumbnails/scene_7.jpg","groupId":"mwfky6ro2n3rn","viewpoints":[]}],"groups":[{"id":"mwfkul04des18","name":"1. 1-1","code":"1","rawName":"1-1","area":"","sceneIds":["mwfkul04a79xu"],"viewpoints":[{"id":"mwfkuqo4eq2ox","name":"1. 1-1 - Ракурс 1","file":"viewpoints/group_1/vp_1.jpg","thumbnail":"viewpoints/group_1/vp_1_thumb.jpg"},{"id":"mwfkuqsfbr7y4","name":"1. 1-1 - Ракурс 2","file":"viewpoints/group_1/vp_2.jpg","thumbnail":"viewpoints/group_1/vp_2_thumb.jpg"},{"id":"mwfkuqtorxrvy","name":"1. 1-1 - Ракурс 3","file":"viewpoints/group_1/vp_3.jpg","thumbnail":"viewpoints/group_1/vp_3_thumb.jpg"},{"id":"mwfkuquxs2ae8","name":"1. 1-1 - Ракурс 4","file":"viewpoints/group_1/vp_4.jpg","thumbnail":"viewpoints/group_1/vp_4_thumb.jpg"},{"id":"mwfkuqwlvxxzo","name":"1. 1-1 - Ракурс 5","file":"viewpoints/group_1/vp_5.jpg","thumbnail":"viewpoints/group_1/vp_5_thumb.jpg"},{"id":"mwfkuqy9aryrk","name":"1. 1-1 - Ракурс 6","file":"viewpoints/group_1/vp_6.jpg","thumbnail":"viewpoints/group_1/vp_6_thumb.jpg"}]},{"id":"mwfkwmcsvipgz","name":"2. Corona_Camera_360","code":"2","rawName":"Corona_Camera_360","area":"37","sceneIds":["mwfkwm2ud5p87","mwfkwmcs21piy"],"viewpoints":[{"id":"mwfkwteo7lisl","name":"2. Corona_Camera_360 - Ракурс 1","file":"viewpoints/group_2/vp_1.jpg","thumbnail":"viewpoints/group_2/vp_1_thumb.jpg"},{"id":"mwfkwtn5jk1h6","name":"2. Corona_Camera_360 - Ракурс 2","file":"viewpoints/group_2/vp_2.jpg","thumbnail":"viewpoints/group_2/vp_2_thumb.jpg"},{"id":"mwfkwu1ub6gzo","name":"2. Corona_Camera_360 - Ракурс 3","file":"viewpoints/group_2/vp_3.jpg","thumbnail":"viewpoints/group_2/vp_3_thumb.jpg"},{"id":"mwfkwu4rsprt3","name":"2. Corona_Camera_360 - Ракурс 4","file":"viewpoints/group_2/vp_4.jpg","thumbnail":"viewpoints/group_2/vp_4_thumb.jpg"},{"id":"mwfkwu7rpk5qv","name":"2. Corona_Camera_360 - Ракурс 5","file":"viewpoints/group_2/vp_5.jpg","thumbnail":"viewpoints/group_2/vp_5_thumb.jpg"},{"id":"mwfkwub972v3s","name":"2. Corona_Camera_360 - Ракурс 6","file":"viewpoints/group_2/vp_6.jpg","thumbnail":"viewpoints/group_2/vp_6_thumb.jpg"},{"id":"mwfkwuevibo5g","name":"2. Corona_Camera_360 - Ракурс 7","file":"viewpoints/group_2/vp_7.jpg","thumbnail":"viewpoints/group_2/vp_7_thumb.jpg"}]},{"id":"mwfky6ro2n3rn","name":"3. Постирочная-360","code":"3","rawName":"Постирочная-360","area":"","sceneIds":["mwfky5icq1j5t","mwfky5yfknm0w","mwfky6bxvpqf2","mwfky6rot8dz1"],"viewpoints":[{"id":"mwfkydgz8dqim","name":"3. Постирочная-360 - Ракурс 1","file":"viewpoints/group_3/vp_1.jpg","thumbnail":"viewpoints/group_3/vp_1_thumb.jpg"},{"id":"mwfkydmbtp35w","name":"3. Постирочная-360 - Ракурс 2","file":"viewpoints/group_3/vp_2.jpg","thumbnail":"viewpoints/group_3/vp_2_thumb.jpg"},{"id":"mwfkydou7mf9i","name":"3. Постирочная-360 - Ракурс 3","file":"viewpoints/group_3/vp_3.jpg","thumbnail":"viewpoints/group_3/vp_3_thumb.jpg"},{"id":"mwfkydrsqnomv","name":"3. Постирочная-360 - Ракурс 4","file":"viewpoints/group_3/vp_4.jpg","thumbnail":"viewpoints/group_3/vp_4_thumb.jpg"},{"id":"mwfkyduolfgto","name":"3. Постирочная-360 - Ракурс 5","file":"viewpoints/group_3/vp_5.jpg","thumbnail":"viewpoints/group_3/vp_5_thumb.jpg"},{"id":"mwfkydxsmpkld","name":"3. Постирочная-360 - Ракурс 6","file":"viewpoints/group_3/vp_6.jpg","thumbnail":"viewpoints/group_3/vp_6_thumb.jpg"}]}]};
       let currentSceneId = null;
       let viewer = null;
       let isVisible = true;
@@ -834,6 +862,43 @@
       const tourNameDisplay = document.getElementById('tourNameDisplay');
       const globalTooltip = document.getElementById('globalTooltip');
 
+      /* v10.2: зум клавишами Q (отдалить) и E (приблизить) вместо Ctrl/Shift, чтобы не конфликтовать с Ctrl+Z / Ctrl+Shift+Z */
+      (function() {
+        var held = {};
+        var raf = 0;
+        var prevT = 0;
+        try { var zr = parseFloat(localStorage.getItem('chazi_zoom_rate')); if (zr > 0) window.__chaziZoomRate = zr; } catch (err) {}
+        var ZOOM_RATE = 0.45; /* скорость зума: доля угла обзора в секунду (≈ как у Shift/Ctrl) */
+        function dir() { return (held.KeyQ ? 1 : 0) - (held.KeyE ? 1 : 0); }
+        function step(ts) {
+          raf = 0;
+          var d = dir();
+          if (!d || !viewer) { prevT = 0; return; }
+          var dt = prevT ? Math.min(ts - prevT, 50) : 16;
+          prevT = ts;
+          try {
+            var h = viewer.getHfov();
+            var b = viewer.getHfovBounds ? viewer.getHfovBounds() : [30, 120];
+            var nh = Math.max(b[0], Math.min(b[1], h * Math.exp(d * (window.__chaziZoomRate || ZOOM_RATE) * dt / 1000)));
+            if (nh !== h) viewer.setHfov(nh, false);
+          } catch (err) {}
+          raf = requestAnimationFrame(step);
+        }
+        function typing(t) { return !!(t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))); }
+        function release() { held = {}; }
+        window.addEventListener('keydown', function(e) {
+          if (e.keyCode === 16 || e.keyCode === 17) { e.stopImmediatePropagation(); return; }
+          if (document.getElementById('webPreview')) return;
+          if ((e.code !== 'KeyQ' && e.code !== 'KeyE') || e.ctrlKey || e.metaKey || e.altKey || typing(e.target)) return;
+          held[e.code] = true;
+          if (!raf) raf = requestAnimationFrame(step);
+        }, true);
+        window.addEventListener('keyup', function(e) {
+          if (e.keyCode === 16 || e.keyCode === 17) { e.stopImmediatePropagation(); return; }
+          if (e.code === 'KeyQ' || e.code === 'KeyE') held[e.code] = false;
+        }, true);
+        window.addEventListener('blur', release);
+      })();
       const pubControls = document.getElementById('pubControls');
       const pubFullBtn = document.getElementById('pubFullBtn');
       const pubGyroBtn = document.getElementById('pubGyroBtn');
@@ -882,6 +947,24 @@
         if (num) segs.push('<span class="tt-seg">' + TT_CAM + ttEsc(num) + '</span>');
         return segs.length > 1 || code || num ? segs.join('<i class="tt-sep"></i>') : '';
       }
+      var TT_FOLDER = '<svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+      var TT_VP = '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="14" height="12" rx="2.5"/><path d="M7 4h12a2 2 0 0 1 2 2v10"/></svg>';
+      var TT_AREA = '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9h3M4 14h3M9 4v3M14 4v3"/></svg>';
+      function ttVpHtml(code, name, vpNum) {
+        var segs = [];
+        if (code) segs.push('<span class="tt-seg">' + TT_ROOM + ttEsc(code) + '</span>');
+        if (name) segs.push('<span class="tt-seg">' + ttEsc(name) + '</span>');
+        segs.push('<span class="tt-seg">' + TT_VP + ttEsc(vpNum) + '</span>');
+        return segs.join('<i class="tt-sep"></i>');
+      }
+      function ttPanelHtml(code, name, area, count) {
+        var segs = [];
+        if (code) segs.push('<span class="tt-seg">' + TT_ROOM + ttEsc(code) + '</span>');
+        if (name) segs.push('<span class="tt-seg">' + ttEsc(name) + '</span>');
+        if (area) segs.push('<span class="tt-seg">' + TT_AREA + '<span>' + ttEsc(area) + ' м<sup>2</sup></span></span>');
+        if (count != null) segs.push('<span class="tt-seg">' + TT_VP + ttEsc(count) + '</span>');
+        return segs.join('<i class="tt-sep"></i>');
+      }
       function showGlobalTooltip(text, html) {
         if (!globalTooltip) return;
         const t = (text || '').trim();
@@ -893,15 +976,29 @@
           tooltipHideTimer = setTimeout(function() {
             globalTooltip.classList.remove('visible');
             tooltipHideTimer = null;
-          }, 150);
+          }, 260);
           return;
         }
+        var wasVisible = globalTooltip.classList.contains('visible');
+        var key = (html || '') + '|' + t;
+        if (globalTooltip.__key === key && wasVisible) return;
+        globalTooltip.__key = key;
+        var w0 = wasVisible ? globalTooltip.getBoundingClientRect().width : 0;
         if (html) { globalTooltip.innerHTML = html; globalTooltip.classList.add('rich'); }
         else { globalTooltip.textContent = t; globalTooltip.classList.remove('rich'); }
-        if (!globalTooltip.classList.contains('visible')) {
-          void globalTooltip.offsetWidth;
-        }
+        if (!wasVisible) { void globalTooltip.offsetWidth; }
         globalTooltip.classList.add('visible');
+        if (wasVisible && globalTooltip.animate) {
+          try {
+            if (globalTooltip.__anim) globalTooltip.__anim.cancel();
+            var w1 = globalTooltip.getBoundingClientRect().width;
+            var a = globalTooltip.animate(
+              [ { width: w0 + 'px', opacity: 0.55 }, { width: w1 + 'px', opacity: 1 } ],
+              { duration: 260, easing: 'cubic-bezier(.22,.8,.3,1)' }
+            );
+            globalTooltip.__anim = a;
+          } catch (err) {}
+        }
       }
       document.addEventListener('mouseover', e => {
         const item = e.target.closest('.thumbnail-wrap') || e.target.closest('.thumbnail-item');
@@ -1181,7 +1278,41 @@
       }
 
       var publicControlsPositionFrame = 0;
+      try { if (window.parent !== window) document.documentElement.classList.add('pv-embed'); } catch (err) {}
+      panoContainer.addEventListener('contextmenu', function(e) { e.preventDefault(); e.stopPropagation(); }, true);
+      (function() {
+        var blockBtn = function(e) {
+          if (e.button === 2) { e.preventDefault(); e.stopPropagation(); }
+          else if (e.button === 1) {
+            e.preventDefault(); e.stopPropagation();
+            if (e.type === 'pointerdown') { var fb = document.getElementById('pubFullBtn'); if (fb) fb.click(); }
+          }
+        };
+        ['mousedown', 'mouseup', 'pointerdown', 'pointerup', 'auxclick'].forEach(function(t) { panoContainer.addEventListener(t, blockBtn, true); });
+      })();
+      window.addEventListener('keydown', function(e) {
+        if (e.code !== 'Space' || e.ctrlKey || e.altKey || e.metaKey || e.shiftKey || !viewer) return;
+        var lb = document.getElementById('vpLightbox');
+        if (lb && lb.classList.contains('show')) return;
+        e.preventDefault();
+        try { if (document.activeElement && document.activeElement.tagName === 'BUTTON') document.activeElement.blur(); } catch (err) {}
+        try { viewer.lookAt(0, 0, 100, 600); } catch (err) { try { viewer.setPitch(0); viewer.setYaw(0); viewer.setHfov(100); } catch (err2) {} }
+      }, true);
       var publicGyroWanted = false;
+      var previewGyro = false;
+      function refreshThumbCentering() {
+        var c = thumbnailsList;
+        c.classList.remove('centered');
+        if (c.scrollWidth <= c.clientWidth + 1) c.classList.add('centered');
+      }
+      window.addEventListener('resize', refreshThumbCentering);
+      window.addEventListener('message', function() { refreshThumbCentering(); setTimeout(refreshThumbCentering, 300); });
+      var previewMode = false;
+      var previewFull = false;
+      window.addEventListener('message', function(ev) {
+        if (ev.data && typeof ev.data.chaziPreviewFull === 'boolean') { previewFull = ev.data.chaziPreviewFull; if (typeof schedulePublicPannellumControls === 'function') schedulePublicPannellumControls(); }
+        if (ev.data && typeof ev.data.chaziPreviewGyro === 'boolean') { previewMode = true; previewGyro = ev.data.chaziPreviewGyro; if (typeof schedulePublicPannellumControls === 'function') schedulePublicPannellumControls(); }
+      });
       var publicSensorSeen = false;
       window.addEventListener('deviceorientation', function(e) {
         if (e && (e.alpha !== null || e.beta !== null || e.gamma !== null)) publicSensorSeen = true;
@@ -1197,20 +1328,23 @@
             getComputedStyle(orientation).display === 'none') {
           orientation.style.setProperty('display', 'block', 'important');
         }
-        pubFullBtn.hidden = !pubFsSupported;
-        pubGyroBtn.hidden = !(orientation && ((publicTouchDevice && typeof window.DeviceOrientationEvent !== 'undefined') || publicSensorSeen));
-        pubFullBtn.classList.toggle('is-full', !!pubFsElement());
+        pubFullBtn.hidden = !(pubFsSupported || previewMode);
+        pubGyroBtn.hidden = !((orientation && ((publicTouchDevice && typeof window.DeviceOrientationEvent !== 'undefined') || publicSensorSeen)) || previewGyro);
+        pubFullBtn.classList.toggle('is-full', !!pubFsElement() || previewFull);
         pubGyroBtn.classList.toggle('active', publicGyroWanted);
         /* Под шапкой, а когда шапка скрыта — у верхнего края видимой области (Telegram и др. встроенные браузеры) */
         var vv = window.visualViewport;
         var top = 0;
         if (vv) top = Math.max(0, vv.offsetTop);
-        var bar = topBar.classList.contains('hidden') ? 0 : Math.max(0, topBar.getBoundingClientRect().bottom);
+        var barHidden = topBar.classList.contains('hidden');
+        var bar = barHidden ? 0 : Math.max(0, topBar.getBoundingClientRect().bottom, topBar.offsetHeight + topBar.offsetTop);
+        document.documentElement.style.setProperty('--pc-floor', barHidden ? '0px' : Math.round(bar) + 'px');
         top = Math.max(top, bar);
         pubControls.style.setProperty('--pc-top', Math.round(top) + 'px');
         if (!pubControls._chaziInit) {
           pubControls._chaziInit = true;
           pubFullBtn.addEventListener('click', function() {
+            if (previewMode) { try { parent.postMessage({ chaziPreviewFullToggle: true }, '*'); } catch (err) {} return; }
             var root = document.documentElement;
             if (!pubFsElement()) {
               var req = root.requestFullscreen || root.webkitRequestFullscreen;
@@ -1241,6 +1375,12 @@
           ['fullscreenchange', 'webkitfullscreenchange'].forEach(function(ev) { document.addEventListener(ev, schedulePublicPannellumControls); });
           if (vv) { vv.addEventListener('resize', schedulePublicPannellumControls); vv.addEventListener('scroll', schedulePublicPannellumControls); }
           topBar.addEventListener('transitionend', schedulePublicPannellumControls);
+          if (window.ResizeObserver) { try { new ResizeObserver(schedulePublicPannellumControls).observe(topBar); } catch (err) {} }
+          window.addEventListener('load', schedulePublicPannellumControls);
+          window.addEventListener('pageshow', schedulePublicPannellumControls);
+          window.addEventListener('scroll', schedulePublicPannellumControls, { passive: true });
+          var pcTries = 0;
+          var pcTimer = setInterval(function() { positionPublicPannellumControls(); if (++pcTries > 12) clearInterval(pcTimer); }, 500);
         }
       }
       function schedulePublicPannellumControls() {
@@ -1366,7 +1506,7 @@
         var gCode = group && group.code ? group.code : '';
         var gName = group ? (group.rawName != null && group.rawName !== '' ? group.rawName : (gCode ? '' : '')) : '';
         wrap.dataset.fullname = (scene.name || '') + (gName ? ' · ' + gName : '');
-        wrap.dataset.tiphtml = gCode || gName ? ttHtml(gCode, scene.label, gName) : '';
+        wrap.dataset.tiphtml = gCode || gName ? ttHtml(gCode, scene.label + (group && group.sceneIds && group.sceneIds.length > 1 ? '/' + group.sceneIds.length : ''), gName) : '';
         if (viewpoints && viewpoints.length) wrap.classList.add('has-vp', 'has-viewpoints');
 
         const item = document.createElement('div');
@@ -1395,7 +1535,7 @@
           vpCount.textContent = 'Ракурсов: ' + (viewpoints ? viewpoints.length : 0);
           vpCount.addEventListener('click', function(e) {
             e.stopPropagation();
-            if (viewpoints && viewpoints.length) openLightbox(viewpoints, 0, scene.name);
+            if (viewpoints && viewpoints.length) openLightbox(viewpoints, 0, scene.name, group);
           });
           wrap.appendChild(vpCount);
         }
@@ -1429,7 +1569,7 @@
           count.title = 'Ракурсов: ' + viewpoints.length;
           count.addEventListener('click', function(e) {
             e.stopPropagation();
-            openLightbox(viewpoints, 0, group.name || 'Помещение');
+            openLightbox(viewpoints, 0, group.name || 'Помещение', group);
           });
           const row = document.createElement('div');
           row.className = 'public-room-scenes';
@@ -1451,17 +1591,22 @@
             hname.textContent = group.name || 'Помещение';
           }
           footer.appendChild(hname);
+          if (group.area) {
+            const par = document.createElement('span');
+            par.className = 'public-room-area';
+            par.title = 'Площадь помещения';
+            par.innerHTML = TT_AREA + '<span>' + ttEsc(group.area) + ' м<sup>2</sup></span>';
+            footer.appendChild(par);
+          }
           if (viewpoints.length) footer.appendChild(count);
           room.appendChild(footer);
           outer.appendChild(room);
           thumbnailsList.appendChild(outer);
         });
-        const container = thumbnailsList;
-        if (container.scrollWidth <= container.clientWidth) {
-          container.classList.add('centered');
-        } else {
-          container.classList.remove('centered');
-        }
+        refreshThumbCentering();
+        setTimeout(refreshThumbCentering, 250);
+        setTimeout(refreshThumbCentering, 1200);
+        try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(refreshThumbCentering); } catch (err) {}
         showPanels();
       }
 
@@ -1469,8 +1614,9 @@
         var mi = document.getElementById('lbMenuItems');
         if (mi) mi.classList.remove('open');
       }
-      function openLightbox(viewpoints, startIndex, sceneName) {
+      function openLightbox(viewpoints, startIndex, sceneName, group) {
         if (!viewpoints || !viewpoints.length) return;
+        lbGroup = group || null;
         lbViewpoints = viewpoints;
         lbSceneName = sceneName || 'viewpoints';
         lbIndex = Math.max(0, Math.min(startIndex, viewpoints.length - 1));
@@ -1491,6 +1637,7 @@
       var lbTurn = function() {};
       var lbShowToken = 0;
       var LB_EASE = 'cubic-bezier(.22,1,.36,1)';
+      var LB_EASE_T = 'cubic-bezier(.4,0,.15,1)';
       var lbReduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       function lbMs(ms) { return lbReduce ? 1 : ms; }
       function lbPreload(src) {
@@ -1524,18 +1671,29 @@
         var ds = document.querySelectorAll('#lbDots .lb-dot');
         for (var i = 0; i < ds.length; i++) ds[i].classList.toggle('active', i === lbIndex);
       }
+      var lbGroup = null;
+      function lbNumTxt(idx) { var n = lbViewpoints.length; return n > 1 ? (idx + 1) + '/' + n : String(idx + 1); }
+      function lbCapHtml(idx, v) {
+        var g = lbGroup;
+        if (!g) return ttEsc((v && v.name) || 'Ракурс');
+        var segs = [];
+        if (g.code) segs.push('<span class="seg">' + TT_ROOM + ttEsc(g.code) + '</span>');
+        segs.push('<span class="seg">' + ttEsc(g.rawName || g.name || 'Помещение') + '</span>');
+        segs.push('<span class="seg">' + TT_VP + ttEsc(lbNumTxt(idx)) + '</span>');
+        return '<span class="vp-info">' + segs.join('<i class="sep"></i>') + '</span>';
+      }
       function lbSetMeta(animate) {
         if (!lbViewpoints.length) return;
         lbCounter.textContent = (lbIndex + 1) + ' / ' + lbViewpoints.length;
-        var cur = function() { var v = lbViewpoints[lbIndex]; return (v && v.name) || 'Ракурс'; };
+        var cur = function() { return lbCapHtml(lbIndex, lbViewpoints[lbIndex]); };
         if (animate && lbCaption.animate && !lbReduce) {
           var out = lbCaption.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 130, easing: 'ease-in' });
           out.onfinish = function() {
-            lbCaption.textContent = cur();
+            lbCaption.innerHTML = cur();
             lbCaption.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 300, easing: LB_EASE });
           };
         } else {
-          lbCaption.textContent = cur();
+          lbCaption.innerHTML = cur();
         }
       }
       function lbGoTo(i) {
@@ -1751,7 +1909,7 @@
           p.removeAttribute('style');
           p.className = 'lb-peer';
           p.src = lbSrcOf(lbViewpoints[idx]);
-          p.style.cssText = 'position:absolute;inset:0;margin:auto;pointer-events:none;opacity:0;';
+          p.style.cssText = 'position:absolute;inset:0;margin:auto;pointer-events:none;opacity:0;will-change:transform,opacity;backface-visibility:hidden;';
           lbImgWrap.appendChild(p);
           peer = p; peerDir = dir; peerIdx = idx;
           return p;
@@ -1806,7 +1964,7 @@
           swiping = false;
           var pe = makePeer(dir, idx);
           var fromSwipe = startDx !== 0;
-          var travel = fromSwipe ? W : Math.min(W * 0.22, 240);
+          var travel = fromSwipe ? W : Math.min(W * 0.34, 380);
           var curFrom = fromSwipe
             ? { transform: lbImage.style.transform, opacity: lbImage.style.opacity || '1' }
             : { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 };
@@ -1818,9 +1976,9 @@
             new Promise(function(r) { setTimeout(r, 1200); })
           ]);
           ready.then(function() {
-            var ms = lbMs(fromSwipe ? Math.max(300, 520 - Math.min(Math.abs(v || 0), 2) * 120) : 580);
-            var a1 = lbImage.animate([curFrom, { transform: 'translate3d(' + (-dir * travel) + 'px,0,0) scale(.94)', opacity: 0 }], { duration: ms, easing: LB_EASE, fill: 'forwards' });
-            var a2 = pe.animate([peFrom, { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 }], { duration: ms, easing: LB_EASE, fill: 'forwards' });
+            var ms = lbMs(fromSwipe ? Math.max(340, 560 - Math.min(Math.abs(v || 0), 2) * 120) : 680);
+            var a1 = lbImage.animate([curFrom, { opacity: 0.7, offset: 0.4 }, { transform: 'translate3d(' + (-dir * travel) + 'px,0,0) scale(.94)', opacity: 0 }], { duration: ms, easing: fromSwipe ? LB_EASE : LB_EASE_T, fill: 'forwards' });
+            var a2 = pe.animate([peFrom, { opacity: 1, offset: 0.45 }, { transform: 'translate3d(0,0,0) scale(1)', opacity: 1 }], { duration: ms, easing: fromSwipe ? LB_EASE : LB_EASE_T, fill: 'forwards' });
             lbIndex = idx;
             lbSetMeta(true);
             lbMarkDots();
@@ -1943,6 +2101,13 @@
       })();
 
       tourNameDisplay.textContent = manifest.name || 'Тур';
+      (function() {
+        var ta = document.getElementById('tourAreaDisplay');
+        if (ta && manifest.tourArea) {
+          ta.innerHTML = '<span>' + ttEsc(manifest.tourArea) + ' м<sup>2</sup></span>';
+          ta.hidden = false;
+        }
+      })();
       if (manifest.scenes.length > 0) {
         switchToScene(manifest.scenes[0].id);
       } else {
